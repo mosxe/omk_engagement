@@ -1,0 +1,209 @@
+﻿.select {
+  &__container {
+    border: 1px solid transparent !important;
+    border-radius: 6px !important;
+    background-color: var(--page-color-white) !important;
+    box-shadow: none !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    min-height: 40px !important;
+    cursor: pointer !important;
+
+    &_focus {
+      .select__arrow {
+        color: var(--page-color-black) !important;
+      }
+    }
+
+    &:hover {
+      & .select__multi-label {
+        color: var(--page-color-dark-blue) !important;
+      }
+
+      & .select__arrow svg path {
+        fill: var(--page-color-dark-blue) !important;
+      }
+    }
+  }
+
+  &__label {
+    position: relative;
+    display: flex;
+    margin-bottom: 0.5rem !important;
+  }
+
+  &__arrow {
+    position: relative;
+    color: var(--page-color-link) !important;
+    padding-right: 12px !important;
+
+    & svg path {
+      transition: fill 0.3s;
+    }
+  }
+
+  &__separator {
+    display: none;
+  }
+
+  &__value {
+    padding: 4px 6px 4px 12px !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 20.8px !important;
+    color: var(--page-color-black) !important;
+
+    &_center {
+      text-align: center;
+    }
+
+    & .single-value {
+      grid-area: 1/1/2/3;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-left: 2px;
+      margin-right: 2px;
+      box-sizing: border-box;
+    }
+
+    & input {
+      box-shadow: none !important;
+    }
+  }
+
+  &__placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--page-color-gray) !important;
+  }
+
+  &__menu {
+    padding-left: 0.5rem !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.3) !important;
+    transition: all 1s ease-in-out;
+  }
+
+  &__option {
+    position: relative !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 19.45px !important;
+    color: var(--page-color-link) !important;
+    background-color: #fff !important;
+    transition: color 0.3s;
+
+    &_center {
+      text-align: center;
+    }
+
+    &[aria-selected='true'] {
+      color: var(--page-color-black) !important;
+    }
+
+    &:first-child {
+      border-top-left-radius: 10px !important;
+      border-top-right-radius: 10px !important;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 10px !important;
+      border-bottom-right-radius: 10px !important;
+    }
+
+    &:hover {
+      color: var(--page-color-black) !important;
+      cursor: pointer !important;
+
+      & .checkbox__value svg path {
+        fill: var(--page-color-dark-blue);
+      }
+    }
+  }
+
+  &__multi-close {
+    display: none;
+  }
+
+  &__multi-value {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--page-color-black) !important;
+    margin: 0px !important;
+    background-color: var(--page-color-white) !important;
+    border-radius: 0px !important;
+  }
+
+  &__multi-label {
+    padding: 0px !important;
+    color: var(--page-color-black) !important;
+    transition: color 0.3s;
+  }
+}
+
+.checkbox {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__label {
+    position: relative;
+    display: inline-flex;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  & input {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    z-index: -1;
+
+    &:checked + .checkbox__value {
+      background-color: var(--page-color-dark-blue);
+      border-color: var(--page-color-dark-blue);
+
+      & svg path {
+        fill: var(--page-color-white);
+      }
+    }
+  }
+
+  &__text {
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15.8px;
+    color: var(--page-color-lin);
+  }
+
+  &__value {
+    flex: 0 0 16px;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    background-color: var(--page-color-white);
+    border: 1px solid var(--page-color-gray);
+    border-radius: 5px;
+    transition: all 0.3s;
+
+    & svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      & path {
+        transition: fill 0.3s;
+      }
+    }
+  }
+}

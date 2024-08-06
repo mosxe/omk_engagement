@@ -1,4 +1,5 @@
-﻿import Navs from '../Navs';
+﻿import Select from 'components/Select';
+import Navs from '../Navs';
 import Description from '../Description';
 import styles from './styles.module.scss';
 
@@ -23,6 +24,7 @@ const Filters = () => {
           Воспользуйтесь фильтром, чтобы посмотреть подборку материалов
         </div>
         <div className={styles.filters__container}>
+          <Select />
           <div className={styles.filters__btns}>
             <button
               // className={`${styles.filters__btn} ${
