@@ -22,6 +22,7 @@
       "components/*": ["components/*"],
       "modules/*": ["modules/*"],
       "types/*": ["types/*"],
+      "store/*": ["store"],
       // "hooks/*": ["hooks/*"],
       "helpers/*": ["helpers/*"]
       // "services/*": ["services/*"]

@@ -1,7 +1,7 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
-const baseDefault = "/cst_engagement/dist";
+const baseDefault = '/cst_engagement/dist';
 
 type ViteConfig = {
   command: string;
@@ -9,28 +9,29 @@ type ViteConfig = {
 };
 
 export default defineConfig(({ mode }: ViteConfig) => {
-  const generateScopedName = "[local]__[hash:base64:3]";
-  const base = mode === "production" ? baseDefault : "/";
+  const generateScopedName = '[local]__[hash:base64:3]';
+  const base = mode === 'production' ? baseDefault : '/';
 
   return {
     base: base,
     manifest: true,
     resolve: {
       alias: {
-        assets: "/src/assets",
-        components: "/src/components",
-        modules: "/src/modules",
-        types: "/src/types",
+        assets: '/src/assets',
+        components: '/src/components',
+        modules: '/src/modules',
+        types: '/src/types',
+        store: '/src/store',
         // hooks: "/src/hooks",
-        helpers: "/src/helpers",
+        helpers: '/src/helpers'
         // services: "/src/services",
-      },
+      }
     },
     plugins: [react()],
     css: {
       modules: {
-        generateScopedName: generateScopedName,
-      },
-    },
+        generateScopedName: generateScopedName
+      }
+    }
   };
 });

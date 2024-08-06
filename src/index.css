@@ -23,9 +23,10 @@
   --page-color-dark-blue-opacity8: rgba(0, 50, 75, 0.8);
   --page-color-ligth-blue: rgba(0, 124, 255, 1);
   --page-color-gray: rgba(208, 212, 217, 1);
+  --page-color-light-gray: rgba(189, 189, 189, 1);
   --page-color-link: rgb(141, 142, 145);
   --page-color-purple: rgba(122, 47, 150, 1);
-  --page-color-dark-gray: rgba(135, 138, 142, 1);
+  --page-color-dark-gray: rgb(186, 189, 192);
   --page-color-light-purple: rgba(231, 236, 243, 1);
   --page-max-width-layout: 1440px;
   --page-max-width-main: 1272px;
@@ -68,12 +69,6 @@ body {
   *::after {
     font-family: 'Verdana', sans-serif !important;
   }
-}
-
-#root-engagement button:hover {
-  color: transparent;
-  background-color: transparent;
-  border: none;
 }
 
 #wt-container > footer {

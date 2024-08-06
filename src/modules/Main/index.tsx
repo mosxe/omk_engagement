@@ -1,4 +1,5 @@
-﻿import styles from './styles.module.scss';
+﻿import Filters from './components/Filters';
+import styles from './styles.module.scss';
 
 const Main = () => {
   // if (isLoading) {
@@ -27,7 +28,7 @@ const Main = () => {
 
   return (
     <main className={styles.main}>
-      <div>sadsadsadasdasd</div>
+      <Filters />
     </main>
   );
 };
