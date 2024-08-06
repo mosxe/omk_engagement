@@ -1,0 +1,85 @@
+@font-face {
+  font-family: Verdana;
+  src: url('./fonts/Verdana.ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Verdana;
+  src: url('./fonts/Verdana-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --page-color-red: rgba(225, 37, 27, 1);
+  --page-color-black: rgba(26, 34, 44, 1);
+  --page-color-white: rgba(255, 255, 255, 1);
+  --page-color-blue: rgba(2, 50, 74, 1);
+  --page-color-dark-blue: rgba(0, 50, 75, 1);
+  --page-color-dark-blue-opacity8: rgba(0, 50, 75, 0.8);
+  --page-color-ligth-blue: rgba(0, 124, 255, 1);
+  --page-color-gray: rgba(208, 212, 217, 1);
+  --page-color-link: rgb(141, 142, 145);
+  --page-color-purple: rgba(122, 47, 150, 1);
+  --page-color-dark-gray: rgba(135, 138, 142, 1);
+  --page-color-light-purple: rgba(231, 236, 243, 1);
+  --page-max-width-layout: 1440px;
+  --page-max-width-main: 1272px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+}
+
+#content.page-content {
+  width: 100% !important;
+  display: block;
+  padding: 0;
+}
+
+#root-engagement {
+  font-family: 'Verdana', sans-serif !important;
+  font-size: 16px;
+  width: 100%;
+  margin: 0;
+  background-color: var(--page-color-white);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
+  border: none;
+
+  & p {
+    margin: 0px;
+  }
+
+  *,
+  *::before,
+  *::after {
+    font-family: 'Verdana', sans-serif !important;
+  }
+}
+
+#root-engagement button:hover {
+  color: transparent;
+  background-color: transparent;
+  border: none;
+}
+
+#wt-container > footer {
+  display: none;
+}
+
+#wt-container > .page-content {
+  padding-bottom: 0px !important;
+}
