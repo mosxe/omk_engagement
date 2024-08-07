@@ -6,7 +6,7 @@ export type Option = {
 };
 export type OptionType = Option;
 export type OptionsType = Array<OptionType>;
-export type OptionChange = OptionType | OptionType[] | readonly OptionType[];
+export type OptionChange = readonly Option[];
 
 export type SelectProps = {
   options?: OptionsType | any;
@@ -16,7 +16,7 @@ export type SelectProps = {
   tooltip?: ReactNode;
   onDropdownIndicator?: () => void;
   value?: Array<OptionType>;
-  onChange?: (value: OptionChange) => void;
+  onChange?: (option: OptionChange) => void;
   noOptionsMessage?: string;
   noOptionsMessageDefault?: string;
   isLoading?: boolean;
@@ -28,14 +28,9 @@ export type SelectProps = {
   isArrow?: boolean;
   innerRef?: any;
   isTextCenter?: boolean;
+  width?: number;
 };
 
 export type optionsMessageProps = {
   inputValue: string;
-};
-
-export type formatOptionLabel = {
-  context: string;
-  inputValue: string;
-  selectValue: Option[];
 };

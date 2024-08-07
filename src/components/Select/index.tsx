@@ -1,112 +1,32 @@
-﻿import ReactSelect, {
-  components,
-  DropdownIndicatorProps,
-  OptionProps,
-  MultiValueGenericProps
-} from 'react-select';
-import Loader from './Loader';
-// import Checkbox from './Checkbox';
+﻿import ReactSelect, { components, OptionProps } from 'react-select';
+import Checkbox from './Checkbox';
 import styles from './styles.module.scss';
-import {
-  OptionType,
-  Option,
-  OptionsType,
-  SelectProps,
-  formatOptionLabel
-} from './types';
+import { Option, SelectProps } from './types';
 
 const Select = (props: SelectProps): JSX.Element => {
   const {
     id,
     options,
     placeholder,
-    label,
     onChange,
     noOptionsMessage = 'Данные отсутствуют',
     noOptionsMessageDefault = 'Не найдено',
-    isLoading = false,
     value,
     isDisabled = false,
     defaultValue = [],
-    isClearable = false,
     innerRef = undefined,
-    isArrow = true,
-    isTextCenter = false
+    width
   } = props;
 
-  const DropdownIndicator = (
-    props: DropdownIndicatorProps<OptionType, true>
-  ) => {
-    if (isLoading) {
-      return (
-        <components.DropdownIndicator {...props}>
-          <Loader />
-        </components.DropdownIndicator>
-      );
-    }
-
-    if (isDisabled || !isArrow) {
-      return null;
-    }
-
-    return (
-      <components.DropdownIndicator {...props}></components.DropdownIndicator>
-    );
-  };
-
-  const Option = (props: OptionProps) => {
+  const OptionSelect = (props: OptionProps<Option>) => {
     return (
       <components.Option {...props}>
-        <div className={styles['checkbox']}>
-          <input
-            type='checkbox'
-            checked={props.isSelected}
-            onChange={props.selectOption}
-          />
-          <span className={styles['checkbox__value']}>
-            <svg
-              width='12'
-              height='10'
-              viewBox='0 0 12 10'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M3.99993 7.80007L1.19993 5.00006L0.266602 5.9334L3.99993 9.66673L11.9999 1.66673L11.0666 0.733398L3.99993 7.80007Z'
-                fill='white'
-              />
-            </svg>
-          </span>
-          <div className={styles['checkbox__text']}>
-            <span>{props.label}</span>
-          </div>
-        </div>
+        <Checkbox label={props.label} checked={props.isSelected} />
       </components.Option>
     );
   };
 
-  const formatOptionLabel = (
-    option: Option,
-    { context, selectValue }: formatOptionLabel
-  ) => {
-    console.log(option);
-    console.log(selectValue);
-    console.log(context);
-    if (selectValue.length > 1) {
-      let tempValue = '';
-      selectValue.forEach((option, index) => {
-        if (index === 0) {
-          tempValue += option.label;
-        } else {
-          tempValue += ',' + option.label;
-        }
-      });
-      return tempValue;
-    }
-    return option.label;
-  };
-
-  const MultiValueLabel = (props: MultiValueGenericProps<any>) => {
+  const MultiValueLabel = (props: any) => {
     console.log(props);
     const indexArray =
       props.selectProps.value === null
@@ -127,19 +47,14 @@ const Select = (props: SelectProps): JSX.Element => {
       </components.MultiValueLabel>
     );
   };
-
+  console.log(defaultValue);
   return (
     <ReactSelect
       id={id}
-      options={[
-        { value: 3, label: '3' },
-        { value: 2, label: '2' },
-        { value: 2222, label: '2222' }
-      ]}
+      options={options}
       ref={innerRef}
       name={id}
       isMulti={true}
-      // formatOptionLabel={formatOptionLabel}
       menuPlacement='auto'
       isClearable={false}
       isSearchable={false}
@@ -147,14 +62,10 @@ const Select = (props: SelectProps): JSX.Element => {
       defaultValue={defaultValue}
       hideSelectedOptions={false}
       noOptionsMessage={({ inputValue }) =>
-        isLoading
-          ? 'Загрузка данных...'
-          : !inputValue
-          ? noOptionsMessage
-          : noOptionsMessageDefault
+        !inputValue ? noOptionsMessage : noOptionsMessageDefault
       }
       placeholder={placeholder}
-      components={{ DropdownIndicator, Option, MultiValueLabel }}
+      components={{ Option: OptionSelect }}
       classNames={{
         control: ({ isDisabled, menuIsOpen }) =>
           menuIsOpen
@@ -164,22 +75,17 @@ const Select = (props: SelectProps): JSX.Element => {
             : styles.select__container,
         dropdownIndicator: () => styles.select__arrow,
         indicatorSeparator: () => styles.select__separator,
-        valueContainer: () =>
-          isTextCenter
-            ? `${styles.select__value} ${styles.select__value_center}`
-            : styles.select__value,
+        valueContainer: () => styles.select__value,
         menu: () => styles.select__menu,
         placeholder: () => styles.select__placeholder,
-        option: () =>
-          isTextCenter
-            ? `${styles.select__option} ${styles.select__option_center}`
-            : styles.select__option,
+        option: () => styles.select__option,
         singleValue: () => styles['single-value'],
         multiValue: () => styles['select__multi-value'],
         multiValueLabel: () => styles['select__multi-label']
       }}
       styles={{
-        multiValueRemove: (base) => ({ ...base, display: 'none' })
+        multiValueRemove: (base) => ({ ...base, display: 'none' }),
+        control: (base) => ({ ...base, width: width ? width : '100%' })
       }}
       value={value}
       onChange={onChange}
