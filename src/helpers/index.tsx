@@ -1,4 +1,5 @@
-﻿import { Filters, FilterName } from 'types';
+﻿import { Filters, FilterName, Tab } from 'types';
+import { filtersState } from 'store/filterSlice';
 
 const getLink = (link: string) => {
   if (link.startsWith('https://') || link.startsWith('http://')) {
@@ -20,11 +21,23 @@ const getFilterOptions = (data: Filters[], filterName: FilterName) => {
   return options !== undefined ? options.value : [];
 };
 
-const getDefaultValue = (data: Filters[], subCode: string) => {
-  const options = data.find((filter) => filter.name === 'subs');
-  if (options !== undefined) {
-    const defaultValue = options.value.find((val) => val.value === subCode);
-    return defaultValue !== undefined ? defaultValue : [];
+const getDefaultValue = (
+  data: {
+    [key in Partial<Tab>]: Filters[];
+  },
+  tab: Tab,
+  filterName: FilterName
+) => {
+  console.log(data);
+  console.log(tab);
+  console.log(filterName);
+
+  const selectedFilters = data[tab].find(
+    (filter) => filter.name === filterName
+  );
+
+  if (selectedFilters !== undefined) {
+    return selectedFilters.value;
   }
   return [];
 };

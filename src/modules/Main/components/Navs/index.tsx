@@ -1,46 +1,39 @@
-﻿import classNames from 'classnames';
-// import { Role, IResponseItem } from 'types';
+﻿import { Tab } from 'types';
 import styles from './styles.module.scss';
 
-// type Props = {
-//   role: Role;
-//   navRole: Role;
-//   onClick: (role: Role) => void;
-//   dataHRBP: IResponseItem;
-// };
+type Props = {
+  tab: Tab;
+  onClick: (value: Tab) => void;
+};
 
-const Navs = () => {
-  const classNameBtn = classNames(styles.navs__btn, {
-    [styles.navs__btn_active]: 1 === 2
-  });
-
-  // const isShowHRBP =
-  //   dataHRBP.dataInterview.length > 0 ||
-  //   dataHRBP.dataProcess.length > 0 ||
-  //   dataHRBP.dataWorking.length > 0;
-
+const Navs = ({ tab, onClick }: Props) => {
   return (
     <div className={styles.navs}>
       <button
-        className={classNameBtn}
+        className={`${styles.navs__btn} ${
+          tab === 'engagement' && styles.navs__btn_active
+        }`}
         type='button'
-        // onClick={() => onClick('manager')}
+        onClick={() => onClick('engagement')}
       >
         Вовлеченность
       </button>
-      {/* {role === 'recruiter' && ( */}
       <button
-        className={classNameBtn}
+        className={`${styles.navs__btn} ${
+          tab === 'compass' && styles.navs__btn_active
+        }`}
         type='button'
-        // onClick={() => onClick('recruiter')}
+        onClick={() => onClick('compass')}
       >
         Компас изменений РСС/рабочие
       </button>
       <button
-        className={classNameBtn}
+        className={`${styles.navs__btn} ${
+          tab === 'questions' && styles.navs__btn_active
+        }`}
         type='button'
         disabled
-        // onClick={() => onClick('hr_bp')}
+        onClick={() => onClick('questions')}
       >
         Открытые вопросы
       </button>

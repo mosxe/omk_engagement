@@ -6,7 +6,7 @@ export type Option = {
 };
 export type OptionType = Option;
 export type OptionsType = Array<OptionType>;
-export type OptionChange = readonly Option[];
+export type OptionChange = Option[];
 
 export type SelectProps = {
   options?: OptionsType | any;

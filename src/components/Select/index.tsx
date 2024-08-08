@@ -47,7 +47,7 @@ const Select = (props: SelectProps): JSX.Element => {
       </components.MultiValueLabel>
     );
   };
-  console.log(defaultValue);
+
   return (
     <ReactSelect
       id={id}

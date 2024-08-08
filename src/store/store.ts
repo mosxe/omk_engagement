@@ -2,12 +2,12 @@
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { Tab } from 'types';
 import { API } from './apiSlice';
-// import filtersReducer from './filterSlice';
+import filtersReducer from './filterSlice';
 
 export const store = configureStore({
   reducer: {
-    [API.reducerPath]: API.reducer
-    // filters: filtersReducer
+    [API.reducerPath]: API.reducer,
+    filters: filtersReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(API.middleware)

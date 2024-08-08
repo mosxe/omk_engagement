@@ -1,14 +1,17 @@
-﻿import Select from 'components/Select';
-import { OptionChange, Option } from 'components/Select/types';
-import Navs from '../Navs';
-import Description from '../Description';
-import { Filters as IFilters } from 'types';
+﻿import { OptionChange, Option } from 'components/Select/types';
+// import Description from '../Description';
+import FilterEngagement from './components/FilterEngagement';
+import FilterCompass from './components/FilterCompass';
+import { Filters as IFilters, Filter, Tab, FilterName } from 'types';
 import { getFilterOptions, getDefaultValue } from 'helpers';
+import { updateSelectedFilters } from 'store/filterSlice';
+import { useAppSelector, useAppDispatch } from 'store/hooks';
 import styles from './styles.module.scss';
 
 type Props = {
   data: IFilters[];
   subCode: string;
+  tab: Tab;
   // role: Role;
   // navRole: Role;
   // tags: Tags;
@@ -19,40 +22,48 @@ type Props = {
   // dataHRBP: IResponseItem;
 };
 
-const Filters = ({ data, subCode }: Props) => {
-  const onChange = (options: OptionChange) => {
-    console.log(options);
+const Filters = ({ data, subCode, tab }: Props) => {
+  const dispatch = useAppDispatch();
+  const selectedFilters = useAppSelector(
+    (state) => state.filters.selectedFilters
+  );
+
+  // console.log(selectedFilters);
+
+  const onChange = (options: OptionChange, filterName: FilterName) => {
+    // console.log(filterName);
+    const filterValues = {
+      name: filterName,
+      value: options as Filter[]
+    };
+    dispatch(updateSelectedFilters({ tab, data: filterValues }));
   };
 
   return (
     <div className={styles.filters}>
-      <Navs />
-      <Description />
+      {/* <Description /> */}
       <div className={styles.filters__wrapper}>
         <div className={styles.filters__text}>
           Воспользуйтесь фильтром, чтобы посмотреть подборку материалов
         </div>
         <div className={styles.filters__container}>
           <div className={styles.filters__row}>
-            <Select
-              options={getFilterOptions(data, 'group')}
-              onChange={onChange}
-              placeholder='Группа'
-              width={180}
-            />
-            <Select
-              options={getFilterOptions(data, 'subs')}
-              defaultValue={getDefaultValue(data, subCode)}
-              onChange={onChange}
-              placeholder='Подразделение/БЕ'
-              width={230}
-            />
-            <Select
-              options={getFilterOptions(data, 'city')}
-              onChange={onChange}
-              placeholder='Город'
-              width={170}
-            />
+            {tab === 'engagement' && (
+              <FilterEngagement
+                data={data}
+                dataSelected={selectedFilters}
+                onChange={onChange}
+                subCode={subCode}
+              />
+            )}
+            {tab === 'compass' && (
+              <FilterCompass
+                data={data}
+                dataSelected={selectedFilters}
+                onChange={onChange}
+                subCode={subCode}
+              />
+            )}
           </div>
           <div className={styles.filters__row}>
             <button

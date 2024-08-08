@@ -3,9 +3,17 @@
   errorMessage: string;
 }
 
-export type Tab = 'engagement' | 'compass';
+export type Tab = 'engagement' | 'compass' | 'questions';
 
-export type FilterName = 'city' | 'group' | 'subs';
+export type FilterName =
+  | 'group'
+  | 'subs'
+  | 'city'
+  | 'category'
+  | 'sex'
+  | 'experience'
+  | 'problems'
+  | 'strong_point';
 
 export interface Filter {
   value: string;

@@ -6,7 +6,8 @@
   &__row {
     display: flex;
     gap: 10px;
-    justify-content: space-around;
+
+    flex-wrap: wrap;
   }
 
   &__btn {
@@ -116,23 +117,6 @@
     border-radius: 5px;
   }
 
-  &__box {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    &_text {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 17px;
-    }
-  }
-
   &__dropdown {
     display: none;
     opacity: 0;
@@ -157,7 +141,7 @@
   &__text {
     font-size: 12px;
     font-weight: 400;
-    color: var(--page-color-dark-gray);
+    color: var(--page-color-link);
     line-height: 20px;
     padding-left: 9px;
   }
@@ -169,26 +153,6 @@
     gap: 30px;
     justify-content: space-between;
     align-items: flex-start;
-
-    &_row {
-      position: relative;
-      display: flex;
-      height: 40px;
-    }
-
-    &_active {
-      & .filters__box {
-        left: 16px;
-        transform: translate(0%, 50%);
-        animation: moveAnimate 0.3s ease;
-      }
-
-      & .filters__btn-close {
-        display: flex;
-        opacity: 1;
-        animation: showAnimate 0.3s ease;
-      }
-    }
   }
 }
 
