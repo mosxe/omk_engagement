@@ -1,47 +1,92 @@
-﻿import { OptionChange, Option } from 'components/Select/types';
-// import Description from '../Description';
+﻿import { useEffect } from 'react';
+import { OptionChange } from 'components/Select/types';
 import FilterEngagement from './components/FilterEngagement';
 import FilterCompass from './components/FilterCompass';
-import { Filters as IFilters, Filter, Tab, FilterName } from 'types';
-import { getFilterOptions, getDefaultValue } from 'helpers';
+import { Filter, Tab, FilterName } from 'types';
+import { transformDataFilters } from 'helpers';
+import {
+  useLazyGetFilterEngagementDataQuery,
+  useLazyGetFilterCompassDataQuery,
+  useLazyGetSpeedDataQuery
+} from 'store/apiSlice';
 import { updateSelectedFilters } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import {
+  initialFiltersEngagement,
+  initialFiltersCompass,
+  initialSpeedChart
+} from 'store/constants';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: IFilters[];
-  subCode: string;
   tab: Tab;
-  // role: Role;
-  // navRole: Role;
-  // tags: Tags;
-  // onClickNav: (role: Role) => void;
-  // onChangeTag: (e: React.ChangeEvent<HTMLInputElement>, label: string) => void;
-  // onShow: () => void;
-  // onClear: () => void;
-  // dataHRBP: IResponseItem;
 };
 
-const Filters = ({ data, subCode, tab }: Props) => {
+const Filters = ({ tab }: Props) => {
+  const [
+    updateFiltersEngagement,
+    { data: dataFiltersEngagement = initialFiltersEngagement }
+  ] = useLazyGetFilterEngagementDataQuery();
+  const [
+    updateFiltersCompass,
+    { data: dataFiltersCompass = initialFiltersCompass }
+  ] = useLazyGetFilterCompassDataQuery();
+  const [updateSpeedChart, { data: dataSpeedChart = initialSpeedChart }] =
+    useLazyGetSpeedDataQuery();
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters
   );
+  console.log(dataSpeedChart);
+  useEffect(() => {
+    updateFiltersEngagement({ filters: [], is_starting: true });
+    updateFiltersCompass({ filters: [], is_starting: true });
+  }, []);
 
-  // console.log(selectedFilters);
-
-  const onChange = (options: OptionChange, filterName: FilterName) => {
-    // console.log(filterName);
+  const onChange = async (options: OptionChange, filterName: FilterName) => {
     const filterValues = {
       name: filterName,
       value: options as Filter[]
     };
     dispatch(updateSelectedFilters({ tab, data: filterValues }));
+    if (tab === 'engagement') {
+      const dataFilters = transformDataFilters(
+        selectedFilters.engagement,
+        filterValues
+      );
+      await updateFiltersEngagement({
+        filters: dataFilters,
+        is_starting: false
+      });
+    } else if (tab === 'compass') {
+      const dataFilters = transformDataFilters(
+        selectedFilters.compass,
+        filterValues
+      );
+      await updateFiltersCompass({
+        filters: dataFilters,
+        is_starting: false
+      });
+    }
+  };
+
+  const handleApplyFilters = async () => {
+    if (tab === 'engagement') {
+      const dataFilters = transformDataFilters(selectedFilters.engagement);
+      await updateSpeedChart({
+        filters: dataFilters
+      });
+    } else if (tab === 'compass') {
+      const dataFilters = transformDataFilters(selectedFilters.compass);
+      await updateFiltersCompass({
+        filters: dataFilters,
+        is_starting: false
+      });
+    }
   };
 
   return (
     <div className={styles.filters}>
-      {/* <Description /> */}
       <div className={styles.filters__wrapper}>
         <div className={styles.filters__text}>
           Воспользуйтесь фильтром, чтобы посмотреть подборку материалов
@@ -50,18 +95,16 @@ const Filters = ({ data, subCode, tab }: Props) => {
           <div className={styles.filters__row}>
             {tab === 'engagement' && (
               <FilterEngagement
-                data={data}
-                dataSelected={selectedFilters}
+                data={dataFiltersEngagement.filters}
+                dataSelected={selectedFilters.engagement}
                 onChange={onChange}
-                subCode={subCode}
               />
             )}
             {tab === 'compass' && (
               <FilterCompass
-                data={data}
-                dataSelected={selectedFilters}
+                data={dataFiltersCompass.filters}
+                dataSelected={selectedFilters.compass}
                 onChange={onChange}
-                subCode={subCode}
               />
             )}
           </div>
@@ -72,9 +115,9 @@ const Filters = ({ data, subCode, tab }: Props) => {
               //   selectedTags.length && styles.filters__btn_active
               // }`}
               type='button'
-              disabled
+              // disabled
               // disabled={!selectedTags.length}
-              // onClick={onShow}
+              onClick={handleApplyFilters}
             >
               Применить
             </button>

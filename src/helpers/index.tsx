@@ -21,20 +21,8 @@ const getFilterOptions = (data: Filters[], filterName: FilterName) => {
   return options !== undefined ? options.value : [];
 };
 
-const getDefaultValue = (
-  data: {
-    [key in Partial<Tab>]: Filters[];
-  },
-  tab: Tab,
-  filterName: FilterName
-) => {
-  console.log(data);
-  console.log(tab);
-  console.log(filterName);
-
-  const selectedFilters = data[tab].find(
-    (filter) => filter.name === filterName
-  );
+const getDefaultValue = (data: Filters[], filterName: FilterName) => {
+  const selectedFilters = data.find((filter) => filter.name === filterName);
 
   if (selectedFilters !== undefined) {
     return selectedFilters.value;
@@ -42,4 +30,31 @@ const getDefaultValue = (
   return [];
 };
 
-export { getLink, getLinkFile, getFilterOptions, getDefaultValue };
+const transformDataFilters = (
+  dataFilters: Filters[],
+  currentFilter?: Filters
+) => {
+  const transformData = dataFilters.map((filter) => {
+    const data = {
+      name: filter.name,
+      value: [] as string[] | number[]
+    };
+
+    if (currentFilter !== undefined && filter.name === currentFilter.name) {
+      const currentData = currentFilter.value.map((val) => val.value);
+      data.value = currentData;
+    } else {
+      data.value = filter.value.map((val) => val.value);
+    }
+    return data;
+  });
+  return transformData;
+};
+
+export {
+  getLink,
+  getLinkFile,
+  getFilterOptions,
+  getDefaultValue,
+  transformDataFilters
+};

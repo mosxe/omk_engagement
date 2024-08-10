@@ -1,11 +1,11 @@
-﻿import Loader from 'components/Loader';
-import Sections from './components/Sections';
+﻿import Sections from './components/Sections';
 import Navs from './components/Navs';
+import Description from './components/Description';
 import Filters from './components/Filters';
-import SectionEngagement from './components/Sections/components/SectionEngagement';
-import SectionCompass from './components/Sections/components/SectionCompass';
-import SectionQuestions from './components/Sections/components/SectionQuestions';
-import { useGetDataQuery } from 'store/apiSlice';
+// import SectionEngagement from './components/Sections/components/SectionEngagement';
+// import SectionCompass from './components/Sections/components/SectionCompass';
+// import SectionQuestions from './components/Sections/components/SectionQuestions';
+import { useGetFilterEngagementDataQuery } from 'store/apiSlice';
 import { initialFilters } from 'store/constants';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { Tab } from 'types';
@@ -14,11 +14,23 @@ import { useState } from 'react';
 
 const Main = () => {
   const [tab, setTab] = useState<Tab>('engagement');
-  const { data = initialFilters, isLoading, isError } = useGetDataQuery();
+  // const {
+  //   data = initialFilters,
+  //   refetch,
+  //   isLoading,
+  //   isError
+  // } = useGetFilterEngagementDataQuery({ filters: [], is_starting: true });
   // const filteredData = useAppSelector((state) => state.filters.filteredData);
   // const dispatch = useAppDispatch();
 
   // console.log(data.filters);
+
+  //Каждая вкладка имеет свой endpoint по получению фильтров
+  //getFilterEngagementData(frontData, isStart, curUserID) - первый раз при загрузке страницы
+  //getSpeedData - бублик. При БЕ сразу данные подтягиваем
+  //getChartsEngagementData(frontData, isStart, curUserID) - первый раз при загрузке страницы
+  //При нажатии кнопки применить фильтр отправляются 3 запроса на каждый график
+  //Бублик строится, если выборано 1 подразделение, если больше, то графики
 
   const handleClick = (value: Tab) => {
     if (value !== tab) {
@@ -26,13 +38,13 @@ const Main = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <main className={styles.main}>
-        <Loader />
-      </main>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <main className={styles.main}>
+  //       <Loader />
+  //     </main>
+  //   );
+  // }
 
   // if (isError || data.isError) {
   //   return (
@@ -48,18 +60,10 @@ const Main = () => {
 
   return (
     <main className={styles.main}>
-      <Sections
-      // data={data.filters}
-      // subCode={data.defaultSubCode}
-      // tab={tab}
-      // onClick={handleClick}
-      >
-        <Navs tab={tab} onClick={handleClick} />
-        <Filters data={data.filters} subCode={data.defaultSubCode} tab={tab} />
-        {tab === 'engagement' && <SectionEngagement />}
-        {tab === 'compass' && <SectionCompass />}
-        {tab === 'questions' && <SectionQuestions />}
-      </Sections>
+      <Navs tab={tab} onClick={handleClick} />
+      {tab === 'engagement' && <Description />}
+      <Filters tab={tab} />
+      <Sections tab={tab} />
     </main>
   );
 };

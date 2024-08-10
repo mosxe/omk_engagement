@@ -1,6 +1,17 @@
-﻿export const initialFilters = {
+﻿export const initialFiltersEngagement = {
   filters: [],
-  defaultSubCode: '',
+  isError: false,
+  errorMessage: ''
+};
+
+export const initialFiltersCompass = {
+  filters: [],
+  isError: false,
+  errorMessage: ''
+};
+
+export const initialSpeedChart = {
+  data: [],
   isError: false,
   errorMessage: ''
 };

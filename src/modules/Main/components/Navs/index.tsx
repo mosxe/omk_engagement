@@ -20,7 +20,7 @@ const Navs = ({ tab, onClick }: Props) => {
       </button>
       <button
         className={`${styles.navs__btn} ${
-          tab === 'compass' && styles.navs__btn_active
+          tab === 'compass' ? styles.navs__btn_active : ''
         }`}
         type='button'
         onClick={() => onClick('compass')}

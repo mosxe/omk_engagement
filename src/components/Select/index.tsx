@@ -27,7 +27,6 @@ const Select = (props: SelectProps): JSX.Element => {
   };
 
   const MultiValueLabel = (props: any) => {
-    console.log(props);
     const indexArray =
       props.selectProps.value === null
         ? 0

@@ -27,5 +27,17 @@ export interface Filters {
 
 export interface ResponseFilters extends Error {
   filters: Filters[];
-  defaultSubCode: string;
+}
+
+export interface FilterParams {
+  name: FilterName;
+  value: string[] | number[];
+}
+
+export interface ResponseSpeedChart extends Error {
+  data: {
+    sub: string;
+    year: string;
+    percent: number;
+  }[];
 }
