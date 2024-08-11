@@ -1,13 +1,12 @@
 ﻿import Sections from './components/Sections';
 import Navs from './components/Navs';
 import Description from './components/Description';
-import Filters from './components/Filters';
 // import SectionEngagement from './components/Sections/components/SectionEngagement';
 // import SectionCompass from './components/Sections/components/SectionCompass';
 // import SectionQuestions from './components/Sections/components/SectionQuestions';
-import { useGetFilterEngagementDataQuery } from 'store/apiSlice';
-import { initialFilters } from 'store/constants';
-import { useAppSelector, useAppDispatch } from 'store/hooks';
+// import { useGetFilterEngagementDataQuery } from 'store/apiSlice';
+// import { initialFilters } from 'store/constants';
+// import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { Tab } from 'types';
 import styles from './styles.module.scss';
 import { useState } from 'react';
@@ -62,7 +61,6 @@ const Main = () => {
     <main className={styles.main}>
       <Navs tab={tab} onClick={handleClick} />
       {tab === 'engagement' && <Description />}
-      <Filters tab={tab} />
       <Sections tab={tab} />
     </main>
   );
