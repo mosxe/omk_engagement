@@ -124,5 +124,17 @@
     ],
     "isError": false,
     "errorMessage": ""
+  },
+  "dataCategoryChart": {
+    "data": [
+      { "name": "Движущая сила", "percent": 66 },
+      { "name": "Ослабленные", "percent": 100 },
+      { "name": "Мученики", "percent": 0 },
+      { "name": "Балласт", "percent": 15 },
+      { "name": "Будущий потенциал", "percent": 36 },
+      { "name": "Мысленно уже не в компании", "percent": 78 }
+    ],
+    "isError": false,
+    "errorMessage": ""
   }
 }

@@ -7,23 +7,24 @@ import styles from './styles.module.scss';
 // { data }: Props
 const EngagementResults = () => {
   return (
-    <section className={styles['engagement-issues']}>
-      <div className={styles['engagement-issues__header']}>
+    <section className={styles['engagement-zones']}>
+      <div className={styles['engagement-zones__header']}>
         <h2>
-          Ключевая проблематика, выявленная в результате исследования 2024 года
+          Ключевые сильные стороны, выявленные в результате исследования
+          вовлеченности
         </h2>
       </div>
-      <div className={styles['engagement-issues__wrapper']}>
-        <div className={styles['engagement-issues__container']}>
-          <div className={styles['engagement-issues__title']}>
+      <div className={styles['engagement-zones__wrapper']}>
+        <div className={styles['engagement-zones__container']}>
+          <div className={styles['engagement-zones__title']}>
             Общие зоны развития
           </div>
           <div>
             <Table />
           </div>
         </div>
-        <div className={styles['engagement-issues__container']}>
-          <div className={styles['engagement-issues__title']}>
+        <div className={styles['engagement-zones__container']}>
+          <div className={styles['engagement-zones__title']}>
             Зоны развития в подразделениях
           </div>
           <div>

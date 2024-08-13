@@ -15,3 +15,9 @@ export const initialSpeedChart = {
   isError: false,
   errorMessage: ''
 };
+
+export const initialCategoryChart = {
+  data: [],
+  isError: false,
+  errorMessage: ''
+};

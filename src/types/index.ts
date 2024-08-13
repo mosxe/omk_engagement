@@ -34,10 +34,20 @@ export interface FilterParams {
   value: string[] | number[];
 }
 
+export interface SpeedChart {
+  sub: string;
+  year: string;
+  percent: number;
+}
+
 export interface ResponseSpeedChart extends Error {
-  data: {
-    sub: string;
-    year: string;
-    percent: number;
-  }[];
+  data: SpeedChart[];
+}
+export interface CategoryChart {
+  name: string;
+  percent: number;
+}
+
+export interface ResponseCategoryChart extends Error {
+  data: CategoryChart[];
 }
