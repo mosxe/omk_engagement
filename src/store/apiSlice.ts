@@ -46,14 +46,10 @@ export const API = createApi({
         })
       }),
       transformResponse: (response: ResponseFilters, meta, arg) => {
-        // console.log('transformResponse');
-        // console.log(arg);
         if (import.meta.env.DEV) {
-          console.log(arg.is_starting);
           const mockDataResponse: ResponseFilters = arg.is_starting
             ? (mockData.dataEngagement as ResponseFilters)
             : (mockData.dataUpdateEngagement as ResponseFilters);
-          // console.log(mockDataResponse);
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -106,7 +102,9 @@ export const API = createApi({
       transformResponse: (response: ResponseSpeedChart) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseSpeedChart =
-            mockData.dataSpeedChart as ResponseSpeedChart;
+            mockData.dataBarChart as ResponseSpeedChart;
+
+          // mockData.dataSpeedChart as ResponseSpeedChart;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });

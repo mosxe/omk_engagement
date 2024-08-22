@@ -35,7 +35,7 @@ const FilterEngagement = ({ onApply, onReset }: Props) => {
       name: filterName,
       value: options as Filter[]
     };
-    dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
+    dispatch(updateSelectedFilters({ tab: 'engagement', data: filterValues }));
     const dataFilters = transformDataFilters(selectedFilters, filterValues);
     // await updateFiltersCompass({
     //   filters: dataFilters,

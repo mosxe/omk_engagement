@@ -118,9 +118,112 @@
   },
   "dataSpeedChart": {
     "data": [
-      { "sub": "Дивизион \"Сталь\"", "year": "2025", "percent": 66 },
-      { "sub": "Дивизион \"Сталь\"", "year": "2024", "percent": 100 },
-      { "sub": "Дивизион \"Медь\"", "year": "2023", "percent": 0 }
+      {
+        "sub": "Дивизион \"Сталь\"",
+        "is_matching": false,
+        "data": [
+          {
+            "year": "2024",
+            "percent": 66
+          }
+        ]
+      },
+      {
+        "sub": "Дивизион \"Сталь\"",
+        "is_matching": false,
+        "data": [
+          {
+            "year": "2023",
+            "percent": 40
+          }
+        ]
+      },
+      {
+        "sub": "Дивизион \"Медь\"",
+        "is_matching": false,
+        "data": [
+          {
+            "year": "2022",
+            "percent": 90
+          }
+        ]
+      },
+      {
+        "sub": "Вовлеченность с БЭ",
+        "is_matching": true,
+        "data": [
+          {
+            "year": "2025",
+            "percent": 11
+          }
+        ]
+      }
+    ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "dataBarChart": {
+    "data": [
+      {
+        "sub": "Дивизион \"Сталь\" 1",
+        "is_matching": false,
+        "data": [
+          {
+            "year": "2024",
+            "percent": 66
+          },
+          {
+            "year": "2023",
+            "percent": 50
+          },
+          {
+            "year": "2022",
+            "percent": 2
+          }
+        ]
+      },
+      {
+        "sub": "Дивизион \"Сталь\" 2",
+        "is_matching": false,
+        "data": [
+          {
+            "year": "2023",
+            "percent": 40
+          },
+          {
+            "year": "2024",
+            "percent": 100
+          }
+        ]
+      },
+      {
+        "sub": "Дивизион \"Медь\" 3",
+        "is_matching": false,
+        "data": [
+          {
+            "year": "2022",
+            "percent": 90
+          }
+        ]
+      },
+      {
+        "sub": "Вовлеченность с БЭ",
+        "is_matching": true,
+        "data": [
+          {
+            "year": "2024",
+            "percent": 11
+          },
+          {
+            "year": "2023",
+            "percent": 33
+          },
+          {
+            "year": "2022",
+            "percent": 65
+          }
+        ]
+      }
     ],
     "isError": false,
     "errorMessage": ""

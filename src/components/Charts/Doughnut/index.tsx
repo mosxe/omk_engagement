@@ -13,6 +13,9 @@ type Props = {
 const Doughnut = ({ percent, title, id, size = 'large' }: Props) => {
   const options = {
     plugins: {
+      datalabels: {
+        display: false
+      },
       legend: {
         display: false
       },
@@ -30,7 +33,6 @@ const Doughnut = ({ percent, title, id, size = 'large' }: Props) => {
       const width = chart.width;
       const height = chart.height;
       const ctx = chart.ctx;
-
       ctx.restore();
 
       const sizeHeight = size === 'large' ? 60 : 100;

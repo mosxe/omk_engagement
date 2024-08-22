@@ -1,4 +1,4 @@
-﻿import { useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { FilterEngagement } from '../../../Filters';
 import EngagementResults from './components/EngagementResults';
 import EngagementCategory from './components/EngagementCategory';
@@ -14,8 +14,10 @@ import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { transformDataFilters } from 'helpers';
 
 const SectionEngagement = () => {
-  const [updateSpeedChart, { data: dataSpeedChart = initialSpeedChart }] =
-    useLazyGetSpeedDataQuery();
+  const [
+    updateSpeedChart,
+    { data: dataSpeedChart = initialSpeedChart, isLoading: isLoadingSpeedChart }
+  ] = useLazyGetSpeedDataQuery();
   const [
     updateCategoryChart,
     { data: dataCategoryChart = initialCategoryChart }
@@ -24,6 +26,9 @@ const SectionEngagement = () => {
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.engagement
   );
+  const [viewChart, setViewChart] = useState<'doughnut' | 'bar'>('bar');
+
+  console.log(selectedFilters);
 
   useEffect(() => {
     updateSpeedChart({
@@ -34,6 +39,13 @@ const SectionEngagement = () => {
 
   const handleApply = async () => {
     const dataFilters = transformDataFilters(selectedFilters);
+    const filterSubs = selectedFilters.find((filter) => filter.name === 'subs');
+    const viewChart =
+      filterSubs !== undefined && filterSubs.value.length > 1
+        ? 'bar'
+        : 'doughnut';
+    setViewChart(viewChart);
+
     await updateSpeedChart({
       filters: dataFilters
     });
@@ -49,7 +61,11 @@ const SectionEngagement = () => {
   return (
     <>
       <FilterEngagement onApply={handleApply} onReset={handleReset} />
-      <EngagementResults data={dataSpeedChart.data} />
+      <EngagementResults
+        data={dataSpeedChart.data}
+        isLoading={isLoadingSpeedChart}
+        view={viewChart}
+      />
       <EngagementCategory data={dataCategoryChart.data} />
       <Issues />
       <Zones />
