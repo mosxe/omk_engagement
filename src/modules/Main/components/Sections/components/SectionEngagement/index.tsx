@@ -4,6 +4,7 @@ import EngagementResults from './components/EngagementResults';
 import EngagementCategory from './components/EngagementCategory';
 import Issues from './components/Issues';
 import Zones from './components/Zones';
+import Comments from './components/Comments';
 import CategoryChart from './components/EngagementCategory';
 import {
   useLazyGetSpeedDataQuery,
@@ -68,7 +69,9 @@ const SectionEngagement = () => {
       />
       <EngagementCategory data={dataCategoryChart.data} />
       <Issues />
+      <Comments />
       <Zones />
+      <Comments />
     </>
   );
 };
