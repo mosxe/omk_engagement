@@ -1,6 +1,7 @@
 ﻿import Sections from './components/Sections';
 import Navs from './components/Navs';
 import Description from './components/Description';
+import Alert from 'components/Alert';
 // import SectionEngagement from './components/Sections/components/SectionEngagement';
 // import SectionCompass from './components/Sections/components/SectionCompass';
 // import SectionQuestions from './components/Sections/components/SectionQuestions';
@@ -58,11 +59,14 @@ const Main = () => {
   // }
 
   return (
-    <main className={styles.main}>
-      <Navs tab={tab} onClick={handleClick} />
-      {tab === 'engagement' && <Description />}
-      <Sections tab={tab} />
-    </main>
+    <>
+      <main className={styles.main}>
+        <Navs tab={tab} onClick={handleClick} />
+        {tab === 'engagement' && <Description />}
+        <Sections tab={tab} />
+      </main>
+      <Alert />
+    </>
   );
 };
 

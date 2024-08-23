@@ -56,3 +56,13 @@ export interface CategoryChart {
 export interface ResponseCategoryChart extends Error {
   data: CategoryChart[];
 }
+
+export interface Comment {
+  text: string;
+  person_name: string;
+  position_name: string;
+}
+
+export interface ResponseComments extends Error {
+  data: Comment[];
+}

@@ -166,4 +166,14 @@
     flex-direction: column;
     gap: 8px;
   }
+
+  &__container {
+    height: 200px;
+  }
+
+  &__empty {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 }

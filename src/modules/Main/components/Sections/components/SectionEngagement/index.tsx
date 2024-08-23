@@ -29,7 +29,7 @@ const SectionEngagement = () => {
   );
   const [viewChart, setViewChart] = useState<'doughnut' | 'bar'>('bar');
 
-  console.log(selectedFilters);
+  // console.log(selectedFilters);
 
   useEffect(() => {
     updateSpeedChart({
@@ -69,9 +69,9 @@ const SectionEngagement = () => {
       />
       <EngagementCategory data={dataCategoryChart.data} />
       <Issues />
-      <Comments />
+      <Comments type='issue' />
       <Zones />
-      <Comments />
+      <Comments type='zone' />
     </>
   );
 };

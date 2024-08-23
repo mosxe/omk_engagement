@@ -19,9 +19,14 @@ const EngagementCategory = ({ data }: Props) => {
         </div>
       </div>
       <div className={styles['engagement-category__wrapper']}>
-        {data.map((item) => {
+        {data.map((item, index) => {
           return (
-            <Card title={item.name} percent={item.percent} color='black' />
+            <Card
+              title={item.name}
+              percent={item.percent}
+              color='black'
+              key={index}
+            />
           );
         })}
         {/* <Card title='Движущая сила' percent={1} color='black' />

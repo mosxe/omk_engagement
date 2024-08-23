@@ -3,7 +3,8 @@ import {
   ResponseFilters,
   FilterParams,
   ResponseSpeedChart,
-  ResponseCategoryChart
+  ResponseCategoryChart,
+  ResponseComments
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
@@ -136,6 +137,30 @@ export const API = createApi({
           return response;
         }
       }
+    }),
+    getComments: builder.query<ResponseComments, 'zone' | 'issue'>({
+      query: (type) =>
+        urlBuilder({
+          action: 'getComments',
+          type: type
+        }),
+      transformResponse: (response: ResponseComments, meta, arg) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseComments = {
+            data:
+              arg === 'zone'
+                ? mockData.dataCommentsZones.data
+                : mockData.dataCommentsIssues.data,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1500);
+          });
+        } else {
+          return response;
+        }
+      }
     })
   })
 });
@@ -145,10 +170,6 @@ export const {
   useLazyGetFilterEngagementDataQuery,
   useLazyGetFilterCompassDataQuery,
   useLazyGetSpeedDataQuery,
-  useLazyGetCategoryDataQuery
-  // useLazyGetDataQuery,
-  // useGetMaterialQuery,
-  // useLazyGetMaterialQuery,
-  // useLazyUpdateStatusMaterialQuery,
-  // useLazyActiveAssessmentQuery
+  useLazyGetCategoryDataQuery,
+  useLazyGetCommentsQuery
 } = API;

@@ -1,13 +1,33 @@
 ﻿import { useState } from 'react';
-import Modal, { ButtonClose } from 'components/Modal';
+import { toast } from 'react-toastify';
+import Modal from 'components/Modal';
+import ModalContent from './ModalContent';
 import Image from 'assets/images/Engagement/img_4.png';
+import { useLazyGetCommentsQuery } from 'store/apiSlice';
 import styles from './styles.module.scss';
 
-const Comments = () => {
+type Props = {
+  type: 'zone' | 'issue';
+};
+
+const Comments = ({ type }: Props) => {
+  const [getComments, { data, isLoading }] = useLazyGetCommentsQuery();
+
   const [isShowModal, setShowModal] = useState<boolean>(false);
 
   const handleModal = () => {
-    setShowModal(!isShowModal);
+    setShowModal((prevValue) => {
+      if (data === undefined && !prevValue) {
+        getComments(type)
+          .then((payload) => {
+            if (payload.isError || payload.data?.isError) {
+              toast('Произошла ошибка');
+            }
+          })
+          .catch(() => toast('Произошла ошибка'));
+      }
+      return !prevValue;
+    });
   };
 
   return (
@@ -105,276 +125,12 @@ const Comments = () => {
           </svg>
         </button>
       </section>
-
       <Modal isShow={isShowModal} onClose={handleModal} width={1400}>
-        <Modal.Header>
-          <div className={styles['engagement-comments_end']}>
-            <ButtonClose onClick={handleModal} />
-          </div>
-          <div className={styles['engagement-comments__box']}>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_m']}`}
-            >
-              Топ-проблематика
-            </span>
-            <div className={styles['engagement-comments__text']}>
-              Руководитель{' '}
-              <span className={styles['engagement-comments__text_red']}>
-                отделяет себя от своих сотрудников,
-              </span>{' '}
-              не встает на их сторону
-            </div>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_l']}`}
-            >
-              210 комментариев
-            </span>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <div className={styles['engagement-comments__wrapper']}>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-            <div className={styles['engagement-comments__card']}>
-              <div className={styles['engagement-comments__card_text']}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur.{' '}
-              </div>
-              <div className={styles['engagement-comments__card_name']}>
-                Иванов П.Е.
-              </div>
-              <div className={styles['engagement-comments__card_position']}>
-                должность
-              </div>
-            </div>
-          </div>
-        </Modal.Body>
+        <ModalContent
+          data={data?.data}
+          onClose={handleModal}
+          isLoading={isLoading}
+        />
       </Modal>
     </>
   );

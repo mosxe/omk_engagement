@@ -15,7 +15,6 @@ type Props = {
 
 const EngagementResults = ({ data, isLoading, view }: Props) => {
   const [value, setValue] = useState<boolean>(false);
-  console.log(view);
 
   return (
     <section className={styles['engagement-results']}>

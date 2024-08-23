@@ -1,0 +1,43 @@
+﻿.toast {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--course-color-white);
+  border-radius: 10px;
+  box-shadow: none;
+  background: linear-gradient(
+    108.59deg,
+    #970662 7.61%,
+    #980662 16.41%,
+    #990662 25.22%,
+    #9c0663 34.02%,
+    #a10763 42.83%,
+    #a60764 51.63%,
+    #ad0765 60.44%,
+    #b40866 69.24%,
+    #bc0866 78.05%,
+    #c30967 86.85%,
+    #ca0968 95.66%,
+    #cf0969 104.47%,
+    #d40a69 113.27%,
+    #d70a6a 122.08%,
+    #d80a6a 130.88%,
+    #d90a6a 139.69%
+  );
+
+  & > button {
+    color: var(--course-color-white) !important;
+    opacity: 1;
+
+    &:hover,
+    &:focus {
+      background-color: var(--course-text-gray);
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .toast {
+    margin: 10px 10px 0px 10px;
+    width: 90%;
+  }
+}

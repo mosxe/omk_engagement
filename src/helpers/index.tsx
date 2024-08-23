@@ -51,10 +51,21 @@ const transformDataFilters = (
   return transformData;
 };
 
+const declinationComments = (value: number) => {
+  const words = ['комментарий', 'комментария', 'комментариев'];
+  const cases = [2, 0, 1, 1, 1, 2];
+  return words[
+    value % 100 > 4 && value % 100 < 20
+      ? 2
+      : cases[value % 10 < 5 ? value % 10 : 5]
+  ];
+};
+
 export {
   getLink,
   getLinkFile,
   getFilterOptions,
   getDefaultValue,
-  transformDataFilters
+  transformDataFilters,
+  declinationComments
 };
