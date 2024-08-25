@@ -5,37 +5,59 @@ import EngagementCategory from './components/EngagementCategory';
 import Issues from './components/Issues';
 import Zones from './components/Zones';
 import Comments from './components/Comments';
-import CategoryChart from './components/EngagementCategory';
 import {
   useLazyGetSpeedDataQuery,
-  useLazyGetCategoryDataQuery
+  useLazyGetCategoryDataQuery,
+  useLazyGetFilterEngagementDataQuery,
+  useLazyGetKeyResultsQuery
 } from 'store/apiSlice';
-import { initialSpeedChart, initialCategoryChart } from 'store/constants';
+import {
+  initialSpeedChart,
+  initialCategoryChart,
+  initialKeyResults
+} from 'store/constants';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import { clearSelectedFilters } from 'store/filterSlice';
 import { transformDataFilters } from 'helpers';
 
 const SectionEngagement = () => {
   const [
     updateSpeedChart,
-    { data: dataSpeedChart = initialSpeedChart, isLoading: isLoadingSpeedChart }
+    {
+      data: dataSpeedChart = initialSpeedChart,
+      isFetching: isFetchingSpeedChart
+    }
   ] = useLazyGetSpeedDataQuery();
   const [
     updateCategoryChart,
-    { data: dataCategoryChart = initialCategoryChart }
+    {
+      data: dataCategoryChart = initialCategoryChart,
+      isFetching: isFetchingCategoryChart
+    }
   ] = useLazyGetCategoryDataQuery();
+  const [updateFiltersEngagement, { isFetching }] =
+    useLazyGetFilterEngagementDataQuery();
+  const [
+    updateKeyResults,
+    {
+      data: dataKeyResults = initialKeyResults,
+      isFetching: isFetchingKeyResults
+    }
+  ] = useLazyGetKeyResultsQuery();
+
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.engagement
   );
-  const [viewChart, setViewChart] = useState<'doughnut' | 'bar'>('bar');
-
-  // console.log(selectedFilters);
+  const [viewChart, setViewChart] = useState<'doughnut' | 'bar'>('doughnut');
 
   useEffect(() => {
     updateSpeedChart({
-      filters: []
+      filters: [],
+      random: Math.random()
     });
-    updateCategoryChart({ filters: [] });
+    updateCategoryChart({ filters: [], random: Math.random() });
+    updateKeyResults({ filters: [], random: Math.random() });
   }, []);
 
   const handleApply = async () => {
@@ -57,20 +79,35 @@ const SectionEngagement = () => {
 
   const handleReset = () => {
     console.log('handleReset');
+    dispatch(clearSelectedFilters({ tab: 'engagement' }));
+    updateFiltersEngagement({ filters: [], is_starting: false });
   };
 
   return (
     <>
-      <FilterEngagement onApply={handleApply} onReset={handleReset} />
+      <FilterEngagement
+        onApply={handleApply}
+        onReset={handleReset}
+        isLoading={isFetching}
+      />
       <EngagementResults
         data={dataSpeedChart.data}
-        isLoading={isLoadingSpeedChart}
+        isLoading={isFetchingSpeedChart}
         view={viewChart}
       />
-      <EngagementCategory data={dataCategoryChart.data} />
-      <Issues />
+      <EngagementCategory
+        data={dataCategoryChart.data}
+        isLoading={isFetchingCategoryChart}
+      />
+      <Issues
+        data={dataKeyResults.data_problems}
+        isLoading={isFetchingKeyResults}
+      />
       <Comments type='issue' />
-      <Zones />
+      <Zones
+        data={dataKeyResults.data_zones}
+        isLoading={isFetchingKeyResults}
+      />
       <Comments type='zone' />
     </>
   );

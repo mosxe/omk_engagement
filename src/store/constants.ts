@@ -21,3 +21,16 @@ export const initialCategoryChart = {
   isError: false,
   errorMessage: ''
 };
+
+export const initialKeyResults = {
+  data_problems: {
+    common: [],
+    subdivision: []
+  },
+  data_zones: {
+    common: [],
+    subdivision: []
+  },
+  isError: false,
+  errorMessage: ''
+};

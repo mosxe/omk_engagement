@@ -3,6 +3,8 @@ import Checkbox from './Checkbox';
 import styles from './styles.module.scss';
 import { Option, SelectProps } from './types';
 
+const getTextLoading = () => <span>Загрузка данных...</span>;
+
 const Select = (props: SelectProps): JSX.Element => {
   const {
     id,
@@ -37,9 +39,10 @@ const Select = (props: SelectProps): JSX.Element => {
     const tempValue =
       props.selectProps.value !== null &&
       props.selectProps.value.length > 1 &&
-      indexArray > 0
-        ? ', ' + props.data.label
+      props.selectProps.value.length - 1 !== indexArray
+        ? props.data.label + ', '
         : props.data.label;
+
     return (
       <components.MultiValueLabel {...props}>
         <div className='root'>{tempValue}</div>
@@ -64,9 +67,9 @@ const Select = (props: SelectProps): JSX.Element => {
         !inputValue ? noOptionsMessage : noOptionsMessageDefault
       }
       placeholder={placeholder}
-      components={{ Option: OptionSelect }}
+      components={{ Option: OptionSelect, MultiValueLabel }}
       classNames={{
-        control: ({ isDisabled, menuIsOpen }) =>
+        control: ({ menuIsOpen }) =>
           menuIsOpen
             ? `${styles.select__container} ${styles.select__container_focus}`
             : isDisabled
@@ -88,7 +91,7 @@ const Select = (props: SelectProps): JSX.Element => {
       }}
       value={value}
       onChange={onChange}
-      loadingMessage={() => <span>Загрузка данных...</span>}
+      loadingMessage={getTextLoading}
       isDisabled={isDisabled}
     />
   );

@@ -9,9 +9,44 @@ type Props = {
 };
 
 const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
+  if (isLoading) {
+    return (
+      <div className={styles['engagement-results__box']}>
+        <div>
+          <div className={styles['engagement-results__container']}>
+            <div className={styles['engagement-results__chart']}>
+              ЗАГРУЗКА ДАННЫХ
+            </div>
+          </div>
+          <div className={styles['engagement-results__row']}>
+            <div
+              className={`${styles['engagement-results__container']} ${styles['engagement-results__container_s']}`}
+            >
+              <div
+                className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
+              >
+                ЗАГРУЗКА ДАННЫХ
+              </div>
+            </div>
+            <div
+              className={`${styles['engagement-results__container']} ${styles['engagement-results__container_s']}`}
+            >
+              <div
+                className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
+              >
+                ЗАГРУЗКА ДАННЫХ
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (!data.length) {
     return null;
   }
+
   const filteredData = data.filter((card) => !card.is_matching);
   const matchingData = data.find((card) => card.is_matching) as SpeedChart;
 

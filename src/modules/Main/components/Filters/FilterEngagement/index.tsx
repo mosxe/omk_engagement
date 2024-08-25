@@ -5,7 +5,7 @@ import { OptionChange } from 'components/Select/types';
 import { FilterName, Filter } from 'types';
 import {
   getFilterOptions,
-  getDefaultValue,
+  getValueSelect,
   transformDataFilters
 } from 'helpers';
 import { initialFiltersEngagement } from 'store/constants';
@@ -16,11 +16,14 @@ import { useAppSelector, useAppDispatch } from 'store/hooks';
 type Props = {
   onApply: () => void;
   onReset: () => void;
+  isLoading: boolean;
 };
 
-const FilterEngagement = ({ onApply, onReset }: Props) => {
-  const [updateFiltersEngagement, { data = initialFiltersEngagement }] =
-    useLazyGetFilterEngagementDataQuery();
+const FilterEngagement = ({ onApply, onReset, isLoading }: Props) => {
+  const [
+    updateFiltersEngagement,
+    { data = initialFiltersEngagement, isFetching }
+  ] = useLazyGetFilterEngagementDataQuery();
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.engagement
@@ -37,34 +40,47 @@ const FilterEngagement = ({ onApply, onReset }: Props) => {
     };
     dispatch(updateSelectedFilters({ tab: 'engagement', data: filterValues }));
     const dataFilters = transformDataFilters(selectedFilters, filterValues);
-    // await updateFiltersCompass({
-    //   filters: dataFilters,
-    //   is_starting: false
-    // });
+    await updateFiltersEngagement({
+      filters: dataFilters,
+      is_starting: false
+    });
   };
 
+  const isLoadingFilter = isFetching || isLoading;
+
   return (
-    <FilterContainer onApply={onApply} onReset={onReset}>
+    <FilterContainer
+      onApply={onApply}
+      onReset={onReset}
+      isLoading={isLoadingFilter}
+      data={selectedFilters}
+    >
       <Select
         options={getFilterOptions(data.filters, 'group')}
-        defaultValue={getDefaultValue(selectedFilters, 'group')}
+        defaultValue={getValueSelect(selectedFilters, 'group')}
         onChange={(e) => onChange(e, 'group')}
+        value={getValueSelect(selectedFilters, 'group')}
         placeholder='Группа'
         width={180}
+        isDisabled={isLoadingFilter}
       />
       <Select
         options={getFilterOptions(data.filters, 'subs')}
-        defaultValue={getDefaultValue(selectedFilters, 'subs')}
+        defaultValue={getValueSelect(selectedFilters, 'subs')}
         onChange={(e) => onChange(e, 'subs')}
+        value={getValueSelect(selectedFilters, 'subs')}
         placeholder='Подразделение/БЕ'
         width={230}
+        isDisabled={isLoadingFilter}
       />
       <Select
         options={getFilterOptions(data.filters, 'city')}
-        defaultValue={getDefaultValue(selectedFilters, 'city')}
+        defaultValue={getValueSelect(selectedFilters, 'city')}
         onChange={(e) => onChange(e, 'city')}
+        value={getValueSelect(selectedFilters, 'city')}
         placeholder='Город'
         width={170}
+        isDisabled={isLoadingFilter}
       />
     </FilterContainer>
   );

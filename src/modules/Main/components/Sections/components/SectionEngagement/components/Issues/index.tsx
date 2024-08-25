@@ -1,11 +1,13 @@
 ﻿import Table from '../Table';
+import { KeyResults } from 'types';
 import styles from './styles.module.scss';
 
-// type Props = {
-//   data: SpeedChart[];
-// };
-// { data }: Props
-const EngagementResults = () => {
+type Props = {
+  data: KeyResults;
+  isLoading: boolean;
+};
+
+const EngagementResults = ({ data, isLoading }: Props) => {
   return (
     <section className={styles['engagement-issues']}>
       <div className={styles['engagement-issues__header']}>
@@ -19,7 +21,8 @@ const EngagementResults = () => {
             Общие зоны развития
           </div>
           <div>
-            <Table />
+            {isLoading && <div>Загрузка данных</div>}
+            {!isLoading && <Table data={data.common} />}
           </div>
         </div>
         <div className={styles['engagement-issues__container']}>
@@ -27,7 +30,8 @@ const EngagementResults = () => {
             Зоны развития в подразделениях
           </div>
           <div>
-            <Table />
+            {isLoading && <div>Загрузка данных</div>}
+            {!isLoading && <Table data={data.subdivision} />}
           </div>
         </div>
       </div>

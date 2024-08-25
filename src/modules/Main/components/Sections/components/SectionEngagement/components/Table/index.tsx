@@ -1,6 +1,11 @@
-﻿import styles from './styles.module.scss';
+﻿import { KeyResult } from 'types';
+import styles from './styles.module.scss';
 
-const Table = () => {
+type Props = {
+  data: KeyResult[];
+};
+
+const Table = ({ data }: Props) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -11,21 +16,15 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Людей не достаточно, чтобы выполнять работу</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>
+        {data.map((item, index) => {
+          return (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.procent}</td>
+              <td>{item.frequency}%</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

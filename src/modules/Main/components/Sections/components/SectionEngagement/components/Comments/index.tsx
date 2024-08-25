@@ -1,7 +1,9 @@
-﻿import { useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Modal from 'components/Modal';
 import ModalContent from './ModalContent';
+import Card from './Card';
+import { Comment } from 'types';
 import Image from 'assets/images/Engagement/img_4.png';
 import { useLazyGetCommentsQuery } from 'store/apiSlice';
 import styles from './styles.module.scss';
@@ -12,13 +14,16 @@ type Props = {
 
 const Comments = ({ type }: Props) => {
   const [getComments, { data, isLoading }] = useLazyGetCommentsQuery();
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
-  const [isShowModal, setShowModal] = useState<boolean>(false);
+  useEffect(() => {
+    getComments({ type: type, is_starting: true });
+  }, []);
 
   const handleModal = () => {
-    setShowModal((prevValue) => {
+    setIsShowModal((prevValue) => {
       if (data === undefined && !prevValue) {
-        getComments(type)
+        getComments({ type: type, is_starting: false })
           .then((payload) => {
             if (payload.isError || payload.data?.isError) {
               toast('Произошла ошибка');
@@ -29,6 +34,8 @@ const Comments = ({ type }: Props) => {
       return !prevValue;
     });
   };
+
+  const isShowButton = data !== undefined && data.data.length > 2;
 
   return (
     <>
@@ -53,81 +60,55 @@ const Comments = ({ type }: Props) => {
             топ-проблематика
           </span>
         </div>
-        <div className={styles['engagement-comments__wrapper']}>
-          <div className={styles['engagement-comments__card']}>
-            <div className={styles['engagement-comments__card_text']}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur.{' '}
-            </div>
-            <div className={styles['engagement-comments__card_name']}>
-              Иванов П.Е.
-            </div>
-            <div className={styles['engagement-comments__card_position']}>
-              должность
-            </div>
+        {isLoading && (
+          <div className={styles['engagement-comments__empty']}>
+            Загрузка данных
           </div>
-          <div className={styles['engagement-comments__card']}>
-            <div className={styles['engagement-comments__card_text']}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur.{' '}
-            </div>
-            <div className={styles['engagement-comments__card_name']}>
-              Иванов П.Е.
-            </div>
-            <div className={styles['engagement-comments__card_position']}>
-              должность
-            </div>
+        )}
+        {!isLoading && data?.data.length === 0 && (
+          <div className={styles['engagement-comments__empty']}>
+            Данные отсутствуют
           </div>
-          <div className={styles['engagement-comments__card']}>
-            <div className={styles['engagement-comments__card_text']}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur.{' '}
-            </div>
-            <div className={styles['engagement-comments__card_name']}>
-              Иванов П.Е.
-            </div>
-            <div className={styles['engagement-comments__card_position']}>
-              должность
-            </div>
+        )}
+        {!isLoading && data?.data.length > 0 && (
+          <div className={styles['engagement-comments__wrapper']}>
+            {data?.data.map((card) => (
+              <Card
+                key={card.id}
+                text={card.text}
+                person_name={card.person_name}
+                position_name={card.position_name}
+              />
+            ))}
           </div>
-        </div>
-        <button
-          className={styles['engagement-comments__btn']}
-          type='button'
-          onClick={handleModal}
-        >
-          читать все комментарии
-          <svg
-            width='31'
-            height='6'
-            viewBox='0 0 31 6'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
+        )}
+        {isShowButton && (
+          <button
+            className={styles['engagement-comments__btn']}
+            type='button'
+            onClick={handleModal}
           >
-            <path
-              d='M0.5 5.5H30.5L21.0932 0.5'
-              stroke='#E41910'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            />
-          </svg>
-        </button>
+            читать все комментарии
+            <svg
+              width='31'
+              height='6'
+              viewBox='0 0 31 6'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                d='M0.5 5.5H30.5L21.0932 0.5'
+                stroke='#E41910'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          </button>
+        )}
       </section>
       <Modal isShow={isShowModal} onClose={handleModal} width={1400}>
         <ModalContent
-          data={data?.data}
+          data={data?.data as Comment[]}
           onClose={handleModal}
           isLoading={isLoading}
         />

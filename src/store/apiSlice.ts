@@ -4,11 +4,13 @@ import {
   FilterParams,
   ResponseSpeedChart,
   ResponseCategoryChart,
-  ResponseComments
+  ResponseComments,
+  ResponseKeyResults
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
 
+// RANDOM в параметрах нужно будет удалить перед билдом на прод!!!!!!
 const postUrl = (urlParams: string) => {
   return import.meta.env.DEV
     ? 'https://jsonplaceholder.typicode.com/posts'
@@ -30,7 +32,6 @@ const urlBuilder = (params?: { [key: string]: any }) => {
 
 export const API = createApi({
   reducerPath: 'API',
-  refetchOnFocus: true,
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
     getFilterEngagementData: builder.query<
@@ -73,13 +74,10 @@ export const API = createApi({
         })
       }),
       transformResponse: (response: ResponseFilters, meta, arg) => {
-        // console.log('transformResponse');
-        // console.log(arg);
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseFilters = arg.is_starting
             ? (mockData.dataCompass as ResponseFilters)
             : (mockData.dataUpdateCompass as ResponseFilters);
-          // console.log(mockDataResponse);
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -90,22 +88,21 @@ export const API = createApi({
     }),
     getSpeedData: builder.query<
       ResponseSpeedChart,
-      { filters: FilterParams[] }
+      { filters: FilterParams[]; random: number }
     >({
-      query: ({ filters }) => ({
+      query: ({ filters, random }) => ({
         url: postUrl('&action=getSpeedData'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          filters
+          filters,
+          random
         })
       }),
       transformResponse: (response: ResponseSpeedChart) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseSpeedChart =
             mockData.dataBarChart as ResponseSpeedChart;
-
-          // mockData.dataSpeedChart as ResponseSpeedChart;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -116,14 +113,15 @@ export const API = createApi({
     }),
     getCategoryData: builder.query<
       ResponseCategoryChart,
-      { filters: FilterParams[] }
+      { filters: FilterParams[]; random: number }
     >({
-      query: ({ filters }) => ({
+      query: ({ filters, random }) => ({
         url: postUrl('&action=getCategoryData'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          filters
+          filters,
+          random
         })
       }),
       transformResponse: (response: ResponseCategoryChart) => {
@@ -138,19 +136,55 @@ export const API = createApi({
         }
       }
     }),
-    getComments: builder.query<ResponseComments, 'zone' | 'issue'>({
-      query: (type) =>
+    getKeyResults: builder.query<
+      ResponseKeyResults,
+      { filters: FilterParams[]; random: number }
+    >({
+      query: ({ filters, random }) => ({
+        url: postUrl('&action=getKeyResults'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters,
+          random
+        })
+      }),
+      transformResponse: (response: ResponseKeyResults) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseKeyResults =
+            mockData.dataKeyResults as ResponseKeyResults;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 500);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getComments: builder.query<
+      ResponseComments,
+      { type: 'zone' | 'issue'; is_starting: boolean }
+    >({
+      query: ({ type, is_starting }) =>
         urlBuilder({
           action: 'getComments',
-          type: type
+          type,
+          is_starting
         }),
       transformResponse: (response: ResponseComments, meta, arg) => {
         if (import.meta.env.DEV) {
+          let data = [];
+          if (arg.type === 'zone') {
+            data = arg.is_starting
+              ? mockData.dataStartCommentsZones.data
+              : mockData.dataCommentsZones.data;
+          } else {
+            data = arg.is_starting
+              ? mockData.dataStartCommentsIssues.data
+              : mockData.dataCommentsIssues.data;
+          }
           const mockDataResponse: ResponseComments = {
-            data:
-              arg === 'zone'
-                ? mockData.dataCommentsZones.data
-                : mockData.dataCommentsIssues.data,
+            data: data,
             isError: false,
             errorMessage: ''
           };
@@ -171,5 +205,6 @@ export const {
   useLazyGetFilterCompassDataQuery,
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
-  useLazyGetCommentsQuery
+  useLazyGetCommentsQuery,
+  useLazyGetKeyResultsQuery
 } = API;

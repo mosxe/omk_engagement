@@ -127,6 +127,31 @@ const filtersSlice = createSlice({
       //   );
       //   state.selectedTags[state.nav] = filteredSelectedTags;
       // }
+    },
+    clearSelectedFilters: (state, action: PayloadAction<{ tab: Tab }>) => {
+      console.log(action.payload.tab);
+      state.selectedFilters[action.payload.tab].forEach(
+        (filter) => (filter.value = [])
+      );
+      // const filter = tabData.find(
+      //   (item) => item.name === action.payload.data.name
+      // );
+
+      // if (filter !== undefined) {
+      //   filter.value = action.payload.data.value;
+      // }
+      // const selectedTagsRole = state.selectedTags[state.nav];
+      // if (action.payload.isChecked) {
+      //   state.selectedTags[state.nav] = [
+      //     ...selectedTagsRole,
+      //     action.payload.label
+      //   ];
+      // } else {
+      //   const filteredSelectedTags = selectedTagsRole.filter(
+      //     (selectedTag) => selectedTag !== action.payload.label
+      //   );
+      //   state.selectedTags[state.nav] = filteredSelectedTags;
+      // }
     }
     // clearSelectedTags: (state) => {
     //   state.selectedTags[state.nav] = [];
@@ -171,6 +196,7 @@ const filtersSlice = createSlice({
   }
 });
 
-export const { updateSelectedFilters } = filtersSlice.actions;
+export const { updateSelectedFilters, clearSelectedFilters } =
+  filtersSlice.actions;
 
 export default filtersSlice.reducer;

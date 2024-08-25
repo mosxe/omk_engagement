@@ -33,129 +33,19 @@ const EngagementResults = ({ data, isLoading, view }: Props) => {
             label='Сравнить с БЕ'
             checked={value}
             onChange={() => setValue(!value)}
+            isDisabled={isLoading}
           />
         </div>
         {view === 'doughnut' ? (
-          <EngagementDoughnut data={data} isLoading={false} isChecked={value} />
+          <EngagementDoughnut
+            data={data}
+            isLoading={isLoading}
+            isChecked={value}
+          />
         ) : (
-          <EngagementBar data={data} isLoading={false} isChecked={value} />
+          <EngagementBar data={data} isLoading={isLoading} isChecked={value} />
         )}
-
-        {/* <div className={styles['engagement-results__box']}>
-          <div>
-            <div className={styles['engagement-results__container']}>
-              <div className={styles['engagement-results__chart']}>
-                <Doughnut
-                  percent={data[0]?.percent}
-                  title={`${data[0]?.year} год`}
-                  id='doughnut_chart_0'
-                />
-              </div>
-            </div>
-            <div className={styles['engagement-results__row']}>
-              <div
-                className={`${styles['engagement-results__container']} ${styles['engagement-results__container_s']}`}
-              >
-                <div
-                  className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
-                >
-                  <Doughnut
-                    percent={80}
-                    title='2023 год'
-                    id='doughnut_chart_1'
-                    size='small'
-                  />
-                </div>
-              </div>
-              <div
-                className={`${styles['engagement-results__container']} ${styles['engagement-results__container_s']}`}
-              >
-                <div
-                  className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
-                >
-                  <Doughnut
-                    percent={100}
-                    title='2022 год'
-                    id='doughnut_chart_2'
-                    size='small'
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          {value && (
-            <div className={styles['engagement-results__container']}>
-              <div className={styles['engagement-results__chart']}>
-                <Doughnut
-                  percent={data[0]?.percent}
-                  title={`${data[0]?.year} год`}
-                  id='doughnut_chart_22'
-                />
-              </div>
-            </div>
-          )}
-        </div> */}
-        {/* <div className={styles['engagement-results__box']}>
-          <div>
-            <div className={styles['engagement-results__container']}>
-              <div
-                className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
-              >
-                <Bar id='1' title='Цепной волк' data={[]} />
-              </div>
-            </div>
-            <div className={styles['engagement-results__row']}>
-              <div
-                className={`${styles['engagement-results__container']} ${styles['engagement-results__container_s']}`}
-              >
-                <div
-                  className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
-                >
-                  <Doughnut
-                    percent={80}
-                    title='2023 год'
-                    id='doughnut_chart_1'
-                    size='small'
-                  />
-                </div>
-              </div>
-              <div
-                className={`${styles['engagement-results__container']} ${styles['engagement-results__container_s']}`}
-              >
-                <div
-                  className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
-                >
-                  <Doughnut
-                    percent={100}
-                    title='2022 год'
-                    id='doughnut_chart_2'
-                    size='small'
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          {value && (
-            <div className={styles['engagement-results__container']}>
-              <div className={styles['engagement-results__chart']}>
-                <Doughnut
-                  percent={data[0]?.percent}
-                  title={`${data[0]?.year} год`}
-                  id='doughnut_chart_22'
-                />
-              </div>
-            </div>
-          )}
-        </div> */}
       </div>
-
-      {/* <div className={styles['engagement-results__container']}>
-        <div
-          className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
-        >
-          <Bar id='1' title='Цепной волк' data={[]} />
-        </div>
-      </div> */}
     </section>
   );
 };

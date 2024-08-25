@@ -243,32 +243,61 @@
   "dataCommentsIssues": {
     "data": [
       {
+        "id": 1,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       },
       {
+        "id": 2,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       },
       {
+        "id": 3,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dol",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       },
       {
+        "id": 4,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       },
       {
+        "id": 5,
         "text": "Lorem ipsum dolor sit amet, consectetur ",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       },
       {
+        "id": 6,
         "text": "Lorem 333 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+        "person_name": "Иванов П.Е.",
+        "position_name": "Ведущий разработчик"
+      }
+    ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "dataStartCommentsIssues": {
+    "data": [],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "dataStartCommentsZones": {
+    "data": [
+      {
+        "id": 1,
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+        "person_name": "Иванов П.Е.",
+        "position_name": "Ведущий разработчик"
+      },
+      {
+        "id": 2,
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       }
@@ -279,16 +308,100 @@
   "dataCommentsZones": {
     "data": [
       {
+        "id": 1,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       },
       {
+        "id": 2,
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "person_name": "Иванов П.Е.",
+        "position_name": "Ведущий разработчик"
+      },
+      {
+        "id": 3,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
       }
     ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "dataKeyResults": {
+    "data_problems": {
+      "common": [
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу 22222",
+          "procent": 22,
+          "frequency": 20
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу",
+          "procent": 33,
+          "frequency": 80
+        }
+      ],
+      "subdivision": [
+        {
+          "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону",
+          "procent": 77,
+          "frequency": 50
+        },
+        {
+          "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону 2",
+          "procent": 80,
+          "frequency": 50
+        }
+      ]
+    },
+    "data_zones": {
+      "common": [
+        {
+          "name": "Нехватка инструментов и запчастей",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Нехватка инструментов и запчастей 2",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Нехватка инструментов",
+          "procent": 22,
+          "frequency": 20
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу",
+          "procent": 33,
+          "frequency": 80
+        }
+      ],
+      "subdivision": [
+        {
+          "name": "Руководитель ставит задачи, которые не понятно как выполнять",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону",
+          "procent": 100,
+          "frequency": 50
+        }
+      ]
+    },
     "isError": false,
     "errorMessage": ""
   }

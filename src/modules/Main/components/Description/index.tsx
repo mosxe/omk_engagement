@@ -5,7 +5,7 @@ const Description = () => {
   return (
     <div className={styles.description}>
       <div className={styles.description__image}>
-        <img src={Image} />
+        <img src={Image} alt='Картинка' />
       </div>
       <div className={styles.description__wrapper}>
         <h2>Вовлеченность</h2>

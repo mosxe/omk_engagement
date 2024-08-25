@@ -27,7 +27,6 @@
       "helpers/*": ["helpers/*"]
       // "services/*": ["services/*"]
     },
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

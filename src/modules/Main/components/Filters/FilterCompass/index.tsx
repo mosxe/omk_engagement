@@ -7,7 +7,7 @@ import { useLazyGetFilterCompassDataQuery } from 'store/apiSlice';
 import { initialFiltersCompass } from 'store/constants';
 import {
   getFilterOptions,
-  getDefaultValue,
+  getValueSelect,
   transformDataFilters
 } from 'helpers';
 import { updateSelectedFilters } from 'store/filterSlice';
@@ -47,56 +47,56 @@ const FilterCompass = ({ onApply, onReset }: Props) => {
     <FilterContainer onApply={onApply} onReset={onReset}>
       <Select
         options={getFilterOptions(data.filters, 'group')}
-        defaultValue={getDefaultValue(selectedFilters, 'group')}
+        defaultValue={getValueSelect(selectedFilters, 'group')}
         onChange={(e) => onChange(e, 'group')}
         placeholder='Группа'
         width={180}
       />
       <Select
         options={getFilterOptions(data.filters, 'subs')}
-        defaultValue={getDefaultValue(selectedFilters, 'subs')}
+        defaultValue={getValueSelect(selectedFilters, 'subs')}
         onChange={(e) => onChange(e, 'subs')}
         placeholder='Подразделение/БЕ'
         width={230}
       />
       <Select
         options={getFilterOptions(data.filters, 'city')}
-        defaultValue={getDefaultValue(selectedFilters, 'city')}
+        defaultValue={getValueSelect(selectedFilters, 'city')}
         onChange={(e) => onChange(e, 'city')}
         placeholder='Город'
         width={170}
       />
       <Select
         options={getFilterOptions(data.filters, 'category')}
-        defaultValue={getDefaultValue(selectedFilters, 'category')}
+        defaultValue={getValueSelect(selectedFilters, 'category')}
         onChange={(e) => onChange(e, 'category')}
         placeholder='Категория'
         width={160}
       />
       <Select
         options={getFilterOptions(data.filters, 'sex')}
-        defaultValue={getDefaultValue(selectedFilters, 'sex')}
+        defaultValue={getValueSelect(selectedFilters, 'sex')}
         onChange={(e) => onChange(e, 'sex')}
         placeholder='Пол'
         width={100}
       />
       <Select
         options={getFilterOptions(data.filters, 'experience')}
-        defaultValue={getDefaultValue(selectedFilters, 'experience')}
+        defaultValue={getValueSelect(selectedFilters, 'experience')}
         onChange={(e) => onChange(e, 'experience')}
         placeholder='Стаж работы'
         width={180}
       />
       <Select
         options={getFilterOptions(data.filters, 'problems')}
-        defaultValue={getDefaultValue(selectedFilters, 'problems')}
+        defaultValue={getValueSelect(selectedFilters, 'problems')}
         onChange={(e) => onChange(e, 'problems')}
         placeholder='Проблема'
         width={340}
       />
       <Select
         options={getFilterOptions(data.filters, 'strong_point')}
-        defaultValue={getDefaultValue(selectedFilters, 'strong_point')}
+        defaultValue={getValueSelect(selectedFilters, 'strong_point')}
         onChange={(e) => onChange(e, 'strong_point')}
         placeholder='Сильная сторона'
         width={340}

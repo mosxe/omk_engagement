@@ -1,14 +1,28 @@
-﻿import styles from '../styles.module.scss';
+﻿import { LoaderContent } from 'components/Loader';
+import { Filters, Tab } from 'types';
+import { isDisabledBtn } from 'helpers';
+import styles from '../styles.module.scss';
 
 type Props = {
   onApply: () => void;
   onReset: () => void;
+  isLoading: boolean;
   children: React.ReactNode;
+  data: Filters[];
 };
 
-const FilterContainer = ({ onApply, onReset, children }: Props) => {
+const FilterContainer = ({
+  onApply,
+  onReset,
+  isLoading,
+  children,
+  data
+}: Props) => {
+  const isDisabledClearBtn = isDisabledBtn(data);
+
   return (
     <div className={styles.filters}>
+      {isLoading && <LoaderContent position='absolute' />}
       <div className={styles.filters__wrapper}>
         <div className={styles.filters__text}>
           Воспользуйтесь фильтром, чтобы посмотреть подборку материалов
@@ -31,11 +45,8 @@ const FilterContainer = ({ onApply, onReset, children }: Props) => {
             </button>
             <button
               className={`${styles.filters__btn} ${styles.filters__btn_clear}`}
-              // className={`${styles.filters__btn} ${styles.filters__btn_clear} ${
-              //   selectedTags.length && styles.filters__btn_active
-              // }`}
               type='button'
-              // disabled={!selectedTags.length}
+              disabled={isDisabledClearBtn}
               onClick={onReset}
             >
               Сбросить фильтры

@@ -1,5 +1,4 @@
 ﻿import { Filters, FilterName, Tab } from 'types';
-import { filtersState } from 'store/filterSlice';
 
 const getLink = (link: string) => {
   if (link.startsWith('https://') || link.startsWith('http://')) {
@@ -21,7 +20,7 @@ const getFilterOptions = (data: Filters[], filterName: FilterName) => {
   return options !== undefined ? options.value : [];
 };
 
-const getDefaultValue = (data: Filters[], filterName: FilterName) => {
+const getValueSelect = (data: Filters[], filterName: FilterName) => {
   const selectedFilters = data.find((filter) => filter.name === filterName);
 
   if (selectedFilters !== undefined) {
@@ -54,18 +53,22 @@ const transformDataFilters = (
 const declinationComments = (value: number) => {
   const words = ['комментарий', 'комментария', 'комментариев'];
   const cases = [2, 0, 1, 1, 1, 2];
-  return words[
-    value % 100 > 4 && value % 100 < 20
-      ? 2
-      : cases[value % 10 < 5 ? value % 10 : 5]
-  ];
+  const indexValue = value % 10 < 5 ? value % 10 : 5;
+
+  return words[value % 100 > 4 && value % 100 < 20 ? 2 : cases[indexValue]];
+};
+
+const isDisabledBtn = (data: Filters[]) => {
+  const hasValue = !data.some((filter) => filter.value.length > 0);
+  return hasValue;
 };
 
 export {
   getLink,
   getLinkFile,
   getFilterOptions,
-  getDefaultValue,
+  getValueSelect,
   transformDataFilters,
-  declinationComments
+  declinationComments,
+  isDisabledBtn
 };

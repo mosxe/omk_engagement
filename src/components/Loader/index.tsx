@@ -1,16 +1,18 @@
-﻿import styles from './styles.module.scss';
+﻿import classNames from 'classnames';
+import styles from './styles.module.scss';
 
 type Props = {
-  position?: 'relative' | 'fixed';
+  position?: 'relative' | 'fixed' | 'absolute';
 };
 
 const LoaderContent = ({ position = 'relative' }: Props) => {
-  const className =
-    position === 'fixed'
-      ? `${styles.loader__wrapper} ${styles.loader__wrapper_fixed}`
-      : styles.loader__wrapper;
+  const classNameLoader = classNames(styles.loader__wrapper, {
+    [styles.loader__wrapper_fixed]: position === 'fixed',
+    [styles.loader__wrapper_absolute]: position === 'absolute'
+  });
+
   return (
-    <div className={className}>
+    <div className={classNameLoader}>
       <div className={styles['loader-content']}></div>
     </div>
   );

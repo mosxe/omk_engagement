@@ -5,7 +5,7 @@ import { declinationComments } from 'helpers';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: Comment[] | undefined;
+  data: Comment[];
   isLoading: boolean;
   onClose: () => void;
 };
@@ -41,42 +41,6 @@ const ModalContent = ({ data, isLoading, onClose }: Props) => {
         <Modal.Body>
           <div className={styles['engagement-comments__container']}>
             <LoaderContent />
-          </div>
-        </Modal.Body>
-      </>
-    );
-  }
-
-  if (data === undefined || !data.length) {
-    return (
-      <>
-        <Modal.Header>
-          <div className={styles['engagement-comments_end']}>
-            <ButtonClose onClick={onClose} />
-          </div>
-          <div className={styles['engagement-comments__box']}>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_m']}`}
-            >
-              Топ-проблематика
-            </span>
-            <div className={styles['engagement-comments__text']}>
-              Руководитель{' '}
-              <span className={styles['engagement-comments__text_red']}>
-                отделяет себя от своих сотрудников,
-              </span>{' '}
-              не встает на их сторону
-            </div>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_l']}`}
-            >
-              0 комментариев
-            </span>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <div className={styles['engagement-comments__empty']}>
-            Данные отсутствуют
           </div>
         </Modal.Body>
       </>

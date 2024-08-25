@@ -1,13 +1,17 @@
 ﻿import Card from './Card';
+import Skeleton from './Skeleton';
 import Image from 'assets/images/Engagement/img_3.png';
 import { CategoryChart } from 'types';
 import styles from './styles.module.scss';
 
 type Props = {
   data: CategoryChart[];
+  isLoading: boolean;
 };
 
-const EngagementCategory = ({ data }: Props) => {
+const COUNT_SKELETON = 6;
+
+const EngagementCategory = ({ data, isLoading }: Props) => {
   return (
     <section className={styles['engagement-category']}>
       <div className={styles['engagement-category__header']}>
@@ -19,16 +23,21 @@ const EngagementCategory = ({ data }: Props) => {
         </div>
       </div>
       <div className={styles['engagement-category__wrapper']}>
-        {data.map((item, index) => {
-          return (
-            <Card
-              title={item.name}
-              percent={item.percent}
-              color='black'
-              key={index}
-            />
-          );
-        })}
+        {isLoading &&
+          [...Array(COUNT_SKELETON)].map((_, index) => (
+            <Skeleton key={index} />
+          ))}
+        {!isLoading &&
+          data.map((item, index) => {
+            return (
+              <Card
+                title={item.name}
+                percent={item.percent}
+                color='black'
+                key={index}
+              />
+            );
+          })}
         {/* <Card title='Движущая сила' percent={1} color='black' />
         <Card title='Ослабленные' percent={2} color='purple' />
         <Card title='Мученики' percent={4} color='blue' />
