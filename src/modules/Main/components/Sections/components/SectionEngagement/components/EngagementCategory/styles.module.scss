@@ -41,6 +41,7 @@
   }
 
   &__wrapper {
+    margin-top: 50px;
     display: grid;
     grid-template-columns: 290px 290px 290px;
     grid-template-rows: 290px 290px;
@@ -135,6 +136,41 @@
       & .engagement-category__card_text {
         color: rgba(255, 126, 0, 1);
       }
+    }
+  }
+
+  &__skeleton {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 60%
+      )
+      #ededed;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 1.2s loading ease-in-out infinite;
+
+    &_line {
+      background-color: var(--page-color-gray);
+      min-height: 16px;
+      min-width: 140px;
+      border-radius: 8px;
+      animation-delay: 0.05s;
+    }
+
+    &_circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: var(--page-color-gray);
+      animation-delay: 0.07s;
+    }
+  }
+
+  @keyframes loading {
+    to {
+      background-position-x: -20%;
     }
   }
 }

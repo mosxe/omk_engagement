@@ -3,14 +3,15 @@
 const Skeleton = () => {
   return (
     <div className={styles['engagement-category__card']}>
-      <div className={styles['engagement-category__card_title']}>Загрузка</div>
       <div
-        className={styles['engagement-category__card_circle']}
-        style={{ width: 50, height: 50 }}
-      >
-        Загрузка
-      </div>
-      <div className={styles['engagement-category__card_text']}>Загрузка</div>
+        className={`${styles['engagement-category__skeleton_line']} ${styles['engagement-category__skeleton']}`}
+      ></div>
+      <div
+        className={`${styles['engagement-category__skeleton_circle']} ${styles['engagement-category__skeleton']}`}
+      ></div>
+      <div
+        className={`${styles['engagement-category__skeleton_line']} ${styles['engagement-category__skeleton']}`}
+      ></div>
     </div>
   );
 };

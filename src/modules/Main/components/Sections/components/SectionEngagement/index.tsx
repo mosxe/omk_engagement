@@ -97,7 +97,8 @@ const SectionEngagement = () => {
       />
       <EngagementCategory
         data={dataCategoryChart.data}
-        isLoading={isFetchingCategoryChart}
+        isLoading={true}
+        // isLoading={isFetchingCategoryChart}
       />
       <Issues
         data={dataKeyResults.data_problems}

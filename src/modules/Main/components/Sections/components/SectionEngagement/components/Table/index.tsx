@@ -3,9 +3,49 @@ import styles from './styles.module.scss';
 
 type Props = {
   data: KeyResult[];
+  isLoading: boolean;
 };
 
-const Table = ({ data }: Props) => {
+const COUNT_SKELETON = 3;
+
+const Table = ({ data, isLoading }: Props) => {
+  if (isLoading) {
+    return (
+      <table className={`${styles.table} `}>
+        <thead>
+          <tr>
+            <th>Проблематика</th>
+            <th>% влияния на вовлеченность</th>
+            <th>Частота выбора</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...Array(COUNT_SKELETON)].map((skeleton) => {
+            return (
+              <tr key={skeleton}>
+                <td>
+                  <div
+                    className={`${styles.table__skeleton_line} ${styles.table__skeleton}`}
+                  ></div>
+                </td>
+                <td>
+                  <div
+                    className={`${styles.table__skeleton_line} ${styles.table__skeleton}`}
+                  ></div>
+                </td>
+                <td>
+                  <div
+                    className={`${styles.table__skeleton_line} ${styles.table__skeleton}`}
+                  ></div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
+
   return (
     <table className={styles.table}>
       <thead>
