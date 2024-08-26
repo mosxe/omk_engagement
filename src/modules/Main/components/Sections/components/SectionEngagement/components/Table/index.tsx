@@ -20,9 +20,9 @@ const Table = ({ data, isLoading }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {[...Array(COUNT_SKELETON)].map((skeleton) => {
+          {[...Array(COUNT_SKELETON)].map((skeleton, index) => {
             return (
-              <tr key={skeleton}>
+              <tr key={index}>
                 <td>
                   <div
                     className={`${styles.table__skeleton_line} ${styles.table__skeleton}`}

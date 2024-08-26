@@ -66,6 +66,7 @@ export interface Comment {
 
 export interface ResponseComments extends Error {
   data: Comment[];
+  problem: string;
 }
 
 export interface KeyResult {

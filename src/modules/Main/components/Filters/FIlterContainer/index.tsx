@@ -7,6 +7,7 @@ type Props = {
   onApply: () => void;
   onReset: () => void;
   isLoading: boolean;
+  isDisabled: boolean;
   children: React.ReactNode;
   data: Filters[];
 };
@@ -15,6 +16,7 @@ const FilterContainer = ({
   onApply,
   onReset,
   isLoading,
+  isDisabled,
   children,
   data
 }: Props) => {
@@ -32,13 +34,8 @@ const FilterContainer = ({
           <div className={styles.filters__row}>
             <button
               className={`${styles.filters__btn} ${styles.filters__btn_apply}`}
-              // className={`${styles.filters__btn} ${
-              //   selectedTags.length && styles.filters__btn_active
-              // }`}
               type='button'
-              // disabled
-              // disabled={!selectedTags.length}
-              // onClick={handleApplyFilters}
+              disabled={isDisabled}
               onClick={onApply}
             >
               Применить

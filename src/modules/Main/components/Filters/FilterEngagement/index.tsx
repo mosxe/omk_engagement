@@ -17,9 +17,15 @@ type Props = {
   onApply: () => void;
   onReset: () => void;
   isLoading: boolean;
+  isDisabled: boolean;
 };
 
-const FilterEngagement = ({ onApply, onReset, isLoading }: Props) => {
+const FilterEngagement = ({
+  onApply,
+  onReset,
+  isLoading,
+  isDisabled
+}: Props) => {
   const [
     updateFiltersEngagement,
     { data = initialFiltersEngagement, isFetching }
@@ -53,6 +59,7 @@ const FilterEngagement = ({ onApply, onReset, isLoading }: Props) => {
       onApply={onApply}
       onReset={onReset}
       isLoading={isLoadingFilter}
+      isDisabled={isDisabled}
       data={selectedFilters}
     >
       <Select

@@ -185,7 +185,11 @@ export const API = createApi({
           }
           const mockDataResponse: ResponseComments = {
             data: data,
-            isError: false,
+            problem:
+              arg.type === 'issue'
+                ? mockData.dataStartCommentsZones.problem
+                : mockData.dataStartCommentsIssues.problem,
+            isError: arg.type === 'issue' ? true : false,
             errorMessage: ''
           };
           return new Promise((resolve) => {

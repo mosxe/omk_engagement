@@ -177,6 +177,62 @@
     margin-top: 30px;
   }
 
+  &__skeleton {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 60%
+      )
+      #ededed;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 1.2s loading ease-in-out infinite;
+
+    &_line {
+      background-color: var(--page-color-gray);
+      min-height: 16px;
+      min-width: 100px;
+      border-radius: 8px;
+      animation-delay: 0.05s;
+
+      &:last-child {
+        margin-top: 5px;
+      }
+    }
+
+    &_text {
+      background-color: var(--page-color-gray);
+      min-height: 200px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      animation-delay: 0.05s;
+    }
+
+    &_title {
+      background-color: var(--page-color-gray);
+      min-height: 16px;
+      max-width: 600px;
+      width: 100%;
+      border-radius: 8px;
+      animation-delay: 0.05s;
+    }
+
+    &_subtitle {
+      background-color: var(--page-color-gray);
+      min-height: 16px;
+      min-width: 200px;
+      border-radius: 8px;
+      animation-delay: 0.05s;
+    }
+  }
+
+  @keyframes loading {
+    to {
+      background-position-x: -20%;
+    }
+  }
+
   &:last-child {
     margin-bottom: 100px;
   }

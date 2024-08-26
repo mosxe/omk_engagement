@@ -34,3 +34,10 @@ export const initialKeyResults = {
   isError: false,
   errorMessage: ''
 };
+
+export const initialComments = {
+  data: [],
+  problem: '',
+  isError: false,
+  errorMessage: ''
+};

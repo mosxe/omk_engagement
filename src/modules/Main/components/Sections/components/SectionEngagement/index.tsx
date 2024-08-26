@@ -60,7 +60,7 @@ const SectionEngagement = () => {
     updateKeyResults({ filters: [], random: Math.random() });
   }, []);
 
-  const handleApply = async () => {
+  const handleApply = () => {
     const dataFilters = transformDataFilters(selectedFilters);
     const filterSubs = selectedFilters.find((filter) => filter.name === 'subs');
     const viewChart =
@@ -69,12 +69,15 @@ const SectionEngagement = () => {
         : 'doughnut';
     setViewChart(viewChart);
 
-    await updateSpeedChart({
-      filters: dataFilters
+    updateSpeedChart({
+      filters: dataFilters,
+      random: Math.random()
     });
-    await updateCategoryChart({
-      filters: dataFilters
+    updateCategoryChart({
+      filters: dataFilters,
+      random: Math.random()
     });
+    updateKeyResults({ filters: [], random: Math.random() });
   };
 
   const handleReset = () => {
@@ -83,12 +86,16 @@ const SectionEngagement = () => {
     updateFiltersEngagement({ filters: [], is_starting: false });
   };
 
+  const isDisabledBtnApply =
+    isFetchingSpeedChart || isFetchingCategoryChart || isFetchingKeyResults;
+
   return (
     <>
       <FilterEngagement
         onApply={handleApply}
         onReset={handleReset}
         isLoading={isFetching}
+        isDisabled={isDisabledBtnApply}
       />
       <EngagementResults
         data={dataSpeedChart.data}

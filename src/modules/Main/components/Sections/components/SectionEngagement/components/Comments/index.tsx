@@ -1,11 +1,12 @@
 ﻿import { useEffect, useState } from 'react';
+import Image from 'assets/images/Engagement/img_4.png';
 import { toast } from 'react-toastify';
 import Modal from 'components/Modal';
 import ModalContent from './ModalContent';
-import Card from './Card';
+import Content from './Content';
 import { Comment } from 'types';
-import Image from 'assets/images/Engagement/img_4.png';
 import { useLazyGetCommentsQuery } from 'store/apiSlice';
+import { initialComments } from 'store/constants';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -13,7 +14,8 @@ type Props = {
 };
 
 const Comments = ({ type }: Props) => {
-  const [getComments, { data, isLoading }] = useLazyGetCommentsQuery();
+  const [getComments, { data = initialComments, isLoading, isFetching }] =
+    useLazyGetCommentsQuery();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const Comments = ({ type }: Props) => {
     });
   };
 
-  const isShowButton = data !== undefined && data.data.length > 2;
+  const isShowButton = data.data.length > 2;
 
   return (
     <>
@@ -48,40 +50,17 @@ const Comments = ({ type }: Props) => {
             <img src={Image} alt='Картинка' />
           </div>
         </div>
-        <div className={styles['engagement-comments__description']}>
-          <div className={styles['engagement-comments__text']}>
-            Руководитель{' '}
-            <span className={styles['engagement-comments__text_red']}>
-              отделяет себя от своих сотрудников,
-            </span>{' '}
-            не встает на их сторону
-          </div>
-          <span className={styles['engagement-comments__subtext']}>
-            топ-проблематика
-          </span>
-        </div>
-        {isLoading && (
-          <div className={styles['engagement-comments__empty']}>
-            Загрузка данных
+        {data.problem && !true && (
+          <div className={styles['engagement-comments__description']}>
+            <div className={styles['engagement-comments__text']}>
+              {data.problem}
+            </div>
+            <span className={styles['engagement-comments__subtext']}>
+              топ-проблематика
+            </span>
           </div>
         )}
-        {!isLoading && data?.data.length === 0 && (
-          <div className={styles['engagement-comments__empty']}>
-            Данные отсутствуют
-          </div>
-        )}
-        {!isLoading && data?.data.length > 0 && (
-          <div className={styles['engagement-comments__wrapper']}>
-            {data?.data.map((card) => (
-              <Card
-                key={card.id}
-                text={card.text}
-                person_name={card.person_name}
-                position_name={card.position_name}
-              />
-            ))}
-          </div>
-        )}
+        <Content data={data.data} isLoading={true} />
         {isShowButton && (
           <button
             className={styles['engagement-comments__btn']}
@@ -110,7 +89,7 @@ const Comments = ({ type }: Props) => {
         <ModalContent
           data={data?.data as Comment[]}
           onClose={handleModal}
-          isLoading={isLoading}
+          isLoading={isFetching}
         />
       </Modal>
     </>
