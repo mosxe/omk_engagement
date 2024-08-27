@@ -1,0 +1,64 @@
+﻿.doughnut-skeleton {
+  background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 60%
+    )
+    white;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 1.2s loading ease-in-out infinite;
+  z-index: 5;
+
+  &__wrapper {
+    position: relative;
+    width: 400px;
+    height: 250px;
+    overflow: hidden;
+    margin: 0 auto;
+    padding-top: 20px;
+
+    &_s {
+      width: 200px;
+      height: 130px;
+    }
+  }
+
+  &__circle {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    border: 80px solid var(--page-color-gray);
+    border-bottom: none;
+    border-top-left-radius: 250px;
+    border-top-right-radius: 250px;
+
+    &_s {
+      border-width: 40px;
+      border-top-left-radius: 130px;
+      border-top-right-radius: 130px;
+    }
+  }
+
+  &__line {
+    position: absolute;
+    left: 50%;
+    height: 16px;
+    width: 120px;
+    bottom: 10px;
+    transform: translateX(-50%);
+    background-color: var(--page-color-gray);
+    border-radius: 8px;
+
+    &_s {
+      width: 60px;
+    }
+  }
+
+  @keyframes loading {
+    to {
+      background-position-x: -20%;
+    }
+  }
+}

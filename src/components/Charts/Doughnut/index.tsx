@@ -1,5 +1,6 @@
 ﻿import { Chart as ChartJS, ArcElement, Legend, Title } from 'chart.js';
 import { Doughnut as DoughnutJS } from 'react-chartjs-2';
+import Skeleton from './Skeleton';
 
 ChartJS.register(ArcElement, Legend, Title);
 
@@ -100,3 +101,5 @@ const Doughnut = ({ percent, title, id, size = 'large' }: Props) => {
 };
 
 export default Doughnut;
+
+export { Skeleton };

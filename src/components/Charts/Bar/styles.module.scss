@@ -1,0 +1,47 @@
+﻿.bar-skeleton {
+  background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 60%
+    )
+    #ededed;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 1.2s loading ease-in-out infinite;
+
+  &__wrapper {
+    display: flex;
+    gap: 60px;
+    padding: 60px;
+    flex-wrap: nowrap;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__bar {
+    background-color: var(--page-color-gray);
+    height: 200px;
+    width: 100px;
+    animation-delay: 0.05s;
+  }
+
+  &__line {
+    background-color: var(--page-color-gray);
+    height: 16px;
+    width: 80px;
+    border-radius: 8px;
+    animation-delay: 0.13s;
+  }
+}
+
+@keyframes loading {
+  to {
+    background-position-x: -20%;
+  }
+}

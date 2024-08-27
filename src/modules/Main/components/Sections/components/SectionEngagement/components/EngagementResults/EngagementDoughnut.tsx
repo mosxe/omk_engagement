@@ -1,21 +1,21 @@
-﻿import { Doughnut } from 'components/Charts';
+﻿import { Doughnut, DoughnutSkeleton } from 'components/Charts';
 import { SpeedChart } from 'types';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: SpeedChart[];
+  data: SpeedChart[] | undefined;
   isLoading: boolean;
   isChecked: boolean;
 };
 
 const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
-  if (isLoading) {
+  if (data === undefined || isLoading) {
     return (
       <div className={styles['engagement-results__box']}>
         <div>
           <div className={styles['engagement-results__container']}>
             <div className={styles['engagement-results__chart']}>
-              ЗАГРУЗКА ДАННЫХ
+              <DoughnutSkeleton />
             </div>
           </div>
           <div className={styles['engagement-results__row']}>
@@ -25,7 +25,7 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
               <div
                 className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
               >
-                ЗАГРУЗКА ДАННЫХ
+                <DoughnutSkeleton size='small' />
               </div>
             </div>
             <div
@@ -34,17 +34,28 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
               <div
                 className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
               >
-                ЗАГРУЗКА ДАННЫХ
+                <DoughnutSkeleton size='small' />
               </div>
             </div>
           </div>
         </div>
+        {isChecked && (
+          <div className={styles['engagement-results__container']}>
+            <div className={styles['engagement-results__chart']}>
+              <DoughnutSkeleton />
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 
   if (!data.length) {
-    return null;
+    return (
+      <div className={styles['engagement-results__empty']}>
+        Данные отсутствуют
+      </div>
+    );
   }
 
   const filteredData = data.filter((card) => !card.is_matching);

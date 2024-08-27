@@ -1,46 +1,36 @@
-﻿import { Bar } from 'components/Charts';
+﻿import { Bar, BarSkeleton } from 'components/Charts';
 import { SpeedChart, SpeedChartItem } from 'types';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: SpeedChart[];
+  data: SpeedChart[] | undefined;
   isLoading: boolean;
   isChecked: boolean;
 };
 
 const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
-  if (isLoading) {
+  if (data === undefined || isLoading) {
+    const COUNT_SKELETON = isChecked ? 4 : 3;
     return (
       <div className={styles['engagement-results__box']}>
         <div>
           <div className={styles['engagement-results__row']}>
-            <div
-              className={`${styles['engagement-results__container']} ${styles['engagement-results__container_bar']}`}
-            >
-              <div
-                className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
-              >
-                ЗАГРУЗКА ДАННЫХ
-              </div>
-            </div>
-            <div
-              className={`${styles['engagement-results__container']} ${styles['engagement-results__container_bar']}`}
-            >
-              <div
-                className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
-              >
-                ЗАГРУЗКА ДАННЫХ
-              </div>
-            </div>
-            <div
-              className={`${styles['engagement-results__container']} ${styles['engagement-results__container_bar']}`}
-            >
-              <div
-                className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
-              >
-                ЗАГРУЗКА ДАННЫХ
-              </div>
-            </div>
+            {[
+              [...Array(COUNT_SKELETON)].map((_, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`${styles['engagement-results__container']} ${styles['engagement-results__container_bar']}`}
+                  >
+                    <div
+                      className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
+                    >
+                      <BarSkeleton />
+                    </div>
+                  </div>
+                );
+              })
+            ]}
           </div>
         </div>
       </div>
@@ -48,15 +38,15 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
   }
 
   if (!data.length) {
-    return null;
+    return (
+      <div className={styles['engagement-results__empty']}>
+        Данные отсутствуют
+      </div>
+    );
   }
 
   const filteredData = data.filter((card) => !card.is_matching);
   const matchingData = data.find((card) => card.is_matching) as SpeedChart;
-
-  const filteredLabels = filteredData.map((card) =>
-    card.data.map((val) => val.year)
-  );
 
   const getLabels = (labelsData: SpeedChartItem[]) => {
     const labels = labelsData.map((item) => item.year);

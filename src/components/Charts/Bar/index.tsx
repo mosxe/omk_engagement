@@ -9,6 +9,7 @@
 } from 'chart.js';
 import { Bar as BarJS } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import Skeleton from './Skeleton';
 
 type Props = {
   id: string;
@@ -132,3 +133,5 @@ const Bar = ({ id, data, labels, title }: Props) => {
 };
 
 export default Bar;
+
+export { Skeleton };

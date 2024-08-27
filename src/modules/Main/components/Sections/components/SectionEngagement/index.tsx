@@ -23,10 +23,7 @@ import { transformDataFilters } from 'helpers';
 const SectionEngagement = () => {
   const [
     updateSpeedChart,
-    {
-      data: dataSpeedChart = initialSpeedChart,
-      isFetching: isFetchingSpeedChart
-    }
+    { data: dataSpeedChart, isFetching: isFetchingSpeedChart }
   ] = useLazyGetSpeedDataQuery();
   const [
     updateCategoryChart,
@@ -98,7 +95,7 @@ const SectionEngagement = () => {
         isDisabled={isDisabledBtnApply}
       />
       <EngagementResults
-        data={dataSpeedChart.data}
+        data={dataSpeedChart?.data}
         isLoading={isFetchingSpeedChart}
         view={viewChart}
       />

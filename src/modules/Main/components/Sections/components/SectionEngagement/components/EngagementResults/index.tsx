@@ -1,5 +1,4 @@
-﻿import { Doughnut, Bar } from 'components/Charts';
-import Checkbox from 'components/Checkbox';
+﻿import Checkbox from 'components/Checkbox';
 import EngagementDoughnut from './EngagementDoughnut';
 import EngagementBar from './EngagementBar';
 import Image from 'assets/images/Engagement/img_2.png';
@@ -8,13 +7,14 @@ import styles from './styles.module.scss';
 import { useState } from 'react';
 
 type Props = {
-  data: SpeedChart[];
+  data: SpeedChart[] | undefined;
   isLoading: boolean;
   view: 'bar' | 'doughnut';
 };
 
 const EngagementResults = ({ data, isLoading, view }: Props) => {
   const [value, setValue] = useState<boolean>(false);
+  const isShowCheckbox = data !== undefined && data.length > 0;
 
   return (
     <section className={styles['engagement-results']}>
@@ -28,14 +28,16 @@ const EngagementResults = ({ data, isLoading, view }: Props) => {
       </div>
       <div className={styles['engagement-results__wrapper']}>
         <h3>Результаты за 3 последних года</h3>
-        <div>
-          <Checkbox
-            label='Сравнить с БЕ'
-            checked={value}
-            onChange={() => setValue(!value)}
-            isDisabled={isLoading}
-          />
-        </div>
+        {isShowCheckbox && (
+          <div>
+            <Checkbox
+              label='Сравнить с БЕ'
+              checked={value}
+              onChange={() => setValue(!value)}
+              isDisabled={isLoading}
+            />
+          </div>
+        )}
         {view === 'doughnut' ? (
           <EngagementDoughnut
             data={data}

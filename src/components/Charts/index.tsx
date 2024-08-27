@@ -1,4 +1,4 @@
-﻿import Bar from './Bar';
-import Doughnut from './Doughnut';
+﻿import Bar, { Skeleton as BarSkeleton } from './Bar';
+import Doughnut, { Skeleton as DoughnutSkeleton } from './Doughnut';
 
-export { Bar, Doughnut };
+export { Bar, BarSkeleton, Doughnut, DoughnutSkeleton };
