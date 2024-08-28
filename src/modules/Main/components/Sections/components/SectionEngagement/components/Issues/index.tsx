@@ -21,7 +21,7 @@ const EngagementResults = ({ data, isLoading }: Props) => {
             Общие зоны развития
           </div>
           <div>
-            <Table data={data.common} isLoading={true} />
+            <Table data={data.common} isLoading={isLoading} />
           </div>
         </div>
         <div className={styles['engagement-issues__container']}>
@@ -29,7 +29,7 @@ const EngagementResults = ({ data, isLoading }: Props) => {
             Зоны развития в подразделениях
           </div>
           <div>
-            <Table data={data.subdivision} isLoading={true} />
+            <Table data={data.subdivision} isLoading={isLoading} />
           </div>
         </div>
       </div>

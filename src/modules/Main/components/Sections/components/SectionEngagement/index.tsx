@@ -9,16 +9,13 @@ import {
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
   useLazyGetFilterEngagementDataQuery,
-  useLazyGetKeyResultsQuery
+  useLazyGetKeyResultsQuery,
+  useLazyGetCommentsQuery
 } from 'store/apiSlice';
-import {
-  initialSpeedChart,
-  initialCategoryChart,
-  initialKeyResults
-} from 'store/constants';
+import { initialCategoryChart, initialKeyResults } from 'store/constants';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { clearSelectedFilters } from 'store/filterSlice';
-import { transformDataFilters } from 'helpers';
+import { transformDataFilters, isDisabledBtn } from 'helpers';
 
 const SectionEngagement = () => {
   const [
@@ -41,6 +38,8 @@ const SectionEngagement = () => {
       isFetching: isFetchingKeyResults
     }
   ] = useLazyGetKeyResultsQuery();
+  const [getComments, { data: dataComments, isFetching: isFetchingComments }] =
+    useLazyGetCommentsQuery();
 
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -55,6 +54,7 @@ const SectionEngagement = () => {
     });
     updateCategoryChart({ filters: [], random: Math.random() });
     updateKeyResults({ filters: [], random: Math.random() });
+    getComments({ filters: [] });
   }, []);
 
   const handleApply = () => {
@@ -74,24 +74,29 @@ const SectionEngagement = () => {
       filters: dataFilters,
       random: Math.random()
     });
-    updateKeyResults({ filters: [], random: Math.random() });
+    updateKeyResults({ filters: dataFilters, random: Math.random() });
+    getComments({ filters: dataFilters });
   };
 
   const handleReset = () => {
-    console.log('handleReset');
     dispatch(clearSelectedFilters({ tab: 'engagement' }));
     updateFiltersEngagement({ filters: [], is_starting: false });
   };
 
-  const isDisabledBtnApply =
-    isFetchingSpeedChart || isFetchingCategoryChart || isFetchingKeyResults;
+  const isLoadingBtnApply =
+    isFetchingSpeedChart ||
+    isFetchingCategoryChart ||
+    isFetchingKeyResults ||
+    isFetchingComments;
+
+  const isDisabledBtnApply = isDisabledBtn(selectedFilters);
 
   return (
     <>
       <FilterEngagement
         onApply={handleApply}
         onReset={handleReset}
-        isLoading={isFetching}
+        isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
       />
       <EngagementResults
@@ -101,19 +106,26 @@ const SectionEngagement = () => {
       />
       <EngagementCategory
         data={dataCategoryChart.data}
-        isLoading={true}
-        // isLoading={isFetchingCategoryChart}
+        isLoading={isFetchingCategoryChart}
       />
       <Issues
         data={dataKeyResults.data_problems}
         isLoading={isFetchingKeyResults}
       />
-      <Comments type='issue' />
+      <Comments
+        data={dataComments?.issues}
+        type='issue'
+        isLoading={isFetchingComments}
+      />
       <Zones
         data={dataKeyResults.data_zones}
         isLoading={isFetchingKeyResults}
       />
-      <Comments type='zone' />
+      <Comments
+        data={dataComments?.zones}
+        type='zone'
+        isLoading={isFetchingComments}
+      />
     </>
   );
 };

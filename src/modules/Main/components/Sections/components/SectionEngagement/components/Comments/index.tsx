@@ -1,31 +1,40 @@
-﻿import { useEffect, useState } from 'react';
+﻿import { useState } from 'react';
 import Image from 'assets/images/Engagement/img_4.png';
 import { toast } from 'react-toastify';
 import Modal from 'components/Modal';
 import ModalContent from './ModalContent';
 import Content from './Content';
-import { Comment } from 'types';
-import { useLazyGetCommentsQuery } from 'store/apiSlice';
-import { initialComments } from 'store/constants';
+import { Comments as IComments } from 'types';
+import { useLazyGetAllCommentsQuery } from 'store/apiSlice';
+import { initialAllComments } from 'store/constants';
+import { transformDataFilters } from 'helpers';
+import { useAppSelector } from 'store/hooks';
 import styles from './styles.module.scss';
 
 type Props = {
+  data: IComments | undefined;
   type: 'zone' | 'issue';
+  isLoading: boolean;
 };
 
-const Comments = ({ type }: Props) => {
-  const [getComments, { data = initialComments, isLoading, isFetching }] =
-    useLazyGetCommentsQuery();
+const Comments = ({ data, type, isLoading }: Props) => {
+  const [
+    getAllComments,
+    {
+      data: dataAllComments = initialAllComments,
+      isFetching: isFetchingAllComments
+    }
+  ] = useLazyGetAllCommentsQuery();
+  const selectedFilters = useAppSelector(
+    (state) => state.filters.selectedFilters.engagement
+  );
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
-
-  useEffect(() => {
-    getComments({ type: type, is_starting: true });
-  }, []);
 
   const handleModal = () => {
     setIsShowModal((prevValue) => {
-      if (data === undefined && !prevValue) {
-        getComments({ type: type, is_starting: false })
+      if (!prevValue) {
+        const dataFilters = transformDataFilters(selectedFilters);
+        getAllComments({ filters: dataFilters, type: type })
           .then((payload) => {
             if (payload.isError || payload.data?.isError) {
               toast('Произошла ошибка');
@@ -37,7 +46,7 @@ const Comments = ({ type }: Props) => {
     });
   };
 
-  const isShowButton = data.data.length > 2;
+  const isShowButton = data !== undefined && data.data.length > 2;
 
   return (
     <>
@@ -50,7 +59,7 @@ const Comments = ({ type }: Props) => {
             <img src={Image} alt='Картинка' />
           </div>
         </div>
-        {data.problem && !true && (
+        {data !== undefined && data.problem && !isLoading && (
           <div className={styles['engagement-comments__description']}>
             <div className={styles['engagement-comments__text']}>
               {data.problem}
@@ -60,7 +69,7 @@ const Comments = ({ type }: Props) => {
             </span>
           </div>
         )}
-        <Content data={data.data} isLoading={true} />
+        <Content data={data?.data} isLoading={isLoading} />
         {isShowButton && (
           <button
             className={styles['engagement-comments__btn']}
@@ -87,9 +96,9 @@ const Comments = ({ type }: Props) => {
       </section>
       <Modal isShow={isShowModal} onClose={handleModal} width={1400}>
         <ModalContent
-          data={data?.data as Comment[]}
+          data={dataAllComments}
           onClose={handleModal}
-          isLoading={isFetching}
+          isLoading={isFetchingAllComments}
         />
       </Modal>
     </>

@@ -5,7 +5,8 @@ import {
   ResponseSpeedChart,
   ResponseCategoryChart,
   ResponseComments,
-  ResponseKeyResults
+  ResponseKeyResults,
+  ResponseAllComments
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
@@ -154,46 +155,61 @@ export const API = createApi({
           const mockDataResponse: ResponseKeyResults =
             mockData.dataKeyResults as ResponseKeyResults;
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 500);
+            return setTimeout(() => resolve(mockDataResponse), 1500);
           });
         } else {
           return response;
         }
       }
     }),
-    getComments: builder.query<
-      ResponseComments,
-      { type: 'zone' | 'issue'; is_starting: boolean }
-    >({
-      query: ({ type, is_starting }) =>
-        urlBuilder({
-          action: 'getComments',
-          type,
-          is_starting
-        }),
-      transformResponse: (response: ResponseComments, meta, arg) => {
+    getComments: builder.query<ResponseComments, { filters: FilterParams[] }>({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getComments'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseComments) => {
         if (import.meta.env.DEV) {
-          let data = [];
-          if (arg.type === 'zone') {
-            data = arg.is_starting
-              ? mockData.dataStartCommentsZones.data
-              : mockData.dataCommentsZones.data;
-          } else {
-            data = arg.is_starting
-              ? mockData.dataStartCommentsIssues.data
-              : mockData.dataCommentsIssues.data;
-          }
           const mockDataResponse: ResponseComments = {
-            data: data,
-            problem:
-              arg.type === 'issue'
-                ? mockData.dataStartCommentsZones.problem
-                : mockData.dataStartCommentsIssues.problem,
-            isError: arg.type === 'issue' ? true : false,
+            zones: mockData.dataComments.zones,
+            issues: mockData.dataComments.issues,
+            isError: false,
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 1500);
+            return setTimeout(() => resolve(mockDataResponse), 5000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getAllComments: builder.query<
+      ResponseAllComments,
+      { filters: FilterParams[]; type: 'zone' | 'issue' }
+    >({
+      query: ({ filters, type }) => ({
+        url: postUrl('&action=getAllComments'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters,
+          type
+        })
+      }),
+      transformResponse: (response: ResponseAllComments) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseAllComments = {
+            data: mockData.dataAllComments.data,
+            problem: mockData.dataAllComments.problem,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 5000);
           });
         } else {
           return response;
@@ -210,5 +226,6 @@ export const {
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
   useLazyGetCommentsQuery,
-  useLazyGetKeyResultsQuery
+  useLazyGetKeyResultsQuery,
+  useLazyGetAllCommentsQuery
 } = API;

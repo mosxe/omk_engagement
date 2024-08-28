@@ -1,5 +1,5 @@
 ﻿import { LoaderContent } from 'components/Loader';
-import { Filters, Tab } from 'types';
+import { Filters } from 'types';
 import { isDisabledBtn } from 'helpers';
 import styles from '../styles.module.scss';
 

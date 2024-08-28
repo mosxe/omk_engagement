@@ -57,16 +57,21 @@ export interface ResponseCategoryChart extends Error {
   data: CategoryChart[];
 }
 
-export interface Comment {
+export interface CommentItem {
   id: string | number;
   text: string;
   person_name: string;
   position_name: string;
 }
 
-export interface ResponseComments extends Error {
-  data: Comment[];
+export interface Comments {
+  data: CommentItem[];
   problem: string;
+}
+
+export interface ResponseComments extends Error {
+  zones: Comments;
+  issues: Comments;
 }
 
 export interface KeyResult {
@@ -83,4 +88,9 @@ export interface KeyResults {
 export interface ResponseKeyResults extends Error {
   data_problems: KeyResults;
   data_zones: KeyResults;
+}
+
+export interface ResponseAllComments extends Error {
+  data: CommentItem[];
+  problem: string;
 }

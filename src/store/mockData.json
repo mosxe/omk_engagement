@@ -240,7 +240,51 @@
     "isError": false,
     "errorMessage": ""
   },
-  "dataCommentsIssues": {
+  "dataComments": {
+    "zones": {
+      "data": [
+        {
+          "id": 1,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "id": 2,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "id": 3,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dol",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        }
+      ],
+      "problem": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону"
+    },
+    "issues": {
+      "data": [
+        {
+          "id": 1,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "id": 2,
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        }
+      ],
+      "problem": "Руководитель11111 отделяет себя от своих сотрудников, не встает на их сторону"
+    },
+    "isError": false,
+    "errorMessage": ""
+  },
+  "dataAllComments": {
     "data": [
       {
         "id": 1,
@@ -256,80 +300,12 @@
       },
       {
         "id": 3,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dol",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 4,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 5,
-        "text": "Lorem ipsum dolor sit amet, consectetur ",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 6,
-        "text": "Lorem 333 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      }
-    ],
-    "problem": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону",
-    "isError": false,
-    "errorMessage": ""
-  },
-  "dataStartCommentsIssues": {
-    "data": [],
-    "problem": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону",
-    "isError": false,
-    "errorMessage": ""
-  },
-  "dataStartCommentsZones": {
-    "data": [
-      {
-        "id": 1,
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
         "person_name": "Иванов П.Е.",
         "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 2,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
       }
     ],
-    "problem": "Руководитель2222 отделяет себя от своих сотрудников, не встает на их сторону",
-    "isError": false,
-    "errorMessage": ""
-  },
-  "dataCommentsZones": {
-    "data": [
-      {
-        "id": 1,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 2,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 3,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      }
-    ],
-    "problem": "Руководитель2222 отделяет себя от своих сотрудников, не встает на их сторону",
+    "problem": "Руководитель 2222 отделяет себя от своих сотрудников, не встает на их сторону",
     "isError": false,
     "errorMessage": ""
   },

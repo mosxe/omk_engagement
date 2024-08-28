@@ -1,11 +1,11 @@
 ﻿import Modal, { ButtonClose } from 'components/Modal';
 import { LoaderContent } from 'components/Loader';
-import { Comment } from 'types';
+import { ResponseAllComments } from 'types';
 import { declinationComments } from 'helpers';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: Comment[];
+  data: Pick<ResponseAllComments, 'data' | 'problem'>;
   isLoading: boolean;
   onClose: () => void;
 };
@@ -18,25 +18,6 @@ const ModalContent = ({ data, isLoading, onClose }: Props) => {
           <div className={styles['engagement-comments_end']}>
             <ButtonClose onClick={onClose} />
           </div>
-          <div className={styles['engagement-comments__box']}>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_m']}`}
-            >
-              Топ-проблематика
-            </span>
-            <div className={styles['engagement-comments__text']}>
-              Руководитель{' '}
-              <span className={styles['engagement-comments__text_red']}>
-                отделяет себя от своих сотрудников,
-              </span>{' '}
-              не встает на их сторону
-            </div>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_l']}`}
-            >
-              0 комментариев
-            </span>
-          </div>
         </Modal.Header>
         <Modal.Body>
           <div className={styles['engagement-comments__container']}>
@@ -47,7 +28,7 @@ const ModalContent = ({ data, isLoading, onClose }: Props) => {
     );
   }
 
-  const commentsName = declinationComments(data.length);
+  const commentsName = declinationComments(data.data.length);
 
   return (
     <>
@@ -56,28 +37,28 @@ const ModalContent = ({ data, isLoading, onClose }: Props) => {
           <ButtonClose onClick={onClose} />
         </div>
         <div className={styles['engagement-comments__box']}>
-          <span
-            className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_m']}`}
-          >
-            Топ-проблематика
-          </span>
-          <div className={styles['engagement-comments__text']}>
-            Руководитель{' '}
-            <span className={styles['engagement-comments__text_red']}>
-              отделяет себя от своих сотрудников,
-            </span>{' '}
-            не встает на их сторону
-          </div>
+          {data.problem && (
+            <>
+              <span
+                className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_m']}`}
+              >
+                Топ-проблематика
+              </span>
+              <div className={styles['engagement-comments__text']}>
+                {data.problem}
+              </div>
+            </>
+          )}
           <span
             className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_l']}`}
           >
-            {data.length} {commentsName}
+            {data.data.length} {commentsName}
           </span>
         </div>
       </Modal.Header>
       <Modal.Body>
         <div className={styles['engagement-comments__wrapper']}>
-          {data.map(({ text, person_name, position_name }, index) => {
+          {data.data.map(({ text, person_name, position_name }, index) => {
             return (
               <div className={styles['engagement-comments__card']} key={index}>
                 <div className={styles['engagement-comments__card_text']}>

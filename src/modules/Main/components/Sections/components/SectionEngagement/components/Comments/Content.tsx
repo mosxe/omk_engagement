@@ -1,15 +1,15 @@
-﻿import { Comment } from 'types';
+﻿import { CommentItem } from 'types';
 import Skeleton from './Skeleton';
 import Card from './Card';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: Comment[];
+  data: CommentItem[] | undefined;
   isLoading: boolean;
 };
 
 const Content = ({ data, isLoading }: Props) => {
-  if (isLoading) {
+  if (isLoading || data === undefined) {
     return <Skeleton />;
   }
 

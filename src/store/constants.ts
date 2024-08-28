@@ -10,12 +10,6 @@ export const initialFiltersCompass = {
   errorMessage: ''
 };
 
-export const initialSpeedChart = {
-  data: [],
-  isError: false,
-  errorMessage: ''
-};
-
 export const initialCategoryChart = {
   data: [],
   isError: false,
@@ -36,6 +30,19 @@ export const initialKeyResults = {
 };
 
 export const initialComments = {
+  zones: {
+    data: [],
+    problem: ''
+  },
+  issues: {
+    data: [],
+    problem: ''
+  },
+  isError: false,
+  errorMessage: ''
+};
+
+export const initialAllComments = {
   data: [],
   problem: '',
   isError: false,
