@@ -3,6 +3,7 @@ import Select from 'components/Select';
 import FilterContainer from '../FIlterContainer';
 import { OptionChange } from 'components/Select/types';
 import { FilterName, Filter } from 'types';
+import { FilterProps } from '../index';
 import {
   getFilterOptions,
   getValueSelect,
@@ -13,19 +14,12 @@ import { useLazyGetFilterEngagementDataQuery } from 'store/apiSlice';
 import { updateSelectedFilters } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
-type Props = {
-  onApply: () => void;
-  onReset: () => void;
-  isLoading: boolean;
-  isDisabled: boolean;
-};
-
 const FilterEngagement = ({
   onApply,
   onReset,
   isLoading,
   isDisabled
-}: Props) => {
+}: FilterProps) => {
   const [
     updateFiltersEngagement,
     { data = initialFiltersEngagement, isFetching }

@@ -1,4 +1,7 @@
 ﻿import { FilterCompass } from '../../../Filters';
+import Compass from './components/Compass';
+import CompassIssues from './components/Issues';
+import CompassZones from './components/Zones';
 
 const SectionCompass = () => {
   const handleApply = () => {
@@ -11,8 +14,15 @@ const SectionCompass = () => {
 
   return (
     <>
-      <FilterCompass onApply={handleApply} onReset={handleReset} />
-      <div>SectionCompass</div>
+      <FilterCompass
+        onApply={handleApply}
+        onReset={handleReset}
+        isLoading={false}
+        isDisabled={false}
+      />
+      <Compass />
+      <CompassIssues />
+      <CompassZones />
     </>
   );
 };

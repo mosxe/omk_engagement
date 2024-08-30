@@ -2,7 +2,8 @@
 import Select from 'components/Select';
 import FilterContainer from '../FIlterContainer';
 import { OptionChange } from 'components/Select/types';
-import { Filters, Filter, FilterName } from 'types';
+import { Filter, FilterName } from 'types';
+import { FilterProps } from '../index';
 import { useLazyGetFilterCompassDataQuery } from 'store/apiSlice';
 import { initialFiltersCompass } from 'store/constants';
 import {
@@ -13,13 +14,13 @@ import {
 import { updateSelectedFilters } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
-type Props = {
-  onApply: () => void;
-  onReset: () => void;
-};
-
-const FilterCompass = ({ onApply, onReset }: Props) => {
-  const [updateFiltersCompass, { data = initialFiltersCompass }] =
+const FilterCompass = ({
+  onApply,
+  onReset,
+  isLoading,
+  isDisabled
+}: FilterProps) => {
+  const [updateFiltersCompass, { data = initialFiltersCompass, isFetching }] =
     useLazyGetFilterCompassDataQuery();
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -37,14 +38,18 @@ const FilterCompass = ({ onApply, onReset }: Props) => {
     };
     dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
     const dataFilters = transformDataFilters(selectedFilters, filterValues);
-    // await updateFiltersCompass({
-    //   filters: dataFilters,
-    //   is_starting: false
-    // });
   };
 
+  const isLoadingFilter = isFetching || isLoading;
+
   return (
-    <FilterContainer onApply={onApply} onReset={onReset}>
+    <FilterContainer
+      onApply={onApply}
+      onReset={onReset}
+      isLoading={isLoadingFilter}
+      isDisabled={isDisabled}
+      data={selectedFilters}
+    >
       <Select
         options={getFilterOptions(data.filters, 'group')}
         defaultValue={getValueSelect(selectedFilters, 'group')}

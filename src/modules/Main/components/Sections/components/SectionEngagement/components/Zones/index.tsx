@@ -1,4 +1,4 @@
-﻿import Table from '../Table';
+﻿import Table from 'components/Table';
 import { KeyResults } from 'types';
 import styles from './styles.module.scss';
 
@@ -7,7 +7,7 @@ type Props = {
   isLoading: boolean;
 };
 
-const EngagementResults = ({ data, isLoading }: Props) => {
+const EngagementZones = ({ data, isLoading }: Props) => {
   return (
     <section className={styles['engagement-zones']}>
       <div className={styles['engagement-zones__header']}>
@@ -38,4 +38,4 @@ const EngagementResults = ({ data, isLoading }: Props) => {
   );
 };
 
-export default EngagementResults;
+export default EngagementZones;
