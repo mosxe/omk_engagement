@@ -1,8 +1,8 @@
-﻿import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
-import { Tab, Filter, Filters } from 'types';
+﻿import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Tab, Filters } from 'types';
 // import { filteringDataTags } from './helps';
 
-export interface filtersState {
+export interface IFiltersState {
   selectedFilters: {
     [key in Partial<Tab>]: Filters[];
   };
@@ -16,7 +16,7 @@ export interface filtersState {
   // };
 }
 
-const initialState: filtersState = {
+const initialState: IFiltersState = {
   selectedFilters: {
     engagement: [
       {

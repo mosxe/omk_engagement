@@ -24,12 +24,12 @@ const API_URL = import.meta.env.DEV
   : baseURL +
     '/custom_web_template.html?custom_web_template_id=7029703095570822192';
 
-const urlBuilder = (params?: { [key: string]: any }) => {
-  return {
-    url: API_URL,
-    params: { ...params }
-  };
-};
+// const urlBuilder = (params?: { [key: string]: any }) => {
+//   return {
+//     url: API_URL,
+//     params: { ...params }
+//   };
+// };
 
 export const API = createApi({
   reducerPath: 'API',
@@ -48,7 +48,7 @@ export const API = createApi({
           is_starting
         })
       }),
-      transformResponse: (response: ResponseFilters, meta, arg) => {
+      transformResponse: (response: ResponseFilters, _, arg) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseFilters = arg.is_starting
             ? (mockData.dataEngagement as ResponseFilters)
@@ -74,7 +74,7 @@ export const API = createApi({
           is_starting
         })
       }),
-      transformResponse: (response: ResponseFilters, meta, arg) => {
+      transformResponse: (response: ResponseFilters, _, arg) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseFilters = arg.is_starting
             ? (mockData.dataCompass as ResponseFilters)

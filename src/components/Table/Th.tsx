@@ -28,7 +28,9 @@ const TH = ({
             <div
               className={styles.table__wrapper}
               onClick={() =>
-                onSorting !== undefined ? onSorting(field, 'asc') : undefined
+                onSorting !== undefined
+                  ? onSorting(field ?? '', 'asc')
+                  : undefined
               }
             >
               <svg
@@ -51,7 +53,9 @@ const TH = ({
             <div
               className={styles.table__wrapper}
               onClick={() =>
-                onSorting !== undefined ? onSorting(field, 'desc') : undefined
+                onSorting !== undefined
+                  ? onSorting(field ?? '', 'desc')
+                  : undefined
               }
             >
               <svg

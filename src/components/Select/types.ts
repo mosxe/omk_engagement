@@ -7,6 +7,12 @@ export type Option = {
 export type OptionType = Option;
 export type OptionsType = Array<OptionType>;
 export type OptionChange = Option[];
+export declare type SingleValue<Option> = Option | null;
+export declare type MultiValue<Option> = readonly Option[];
+export declare type OnChangeValue<
+  Option,
+  IsMulti extends boolean
+> = IsMulti extends true ? MultiValue<Option> : SingleValue<Option>;
 
 export type SelectProps = {
   options?: OptionsType | any;
@@ -16,7 +22,8 @@ export type SelectProps = {
   tooltip?: ReactNode;
   onDropdownIndicator?: () => void;
   value?: Array<OptionType>;
-  onChange?: (option: OptionChange) => void;
+  onChange?: (val: any) => void;
+  // onChange?: (option: OptionChange) => void;
   noOptionsMessage?: string;
   noOptionsMessageDefault?: string;
   isLoading?: boolean;

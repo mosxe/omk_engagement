@@ -8,8 +8,8 @@ import { useLazyGetFilterCompassDataQuery } from 'store/apiSlice';
 import { initialFiltersCompass } from 'store/constants';
 import {
   getFilterOptions,
-  getValueSelect,
-  transformDataFilters
+  getValueSelect
+  // transformDataFilters
 } from 'helpers';
 import { updateSelectedFilters } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
@@ -37,7 +37,7 @@ const FilterCompass = ({
       value: options as Filter[]
     };
     dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
-    const dataFilters = transformDataFilters(selectedFilters, filterValues);
+    // const dataFilters = transformDataFilters(selectedFilters, filterValues);
   };
 
   const isLoadingFilter = isFetching || isLoading;

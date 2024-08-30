@@ -66,8 +66,8 @@ const Doughnut = ({ percent, title, id, size = 'large' }: Props) => {
       ctx.fillText(title, textX, textY);
       ctx.save();
 
-      chart.data.datasets.forEach((_, i: number) => {
-        chart.getDatasetMeta(i).data.forEach((_, index: number) => {
+      chart.data.datasets.forEach((_: any, i: number) => {
+        chart.getDatasetMeta(i).data.forEach((_: any, index: number) => {
           let x = size === 'large' ? 30 : 8;
           const y = size === 'large' ? 230 : 130;
           const text = index === 0 ? 0 : 100;

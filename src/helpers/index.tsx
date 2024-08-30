@@ -1,4 +1,4 @@
-﻿import { Filters, FilterName, Tab } from 'types';
+﻿import { Filters, FilterName } from 'types';
 
 const getLink = (link: string) => {
   if (link.startsWith('https://') || link.startsWith('http://')) {

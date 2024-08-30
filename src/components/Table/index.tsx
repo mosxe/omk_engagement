@@ -61,7 +61,7 @@ const Table = ({
           </tr>
         </thead>
         <tbody>
-          {[...Array(countSkeletonLoading)].map((skeleton, index) => {
+          {[...Array(countSkeletonLoading)].map((_, index) => {
             return (
               <tr key={index}>
                 <td>
@@ -109,7 +109,7 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {tableData.map((item, index) => {
+        {tableData.map((item: any, index: number) => {
           return (
             <tr key={index}>
               <td>{item.name}</td>

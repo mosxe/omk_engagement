@@ -29,8 +29,7 @@ const SectionEngagement = () => {
       isFetching: isFetchingCategoryChart
     }
   ] = useLazyGetCategoryDataQuery();
-  const [updateFiltersEngagement, { isFetching }] =
-    useLazyGetFilterEngagementDataQuery();
+  const [updateFiltersEngagement] = useLazyGetFilterEngagementDataQuery();
   const [
     updateKeyResults,
     {
