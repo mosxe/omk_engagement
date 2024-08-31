@@ -16,13 +16,13 @@ const postUrl = (urlParams: string) => {
   return import.meta.env.DEV
     ? 'https://jsonplaceholder.typicode.com/posts'
     : baseURL +
-        '/custom_web_template.html?custom_web_template_id=7029703095570822192' +
+        '/custom_web_template.html?custom_web_template_id=7065813553071256157' +
         urlParams;
 };
 const API_URL = import.meta.env.DEV
   ? 'https://jsonplaceholder.typicode.com/posts/1'
   : baseURL +
-    '/custom_web_template.html?custom_web_template_id=7029703095570822192';
+    '/custom_web_template.html?custom_web_template_id=7065813553071256157';
 
 // const urlBuilder = (params?: { [key: string]: any }) => {
 //   return {
@@ -215,6 +215,30 @@ export const API = createApi({
           return response;
         }
       }
+    }),
+    getAllFiltersEngagementData: builder.query<
+      ResponseFilters,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getFilterEngegement'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseFilters) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseFilters =
+            mockData.dataFiltersEngagement as ResponseFilters;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1500);
+          });
+        } else {
+          return response;
+        }
+      }
     })
   })
 });
@@ -227,5 +251,6 @@ export const {
   useLazyGetCategoryDataQuery,
   useLazyGetCommentsQuery,
   useLazyGetKeyResultsQuery,
-  useLazyGetAllCommentsQuery
+  useLazyGetAllCommentsQuery,
+  useGetAllFiltersEngagementDataQuery
 } = API;

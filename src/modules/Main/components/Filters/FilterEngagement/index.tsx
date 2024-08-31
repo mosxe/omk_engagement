@@ -1,4 +1,4 @@
-﻿import { useEffect } from 'react';
+﻿// import { useEffect } from 'react';
 import Select from 'components/Select';
 import FilterContainer from '../FIlterContainer';
 import { OptionChange } from 'components/Select/types';
@@ -6,32 +6,41 @@ import { FilterName, Filter } from 'types';
 import { FilterProps } from '../index';
 import {
   getFilterOptions,
-  getValueSelect,
-  transformDataFilters
+  getValueSelect
+  // transformDataFilters
 } from 'helpers';
 import { initialFiltersEngagement } from 'store/constants';
-import { useLazyGetFilterEngagementDataQuery } from 'store/apiSlice';
+import {
+  // useLazyGetFilterEngagementDataQuery,
+  useGetAllFiltersEngagementDataQuery
+} from 'store/apiSlice';
 import { updateSelectedFilters } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
 const FilterEngagement = ({
   onApply,
   onReset,
-  isLoading,
+  // isLoading,
   isDisabled
 }: FilterProps) => {
-  const [
-    updateFiltersEngagement,
-    { data = initialFiltersEngagement, isFetching }
-  ] = useLazyGetFilterEngagementDataQuery();
+  // const [
+  //   updateFiltersEngagement,
+  //   { data = initialFiltersEngagement, isFetching }
+  // ] = useLazyGetFilterEngagementDataQuery();
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.engagement
   );
 
-  useEffect(() => {
-    updateFiltersEngagement({ filters: [], is_starting: true });
-  }, []);
+  const {
+    data = initialFiltersEngagement,
+    isLoading: isLoadingFilters
+    // isError
+  } = useGetAllFiltersEngagementDataQuery({ filters: [] });
+
+  // useEffect(() => {
+  //   updateFiltersEngagement({ filters: [], is_starting: true });
+  // }, []);
 
   const onChange = async (options: OptionChange, filterName: FilterName) => {
     const filterValues = {
@@ -39,14 +48,15 @@ const FilterEngagement = ({
       value: options as Filter[]
     };
     dispatch(updateSelectedFilters({ tab: 'engagement', data: filterValues }));
-    const dataFilters = transformDataFilters(selectedFilters, filterValues);
-    await updateFiltersEngagement({
-      filters: dataFilters,
-      is_starting: false
-    });
+    // const dataFilters = transformDataFilters(selectedFilters, filterValues);
+    // await updateFiltersEngagement({
+    //   filters: dataFilters,
+    //   is_starting: false
+    // });
   };
 
-  const isLoadingFilter = isFetching || isLoading;
+  // const isLoadingFilter = isFetching || isLoading;
+  const isLoadingFilter = isLoadingFilters;
 
   return (
     <FilterContainer
