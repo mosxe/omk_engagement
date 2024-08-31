@@ -10,6 +10,7 @@ type Props = {
   isDisabled: boolean;
   children: React.ReactNode;
   data: Filters[];
+  text: string;
 };
 
 const FilterContainer = ({
@@ -18,7 +19,8 @@ const FilterContainer = ({
   isLoading,
   isDisabled,
   children,
-  data
+  data,
+  text
 }: Props) => {
   const isDisabledClearBtn = isDisabledBtn(data);
 
@@ -26,9 +28,7 @@ const FilterContainer = ({
     <div className={styles.filters}>
       {isLoading && <LoaderContent position='absolute' />}
       <div className={styles.filters__wrapper}>
-        <div className={styles.filters__text}>
-          Воспользуйтесь фильтром, чтобы посмотреть подборку материалов
-        </div>
+        <div className={styles.filters__text}>{text}</div>
         <div className={styles.filters__container}>
           <div className={styles.filters__row}>{children}</div>
           <div className={styles.filters__row}>

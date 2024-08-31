@@ -48,3 +48,27 @@ export const initialAllComments = {
   isError: false,
   errorMessage: ''
 };
+
+export const initialFiltersCompassResults = {
+  filters: [],
+  isError: false,
+  errorMessage: ''
+};
+
+export const initialResearchIssues = {
+  data: {
+    main: [],
+    additional: []
+  },
+  isError: false,
+  errorMessage: ''
+};
+
+export const initialResearchZones = {
+  data: {
+    main: [],
+    additional: []
+  },
+  isError: false,
+  errorMessage: ''
+};

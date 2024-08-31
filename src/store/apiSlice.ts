@@ -6,7 +6,8 @@ import {
   ResponseCategoryChart,
   ResponseComments,
   ResponseKeyResults,
-  ResponseAllComments
+  ResponseAllComments,
+  ResponseResearch
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
@@ -24,12 +25,12 @@ const API_URL = import.meta.env.DEV
   : baseURL +
     '/custom_web_template.html?custom_web_template_id=7065813553071256157';
 
-// const urlBuilder = (params?: { [key: string]: any }) => {
-//   return {
-//     url: API_URL,
-//     params: { ...params }
-//   };
-// };
+const urlBuilder = (params?: { [key: string]: any }) => {
+  return {
+    url: API_URL,
+    params: { ...params }
+  };
+};
 
 export const API = createApi({
   reducerPath: 'API',
@@ -239,6 +240,74 @@ export const API = createApi({
           return response;
         }
       }
+    }),
+    getFiltersCompassResults: builder.query<ResponseFilters, void>({
+      query: () => urlBuilder({ actin: 'getFiltersCompassResults' }),
+      transformResponse: (response: ResponseFilters) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseFilters =
+            mockData.dataFiltersCompassResults as ResponseFilters;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1500);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getResearchIssues: builder.query<
+      ResponseResearch,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getResearchIssues'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseResearch) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseResearch = {
+            data: mockData.getResearchIssues.data,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 5000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getResearchZones: builder.query<
+      ResponseResearch,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getResearchZones'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseResearch) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseResearch = {
+            data: mockData.getResearchIssues.data,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 5000);
+          });
+        } else {
+          return response;
+        }
+      }
     })
   })
 });
@@ -252,5 +321,8 @@ export const {
   useLazyGetCommentsQuery,
   useLazyGetKeyResultsQuery,
   useLazyGetAllCommentsQuery,
-  useGetAllFiltersEngagementDataQuery
+  useGetAllFiltersEngagementDataQuery,
+  useGetFiltersCompassResultsQuery,
+  useLazyGetResearchIssuesQuery,
+  useLazyGetResearchZonesQuery
 } = API;

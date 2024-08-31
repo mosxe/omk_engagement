@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+﻿import { useState, useEffect } from 'react';
 import TH from './Th';
 import { KeyResult } from 'types';
 import styles from './styles.module.scss';
@@ -18,9 +18,13 @@ const Table = ({
   isSorting = false,
   countSkeletonLoading = 3
 }: Props) => {
-  const [tableData, setTableData] = useState<any>(() => data);
+  const [tableData, setTableData] = useState<KeyResult[]>([]);
   const [sortField, setSortField] = useState<string>('');
   const [order, setOrder] = useState<Sort>('asc');
+
+  useEffect(() => {
+    setTableData(data);
+  }, [data]);
 
   const handleSortingChange = (field: string, sortOrder: Sort) => {
     if (field !== sortField || sortOrder !== order) {

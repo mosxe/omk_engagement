@@ -65,6 +65,7 @@ const FilterEngagement = ({
       isLoading={isLoadingFilter}
       isDisabled={isDisabled}
       data={selectedFilters}
+      text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
       <Select
         options={getFilterOptions(data.filters, 'group')}

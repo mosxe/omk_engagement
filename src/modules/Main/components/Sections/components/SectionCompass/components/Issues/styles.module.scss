@@ -17,15 +17,21 @@
     }
   }
 
-  &__wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-  }
-
   &__container {
     display: flex;
     flex-direction: column;
+    gap: 30px;
+  }
+
+  &__filters {
+    width: 100%;
+    max-width: 800px;
+    align-self: center;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: center;
     gap: 30px;
   }
 

@@ -404,5 +404,121 @@
     ],
     "isError": false,
     "errorMessage": ""
+  },
+  "dataFiltersCompassResults": {
+    "filters": [
+      {
+        "name": "year",
+        "value": [
+          { "value": "2019", "label": "2019" },
+          { "value": "2020", "label": "2020" },
+          { "value": "2021", "label": "2021" },
+          { "value": "2022", "label": "2022" },
+          { "value": "2023", "label": "2023" }
+        ]
+      }
+    ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "getResearchIssues": {
+    "data": {
+      "main": [
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу 22222",
+          "procent": 22,
+          "frequency": 20
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу",
+          "procent": 33,
+          "frequency": 80
+        },
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу 22222",
+          "procent": 22,
+          "frequency": 20
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу",
+          "procent": 33,
+          "frequency": 80
+        }
+      ],
+      "additional": [
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу 22222",
+          "procent": 22,
+          "frequency": 20
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу",
+          "procent": 33,
+          "frequency": 80
+        },
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 50
+        },
+        {
+          "name": "Нет мотивации за выслугу лет",
+          "procent": 100,
+          "frequency": 33
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу 22222",
+          "procent": 25,
+          "frequency": 11
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу",
+          "procent": 33,
+          "frequency": 32
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу 22222",
+          "procent": 25,
+          "frequency": 11
+        },
+        {
+          "name": "Людей не достаточно, чтобы выполнять работу",
+          "procent": 33,
+          "frequency": 32
+        }
+      ]
+    },
+    "isError": false,
+    "errorMessage": ""
   }
 }

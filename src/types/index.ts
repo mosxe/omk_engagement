@@ -13,7 +13,8 @@ export type FilterName =
   | 'sex'
   | 'experience'
   | 'problems'
-  | 'strong_point';
+  | 'strong_point'
+  | 'year';
 
 export interface Filter {
   value: string;
@@ -93,4 +94,11 @@ export interface ResponseKeyResults extends Error {
 export interface ResponseAllComments extends Error {
   data: CommentItem[];
   problem: string;
+}
+
+export interface ResponseResearch extends Error {
+  data: {
+    main: KeyResult[];
+    additional: KeyResult[];
+  };
 }

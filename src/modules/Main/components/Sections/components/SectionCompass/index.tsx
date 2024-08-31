@@ -1,7 +1,6 @@
 ﻿import { FilterCompass } from '../../../Filters';
 import Compass from './components/Compass';
-import CompassIssues from './components/Issues';
-import CompassZones from './components/Zones';
+import Results from './components/Results';
 
 const SectionCompass = () => {
   const handleApply = () => {
@@ -21,8 +20,7 @@ const SectionCompass = () => {
         isDisabled={false}
       />
       <Compass />
-      <CompassIssues />
-      <CompassZones />
+      <Results />
     </>
   );
 };
