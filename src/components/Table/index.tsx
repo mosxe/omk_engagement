@@ -1,5 +1,6 @@
 ﻿import { useState, useEffect } from 'react';
 import TH from './Th';
+import Skeleton from './Skeleton';
 import { KeyResult } from 'types';
 import styles from './styles.module.scss';
 
@@ -7,17 +8,11 @@ type Props = {
   data: KeyResult[];
   isLoading: boolean;
   isSorting?: boolean;
-  countSkeletonLoading?: number;
 };
 
 export type Sort = 'asc' | 'desc';
 
-const Table = ({
-  data,
-  isLoading,
-  isSorting = false,
-  countSkeletonLoading = 3
-}: Props) => {
+const Table = ({ data, isLoading, isSorting = false }: Props) => {
   const [tableData, setTableData] = useState<KeyResult[]>([]);
   const [sortField, setSortField] = useState<string>('');
   const [order, setOrder] = useState<Sort>('asc');
@@ -55,40 +50,7 @@ const Table = ({
   };
 
   if (isLoading) {
-    return (
-      <table className={`${styles.table} `}>
-        <thead>
-          <tr>
-            <th>Проблематика</th>
-            <th>% влияния на вовлеченность</th>
-            <th>Частота выбора</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[...Array(countSkeletonLoading)].map((_, index) => {
-            return (
-              <tr key={index}>
-                <td>
-                  <div
-                    className={`${styles.table__skeleton_line} ${styles.table__skeleton}`}
-                  ></div>
-                </td>
-                <td>
-                  <div
-                    className={`${styles.table__skeleton_line} ${styles.table__skeleton}`}
-                  ></div>
-                </td>
-                <td>
-                  <div
-                    className={`${styles.table__skeleton_line} ${styles.table__skeleton}`}
-                  ></div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    );
+    return <Skeleton isSorting={isSorting} />;
   }
 
   return (

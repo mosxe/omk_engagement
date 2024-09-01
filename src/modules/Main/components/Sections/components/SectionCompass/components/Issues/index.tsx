@@ -51,8 +51,6 @@ const CompassIssues = ({ data, isLoading }: Props) => {
 
   const onReset = () => {
     dispatch(clearResearchIssuesFilters());
-    setIsShowTable(false);
-    getResearchIssues({ filters: [] });
   };
 
   const onChange = (options: OptionChange, filterName: FilterName) => {
@@ -101,7 +99,6 @@ const CompassIssues = ({ data, isLoading }: Props) => {
                 data={dataResearchIssues.data.main}
                 isLoading={isFetching}
                 isSorting={true}
-                countSkeletonLoading={6}
               />
             </div>
             {isShowTable && (
@@ -110,7 +107,6 @@ const CompassIssues = ({ data, isLoading }: Props) => {
                   data={dataResearchIssues.data.main}
                   isLoading={isFetching}
                   isSorting={true}
-                  countSkeletonLoading={6}
                 />
               </div>
             )}

@@ -80,7 +80,6 @@ const SectionEngagement = () => {
 
   const handleReset = () => {
     dispatch(clearSelectedFilters({ tab: 'engagement' }));
-    updateFiltersEngagement({ filters: [], is_starting: false });
   };
 
   const isLoadingBtnApply =

@@ -52,7 +52,6 @@ const CompassZones = ({ data, isLoading }: Props) => {
   const onReset = () => {
     dispatch(clearResearchZonesFilters());
     setIsShowTable(false);
-    getResearchZones({ filters: [] });
   };
 
   const onChange = (options: OptionChange, filterName: FilterName) => {
@@ -103,7 +102,6 @@ const CompassZones = ({ data, isLoading }: Props) => {
                 data={dataResearchIssues.data.main}
                 isLoading={isFetching}
                 isSorting={true}
-                countSkeletonLoading={6}
               />
             </div>
             {isShowTable && (
@@ -112,7 +110,6 @@ const CompassZones = ({ data, isLoading }: Props) => {
                   data={dataResearchIssues.data.main}
                   isLoading={isFetching}
                   isSorting={true}
-                  countSkeletonLoading={6}
                 />
               </div>
             )}
