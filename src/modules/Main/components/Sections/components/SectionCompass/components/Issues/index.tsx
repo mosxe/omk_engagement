@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from 'react';
 import Select from 'components/Select';
 import Table from 'components/Table';
+import TreeSelect, { Node } from 'components/TreeSelect';
 import FIlterContainer from '../../../../../Filters/FIlterContainer';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import {
@@ -35,6 +36,26 @@ const CompassIssues = ({ data, isLoading }: Props) => {
     { data: dataResearchIssues = initialResearchIssues, isFetching }
   ] = useLazyGetResearchIssuesQuery();
 
+  const [treeData, setTreeData] = useState<Node[]>([
+    {
+      key: 1,
+      value: 1,
+      title: 'Node 1',
+      children: [],
+      isLeaf: true
+    },
+    {
+      key: 2,
+      value: 2,
+      title: 'Node 2',
+      children: [],
+      isLeaf: false
+    }
+  ]);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    undefined
+  );
+
   useEffect(() => {
     getResearchIssues({ filters: [] });
   }, []);
@@ -64,6 +85,55 @@ const CompassIssues = ({ data, isLoading }: Props) => {
   const isLoadingApplyBtn = isLoading || isFetching;
   const isDisabledBtnApply = isDisabledBtn(selectedFilters);
 
+  const loadData = (treeNode: Node) => {
+    console.log(treeNode.key);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const treeDataTest = treeData.slice();
+
+        treeDataTest.forEach((item: Node) => {
+          if (item.key === treeNode.key) {
+            item.children = [
+              {
+                key: 3,
+                value: 3,
+                title: 'Node 3',
+                children: [],
+                isLeaf: true
+              },
+              {
+                key: 4,
+                value: 4,
+                title: 'Node 4',
+                children: [],
+                isLeaf: false
+              }
+            ];
+          }
+        });
+
+        setTreeData(treeDataTest);
+        // let { treeData } = this.state;
+        // treeData = treeData.slice();
+        // getNewTreeData(
+        //   treeData,
+        //   treeNode.props.eventKey,
+        //   generateTreeNodes(treeNode),
+        //   2
+        // );
+        // this.setState({ treeData });
+        resolve([]);
+      }, 500);
+    });
+  };
+
+  const onChangeTreeSelect = (value: string) => {
+    setSelectedValue(value);
+  };
+
+  console.log(treeData);
+
+  console.log(selectedValue);
   return (
     <section className={styles['compass-issues']}>
       <div className={styles['compass-issues__header']}>
@@ -78,11 +148,18 @@ const CompassIssues = ({ data, isLoading }: Props) => {
             <FIlterContainer
               onApply={onApply}
               onReset={onReset}
-              isLoading={isLoadingApplyBtn}
+              isLoading={false}
+              // isLoading={isLoadingApplyBtn}
               isDisabled={isDisabledBtnApply}
               data={selectedFilters}
               text='Воспользуйтесь фильтром, чтобы сравнить результаты'
             >
+              <TreeSelect
+                data={treeData}
+                selectedValue={selectedValue}
+                onLoad={loadData}
+                onChange={onChangeTreeSelect}
+              />
               <Select
                 options={getFilterOptions(data, 'year')}
                 onChange={(e) => onChange(e, 'year')}
