@@ -120,43 +120,27 @@
     "data": [
       {
         "sub": "Дивизион \"Сталь\"",
-        "is_matching": false,
-        "data": [
-          {
-            "year": "2024",
-            "percent": 66
-          }
-        ]
+        "year": "2024",
+        "percent": 66,
+        "is_be": false
       },
       {
         "sub": "Дивизион \"Сталь\"",
-        "is_matching": false,
-        "data": [
-          {
-            "year": "2023",
-            "percent": 40
-          }
-        ]
+        "year": "2023",
+        "percent": 50,
+        "is_be": false
       },
       {
         "sub": "Дивизион \"Медь\"",
-        "is_matching": false,
-        "data": [
-          {
-            "year": "2022",
-            "percent": 90
-          }
-        ]
+        "year": "2022",
+        "percent": 10,
+        "is_be": false
       },
       {
         "sub": "Вовлеченность с БЭ",
-        "is_matching": true,
-        "data": [
-          {
-            "year": "2025",
-            "percent": 11
-          }
-        ]
+        "year": "2025",
+        "percent": 84,
+        "is_be": true
       }
     ],
     "isError": false,
@@ -230,12 +214,12 @@
   },
   "dataCategoryChart": {
     "data": [
-      { "name": "Движущая сила", "percent": 66 },
-      { "name": "Ослабленные", "percent": 100 },
-      { "name": "Мученики", "percent": 0 },
-      { "name": "Балласт", "percent": 15 },
-      { "name": "Будущий потенциал", "percent": 36 },
-      { "name": "Мысленно уже не в компании", "percent": 78 }
+      { "name": "Движущая сила", "value": 66 },
+      { "name": "Ослабленные", "value": 100 },
+      { "name": "Мученики", "value": 0 },
+      { "name": "Балласт", "value": 15 },
+      { "name": "Будущий потенциал", "value": 36 },
+      { "name": "Мысленно уже не в компании", "value": 78 }
     ],
     "isError": false,
     "errorMessage": ""

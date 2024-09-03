@@ -81,11 +81,7 @@ const clearPath =
   '28.7 64-64V306c0-35.3-28.7-64-64-64z';
 
 const arrowPath =
-  'M765.7 486.8L314.9 134.7c-5.3-4.1' +
-  '-12.9-0.4-12.9 6.3v77.3c0 4.9 2.3 9.6 6.1 12.6l36' +
-  '0 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6' +
-  '.7 7.7 10.4 12.9 6.3l450.8-352.1c16.4-12.8 16.4-3' +
-  '7.6 0-50.4z';
+  'M765.7 486.8L314.9 134.7c-5.3-4.1-12.9-0.4-12.9 6.3v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1c16.4-12.8 16.4-37.6 0-50.4z';
 
 const getSvg = (path, iStyle = {}, style = {}) => (
   <i style={iStyle}>
@@ -103,34 +99,57 @@ const getSvg = (path, iStyle = {}, style = {}) => (
 
 const switcherIcon = (obj) => {
   if (obj.isLeaf) {
-    return getSvg(
-      arrowPath,
-      { cursor: 'pointer', backgroundColor: 'white' },
-      { transform: 'rotate(270deg)' }
+    return null;
+  }
+
+  if (obj.expanded) {
+    return (
+      <svg
+        width='6'
+        height='8'
+        viewBox='0 0 6 8'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+        style={{ transform: 'rotate: 90deg' }}
+      >
+        <path
+          d='M5.5003 3.99981L1.96447 7.53564L0.786133 6.35648L3.14363 3.99981L0.786133 1.64314L1.96447 0.463978L5.5003 3.99981Z'
+          fill='#6A6F75'
+        />
+      </svg>
     );
   }
+
+  return (
+    <svg
+      width='6'
+      height='8'
+      viewBox='0 0 6 8'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      style={{ transform: 'rotate: 90deg' }}
+    >
+      <path
+        d='M5.5003 3.99981L1.96447 7.53564L0.786133 6.35648L3.14363 3.99981L0.786133 1.64314L1.96447 0.463978L5.5003 3.99981Z'
+        fill='#6A6F75'
+      />
+    </svg>
+  );
   return getSvg(
-    arrowPath,
-    { cursor: 'pointer', backgroundColor: 'white' },
-    { transform: `rotate(${obj.expanded ? 90 : 0}deg)` }
+    arrowPath
+    // { cursor: 'pointer', backgroundColor: 'white' },
+    // { transform: `rotate(${obj.expanded ? 90 : 0}deg)` }
   );
 };
 
 const suffixIcon = getSvg(bubblePath);
-const clearIcon = getSvg(clearPath);
+// const clearIcon = getSvg(clearPath);
 const removeIcon = getSvg(clearPath);
 
 const iconProps = {
-  suffixIcon,
-  clearIcon,
+  // suffixIcon,
+  // clearIcon,
   removeIcon,
-  switcherIcon
-};
-
-const iconPropsFunction = {
-  suffixIcon: () => suffixIcon,
-  clearIcon: () => clearIcon,
-  removeIcon: () => removeIcon,
   switcherIcon
 };
 
@@ -150,45 +169,51 @@ type NoticeProps = {
   onChange: (value: string) => void;
 };
 
+const SwitcherIcon = () => (
+  <svg
+    width='6'
+    height='8'
+    viewBox='0 0 6 8'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      d='M5.5003 3.99981L1.96447 7.53564L0.786133 6.35648L3.14363 3.99981L0.786133 1.64314L1.96447 0.463978L5.5003 3.99981Z'
+      fill='#6A6F75'
+    />
+  </svg>
+);
+
 class RCTreeSelect extends React.Component<NoticeProps> {
-  // public static readonly defaultProps = {
-  //   msg: `Done!`
-  // };
-
-  state = {
-    treeData: getTreeData(),
-    // value: '0-0',
-    value: [],
-    loadedKeys: []
-  };
-
   render() {
     const { data, selectedValue, onLoad, onChange } = this.props;
 
     return (
-      <div style={{ padding: '10px 30px' }}>
-        <h2>dynamic render</h2>
-        <TreeSelect
-          style={{ width: 300 }}
-          treeData={data}
-          labelInValue={false}
-          value={selectedValue}
-          onChange={onChange}
-          loadData={onLoad}
-          treeCheckable
-          treeCheckStrictly={false}
-          multiple
-          placeholder='Подразделение/БЕ'
-          dropdownClassName='tree-select-dropdown'
-          className='tree-select-container'
-          showSearch={false}
-          allowClear={false}
-          notFoundContent='Данные отсутствуют'
-          treeLine={false}
-          treeIcon={false}
-          {...iconPropsFunction}
-        />
-      </div>
+      <TreeSelect
+        style={{ width: 300 }}
+        treeData={data}
+        labelInValue={false}
+        value={selectedValue}
+        onChange={onChange}
+        loadData={onLoad}
+        treeCheckable
+        treeCheckStrictly={false}
+        multiple
+        placeholder='Подразделение/БЕ'
+        dropdownClassName='tree-select-dropdown'
+        className='tree-select-container'
+        showSearch={false}
+        allowClear={false}
+        notFoundContent='Данные отсутствуют'
+        dropdownStyle={{
+          maxHeight: 400,
+          overflow: 'auto',
+          zIndex: 1500
+        }}
+        {...iconProps}
+        removeIcon={() => removeIcon}
+        suffixIcon={<SwitcherIcon />}
+      />
     );
   }
 }

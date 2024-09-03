@@ -32,8 +32,8 @@ const EngagementCategory = ({ data, isLoading }: Props) => {
             return (
               <Card
                 title={item.name}
-                percent={item.percent}
-                color='black'
+                percent={item.value}
+                index={index}
                 key={index}
               />
             );

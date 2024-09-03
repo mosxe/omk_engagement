@@ -1,5 +1,5 @@
 ﻿import { Bar, BarSkeleton } from 'components/Charts';
-import { SpeedChart, SpeedChartItem } from 'types';
+import { SpeedChart } from 'types';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -45,15 +45,15 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
     );
   }
 
-  const filteredData = data.filter((card) => !card.is_matching);
-  const matchingData = data.find((card) => card.is_matching) as SpeedChart;
+  const filteredData = data.filter((card) => !card.is_be);
+  const matchingData = data.find((card) => card.is_be) as SpeedChart;
 
-  const getLabels = (labelsData: SpeedChartItem[]) => {
+  const getLabels = (labelsData: SpeedChart[]) => {
     const labels = labelsData.map((item) => item.year);
     return labels;
   };
 
-  const getData = (chartData: SpeedChartItem[]) => {
+  const getData = (chartData: SpeedChart[]) => {
     const data = chartData.map((item) => item.percent);
     return data;
   };
@@ -67,13 +67,13 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
       <div>
         <div className={styles['engagement-results__row']}>
           {transformData.map((chart, index) => {
-            const title = chart.is_matching ? '' : chart.sub;
+            const title = chart.is_be ? '' : chart.sub;
             return (
               <div
                 key={index}
                 className={`${styles['engagement-results__container']} ${styles['engagement-results__container_bar']}`}
               >
-                {chart.is_matching && (
+                {chart.is_be && (
                   <div
                     className={`${styles['engagement-results__title']} ${styles['engagement-results__title_m']}`}
                   >
@@ -84,7 +84,7 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
                   className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
                 >
                   <Bar
-                    labels={getLabels(chart.data)}
+                    labels={getLabels(chart)}
                     data={getData(chart.data)}
                     title={title}
                     id={`bar_chart_${index}`}

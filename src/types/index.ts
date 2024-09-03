@@ -35,15 +35,11 @@ export interface FilterParams {
   value: string[] | number[];
 }
 
-export interface SpeedChartItem {
-  year: string;
-  percent: number;
-}
-
 export interface SpeedChart {
   sub: string;
-  is_matching: boolean;
-  data: SpeedChartItem[];
+  year: string;
+  percent: number;
+  is_be: boolean;
 }
 
 export interface ResponseSpeedChart extends Error {
@@ -51,7 +47,7 @@ export interface ResponseSpeedChart extends Error {
 }
 export interface CategoryChart {
   name: string;
-  percent: number;
+  value: number;
 }
 
 export interface ResponseCategoryChart extends Error {

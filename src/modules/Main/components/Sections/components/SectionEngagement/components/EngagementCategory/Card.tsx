@@ -4,21 +4,21 @@ import styles from './styles.module.scss';
 type Props = {
   title: string;
   percent: number;
-  color: 'black' | 'purple' | 'blue' | 'red' | 'pink' | 'orange';
+  index: number;
 };
 
-const Card = ({ title, percent, color }: Props) => {
+const Card = ({ title, percent, index }: Props) => {
   const start = 15;
   const end = 80;
   const size = start + Math.round((percent * 100) / end);
 
   const classNameCard = classNames(styles['engagement-category__card'], {
-    [styles['engagement-category__card_black']]: color === 'black',
-    [styles['engagement-category__card_purple']]: color === 'purple',
-    [styles['engagement-category__card_blue']]: color === 'blue',
-    [styles['engagement-category__card_red']]: color === 'red',
-    [styles['engagement-category__card_pink']]: color === 'pink',
-    [styles['engagement-category__card_orange']]: color === 'orange'
+    [styles['engagement-category__card_black']]: index === 0,
+    [styles['engagement-category__card_purple']]: index === 1,
+    [styles['engagement-category__card_blue']]: index === 2,
+    [styles['engagement-category__card_red']]: index === 3,
+    [styles['engagement-category__card_pink']]: index === 4,
+    [styles['engagement-category__card_orange']]: index === 5
   });
 
   return (

@@ -58,8 +58,8 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
     );
   }
 
-  const filteredData = data.filter((card) => !card.is_matching);
-  const matchingData = data.find((card) => card.is_matching) as SpeedChart;
+  const filteredData = data.filter((card) => !card.is_be);
+  const matchingData = data.find((card) => card.is_be) as SpeedChart;
 
   return (
     <div className={styles['engagement-results__box']}>
@@ -67,8 +67,8 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
         <div className={styles['engagement-results__container']}>
           <div className={styles['engagement-results__chart']}>
             <Doughnut
-              percent={filteredData[0].data[0].percent}
-              title={`${filteredData[0].data[0].year} год`}
+              percent={filteredData[0].percent}
+              title={`${filteredData[0].year} год`}
               id='doughnut_chart_0'
             />
           </div>
@@ -85,8 +85,8 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
                     className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_s']}`}
                   >
                     <Doughnut
-                      percent={chart.data[0].percent}
-                      title={chart.data[0].year}
+                      percent={chart.percent}
+                      title={chart.year}
                       id={`doughnut_chart_${index + 1}`}
                       size='small'
                     />
@@ -104,8 +104,8 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
           </div>
           <div className={styles['engagement-results__chart']}>
             <Doughnut
-              percent={matchingData.data[0].percent}
-              title={`${matchingData.data[0].year} год`}
+              percent={matchingData.percent}
+              title={`${matchingData.year} год`}
               id='doughnut_chart_matching'
             />
           </div>

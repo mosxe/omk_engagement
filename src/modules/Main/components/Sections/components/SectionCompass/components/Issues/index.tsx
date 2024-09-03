@@ -86,7 +86,6 @@ const CompassIssues = ({ data, isLoading }: Props) => {
   const isDisabledBtnApply = isDisabledBtn(selectedFilters);
 
   const loadData = (treeNode: Node) => {
-    console.log(treeNode.key);
     return new Promise((resolve) => {
       setTimeout(() => {
         const treeDataTest = treeData.slice();
@@ -106,7 +105,7 @@ const CompassIssues = ({ data, isLoading }: Props) => {
                 value: 4,
                 title: 'Node 4',
                 children: [],
-                isLeaf: false
+                isLeaf: true
               }
             ];
           }
@@ -131,9 +130,8 @@ const CompassIssues = ({ data, isLoading }: Props) => {
     setSelectedValue(value);
   };
 
-  console.log(treeData);
+  // console.log(treeData);
 
-  console.log(selectedValue);
   return (
     <section className={styles['compass-issues']}>
       <div className={styles['compass-issues__header']}>

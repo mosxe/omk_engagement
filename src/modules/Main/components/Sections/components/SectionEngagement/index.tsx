@@ -1,6 +1,5 @@
 ﻿import { useState, useEffect } from 'react';
 import { FilterEngagement } from '../../../Filters';
-import Demo from 'components/TreeSelect';
 import 'rc-tree/assets/index.css';
 import EngagementResults from './components/EngagementResults';
 import EngagementCategory from './components/EngagementCategory';
@@ -10,7 +9,7 @@ import Comments from './components/Comments';
 import {
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
-  useLazyGetFilterEngagementDataQuery,
+  // useLazyGetFilterEngagementDataQuery,
   useLazyGetKeyResultsQuery,
   useLazyGetCommentsQuery
   // useGetAllFiltersEngagementDataQuery
@@ -32,7 +31,7 @@ const SectionEngagement = () => {
       isFetching: isFetchingCategoryChart
     }
   ] = useLazyGetCategoryDataQuery();
-  const [updateFiltersEngagement] = useLazyGetFilterEngagementDataQuery();
+  // const [updateFiltersEngagement] = useLazyGetFilterEngagementDataQuery();
   const [
     updateKeyResults,
     {
@@ -51,11 +50,10 @@ const SectionEngagement = () => {
 
   useEffect(() => {
     updateSpeedChart({
-      filters: [],
-      random: Math.random()
+      filters: []
     });
-    updateCategoryChart({ filters: [], random: Math.random() });
-    updateKeyResults({ filters: [], random: Math.random() });
+    updateCategoryChart({ filters: [] });
+    updateKeyResults({ filters: [] });
     getComments({ filters: [] });
   }, []);
 
@@ -69,14 +67,12 @@ const SectionEngagement = () => {
     setViewChart(viewChart);
 
     updateSpeedChart({
-      filters: dataFilters,
-      random: Math.random()
+      filters: dataFilters
     });
     updateCategoryChart({
-      filters: dataFilters,
-      random: Math.random()
+      filters: dataFilters
     });
-    updateKeyResults({ filters: dataFilters, random: Math.random() });
+    updateKeyResults({ filters: dataFilters });
     getComments({ filters: dataFilters });
   };
 

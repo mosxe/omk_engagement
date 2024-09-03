@@ -38,22 +38,20 @@ export const API = createApi({
   endpoints: (builder) => ({
     getFilterEngagementData: builder.query<
       ResponseFilters,
-      { filters: FilterParams[]; is_starting: boolean }
+      { filters: FilterParams[] }
     >({
-      query: ({ filters, is_starting }) => ({
-        url: postUrl('&action=getFilterEngagementData'),
+      query: ({ filters }) => ({
+        url: postUrl('&action=getFilterEngagement'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          filters,
-          is_starting
+          filters
         })
       }),
-      transformResponse: (response: ResponseFilters, _, arg) => {
+      transformResponse: (response: ResponseFilters) => {
         if (import.meta.env.DEV) {
-          const mockDataResponse: ResponseFilters = arg.is_starting
-            ? (mockData.dataEngagement as ResponseFilters)
-            : (mockData.dataUpdateEngagement as ResponseFilters);
+          const mockDataResponse: ResponseFilters =
+            mockData.dataEngagement as ResponseFilters;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -90,21 +88,20 @@ export const API = createApi({
     }),
     getSpeedData: builder.query<
       ResponseSpeedChart,
-      { filters: FilterParams[]; random: number }
+      { filters: FilterParams[] }
     >({
-      query: ({ filters, random }) => ({
+      query: ({ filters }) => ({
         url: postUrl('&action=getSpeedData'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          filters,
-          random
+          filters
         })
       }),
       transformResponse: (response: ResponseSpeedChart) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseSpeedChart =
-            mockData.dataBarChart as ResponseSpeedChart;
+            mockData.dataSpeedChart as ResponseSpeedChart;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -115,15 +112,14 @@ export const API = createApi({
     }),
     getCategoryData: builder.query<
       ResponseCategoryChart,
-      { filters: FilterParams[]; random: number }
+      { filters: FilterParams[] }
     >({
-      query: ({ filters, random }) => ({
-        url: postUrl('&action=getCategoryData'),
+      query: ({ filters }) => ({
+        url: postUrl('&action=getCircle'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          filters,
-          random
+          filters
         })
       }),
       transformResponse: (response: ResponseCategoryChart) => {
@@ -140,15 +136,14 @@ export const API = createApi({
     }),
     getKeyResults: builder.query<
       ResponseKeyResults,
-      { filters: FilterParams[]; random: number }
+      { filters: FilterParams[] }
     >({
-      query: ({ filters, random }) => ({
+      query: ({ filters }) => ({
         url: postUrl('&action=getKeyResults'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          filters,
-          random
+          filters
         })
       }),
       transformResponse: (response: ResponseKeyResults) => {
