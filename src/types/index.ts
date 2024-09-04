@@ -27,7 +27,7 @@ export interface Filters {
 }
 
 export interface ResponseFilters extends Error {
-  filters: Filters[];
+  data: Filters[];
 }
 
 export interface FilterParams {
@@ -56,36 +56,40 @@ export interface ResponseCategoryChart extends Error {
 }
 
 export interface CommentItem {
-  id: string | number;
   text: string;
   person_name: string;
   position_name: string;
 }
 
 export interface Comments {
-  data: CommentItem[];
-  problem: string;
+  id: string;
+  title: string;
+  is_all: boolean;
+  comments: CommentItem[];
 }
 
 export interface ResponseComments extends Error {
-  zones: Comments;
-  issues: Comments;
+  data: Comments[];
 }
 
 export interface KeyResult {
   name: string;
-  procent: number;
-  frequency: number;
+  persent: number;
+  periodicity: number;
 }
 
 export interface KeyResults {
-  common: KeyResult[];
-  subdivision: KeyResult[];
+  general: KeyResult[];
+  local: KeyResult[];
+}
+
+export interface DataKeyResults {
+  negative: KeyResults;
+  positive: KeyResults;
 }
 
 export interface ResponseKeyResults extends Error {
-  data_problems: KeyResults;
-  data_zones: KeyResults;
+  data: DataKeyResults;
 }
 
 export interface ResponseAllComments extends Error {
@@ -98,4 +102,18 @@ export interface ResponseResearch extends Error {
     main: KeyResult[];
     additional: KeyResult[];
   };
+}
+
+export interface ResponseOrgTree extends Error {
+  data: OrgTree[];
+}
+
+export interface OrgTree {
+  key: string;
+  value: string;
+  title: string;
+  parent_object_code: string;
+  children: OrgTree[];
+  has_child: boolean;
+  isLeaf: boolean;
 }

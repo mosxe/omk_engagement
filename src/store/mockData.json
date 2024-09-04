@@ -1,6 +1,6 @@
 ﻿{
   "dataEngagement": {
-    "filters": [
+    "data": [
       {
         "name": "city",
         "value": [
@@ -27,7 +27,7 @@
     "errorMessage": ""
   },
   "dataUpdateEngagement": {
-    "filters": [
+    "data": [
       {
         "name": "city",
         "value": [
@@ -56,7 +56,7 @@
     "errorMessage": ""
   },
   "dataCompass": {
-    "filters": [
+    "data": [
       {
         "name": "city",
         "value": [
@@ -84,7 +84,7 @@
     "errorMessage": ""
   },
   "dataUpdateCompass": {
-    "filters": [
+    "data": [
       {
         "name": "city",
         "value": [
@@ -177,46 +177,72 @@
     "errorMessage": ""
   },
   "dataComments": {
-    "zones": {
-      "data": [
-        {
-          "id": 1,
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-          "person_name": "Иванов П.Е.",
-          "position_name": "Ведущий разработчик"
-        },
-        {
-          "id": 2,
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-          "person_name": "Иванов П.Е.",
-          "position_name": "Ведущий разработчик"
-        },
-        {
-          "id": 3,
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dol",
-          "person_name": "Иванов П.Е.",
-          "position_name": "Ведущий разработчик"
-        }
-      ],
-      "problem": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону"
-    },
-    "issues": {
-      "data": [
-        {
-          "id": 1,
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-          "person_name": "Иванов П.Е.",
-          "position_name": "Ведущий разработчик"
-        },
-        {
-          "id": 2,
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-          "person_name": "Иванов П.Е.",
-          "position_name": "Ведущий разработчик"
-        }
-      ],
-      "problem": "Руководитель11111 отделяет себя от своих сотрудников, не встает на их сторону"
-    },
+    "data": [
+      {
+        "id": "1",
+        "title": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону 1",
+        "is_all": true,
+        "comments": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "title": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону 2",
+        "is_all": true,
+        "comments": [
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          },
+          {
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+            "person_name": "Иванов П.Е.",
+            "position_name": "Ведущий разработчик"
+          }
+        ]
+      }
+    ],
     "isError": false,
     "errorMessage": ""
   },
@@ -246,83 +272,85 @@
     "errorMessage": ""
   },
   "dataKeyResults": {
-    "data_problems": {
-      "common": [
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу 22222",
-          "procent": 22,
-          "frequency": 20
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу",
-          "procent": 33,
-          "frequency": 80
-        }
-      ],
-      "subdivision": [
-        {
-          "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону",
-          "procent": 77,
-          "frequency": 50
-        },
-        {
-          "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону 2",
-          "procent": 80,
-          "frequency": 50
-        }
-      ]
-    },
-    "data_zones": {
-      "common": [
-        {
-          "name": "Нехватка инструментов и запчастей",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Нехватка инструментов и запчастей 2",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Нехватка инструментов",
-          "procent": 22,
-          "frequency": 20
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу",
-          "procent": 33,
-          "frequency": 80
-        }
-      ],
-      "subdivision": [
-        {
-          "name": "Руководитель ставит задачи, которые не понятно как выполнять",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону",
-          "procent": 100,
-          "frequency": 50
-        }
-      ]
+    "data": {
+      "negative": {
+        "general": [
+          {
+            "name": "Нет мотивации за выслугу лет",
+            "persent": 100,
+            "periodicity": 50
+          },
+          {
+            "name": "Нет мотивации за выслугу лет",
+            "persent": 100,
+            "periodicity": 50
+          },
+          {
+            "name": "Людей не достаточно, чтобы выполнять работу 22222",
+            "persent": 22,
+            "periodicity": 20
+          },
+          {
+            "name": "Людей не достаточно, чтобы выполнять работу",
+            "persent": 33,
+            "periodicity": 80
+          }
+        ],
+        "local": [
+          {
+            "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону",
+            "persent": 77,
+            "periodicity": 50
+          },
+          {
+            "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону 2",
+            "persent": 80,
+            "periodicity": 50
+          }
+        ]
+      },
+      "positive": {
+        "general": [
+          {
+            "name": "Нехватка инструментов и запчастей",
+            "persent": 100,
+            "periodicity": 50
+          },
+          {
+            "name": "Нехватка инструментов и запчастей 2",
+            "persent": 100,
+            "periodicity": 50
+          },
+          {
+            "name": "Нехватка инструментов",
+            "persent": 22,
+            "periodicity": 20
+          },
+          {
+            "name": "Людей не достаточно, чтобы выполнять работу",
+            "persent": 33,
+            "periodicity": 80
+          }
+        ],
+        "local": [
+          {
+            "name": "Руководитель ставит задачи, которые не понятно как выполнять",
+            "persent": 100,
+            "periodicity": 50
+          },
+          {
+            "name": "Руководитель отделяет себя от своих сотрудников, на встает на их сторону",
+            "persent": 100,
+            "periodicity": 50
+          }
+        ]
+      }
     },
     "isError": false,
     "errorMessage": ""
   },
   "dataFiltersEngagement": {
-    "filters": [
+    "data": [
       {
         "name": "city",
         "value": [
@@ -342,7 +370,7 @@
     "errorMessage": ""
   },
   "dataFiltersCompassResults": {
-    "filters": [
+    "data": [
       {
         "name": "year",
         "value": [
@@ -456,5 +484,58 @@
     },
     "isError": false,
     "errorMessage": ""
+  },
+  "getOrgTree": {
+    "data": [
+      {
+        "key": "1",
+        "value": "1",
+        "title": "Поздразеделние 1",
+        "parent_object_code": "",
+        "children": [],
+        "has_child": true,
+        "isLeaf": false
+      },
+      {
+        "key": "2",
+        "value": "2",
+        "title": "Поздразеделние 2",
+        "parent_object_code": "",
+        "children": [],
+        "has_child": true,
+        "isLeaf": true
+      },
+      {
+        "key": "4",
+        "value": "4",
+        "title": "Поздразеделние 4",
+        "parent_object_code": "",
+        "children": [],
+        "has_child": true,
+        "isLeaf": false
+      }
+    ]
+  },
+  "getOrgTreeSelected": {
+    "data": [
+      {
+        "key": "5",
+        "value": "5",
+        "title": "Поздразеделние 5",
+        "parent_object_code": "4",
+        "children": [],
+        "has_child": false,
+        "isLeaf": true
+      },
+      {
+        "key": "6",
+        "value": "6",
+        "title": "Поздразеделние 6",
+        "parent_object_code": "4",
+        "children": [],
+        "has_child": false,
+        "isLeaf": true
+      }
+    ]
   }
 }

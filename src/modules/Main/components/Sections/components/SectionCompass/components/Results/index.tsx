@@ -9,8 +9,8 @@ const Results = () => {
 
   return (
     <>
-      <CompassIssues data={data.filters} isLoading={isLoading} />
-      <CompassZones data={data.filters} isLoading={isLoading} />
+      <CompassIssues data={data.data} isLoading={isLoading} />
+      <CompassZones data={data.data} isLoading={isLoading} />
     </>
   );
 };

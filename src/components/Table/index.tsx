@@ -30,7 +30,7 @@ const Table = ({ data, isLoading, isSorting = false }: Props) => {
   };
 
   const handleSorting = (field: string, sortOrder: Sort) => {
-    const sorted = [...tableData].sort((a, b) => {
+    const sorted = [...tableData].sort((a: any, b: any) => {
       if (sortOrder === 'asc') {
         return a[field] - b[field];
       } else {
@@ -62,25 +62,25 @@ const Table = ({ data, isLoading, isSorting = false }: Props) => {
             title='% влияния на вовлеченность'
             isSorting={isSorting}
             onSorting={handleSortingChange}
-            field='procent'
+            field='persent'
             className={getClassName('procent')}
           />
           <TH
             title='Частота выбора'
             isSorting={isSorting}
             onSorting={handleSortingChange}
-            field='frequency'
+            field='periodicity'
             className={getClassName('frequency')}
           />
         </tr>
       </thead>
       <tbody>
-        {tableData.map((item: any, index: number) => {
+        {tableData.map((item: KeyResult, index: number) => {
           return (
             <tr key={index}>
               <td>{item.name}</td>
-              <td>{item.procent}</td>
-              <td>{item.frequency}%</td>
+              <td>{item.persent}</td>
+              <td>{item.periodicity}%</td>
             </tr>
           );
         })}

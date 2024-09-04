@@ -52,56 +52,56 @@ const FilterCompass = ({
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
       <Select
-        options={getFilterOptions(data.filters, 'group')}
+        options={getFilterOptions(data.data, 'group')}
         defaultValue={getValueSelect(selectedFilters, 'group')}
         onChange={(e) => onChange(e, 'group')}
         placeholder='Группа'
         width={180}
       />
       <Select
-        options={getFilterOptions(data.filters, 'subs')}
+        options={getFilterOptions(data.data, 'subs')}
         defaultValue={getValueSelect(selectedFilters, 'subs')}
         onChange={(e) => onChange(e, 'subs')}
         placeholder='Подразделение/БЕ'
         width={230}
       />
       <Select
-        options={getFilterOptions(data.filters, 'city')}
+        options={getFilterOptions(data.data, 'city')}
         defaultValue={getValueSelect(selectedFilters, 'city')}
         onChange={(e) => onChange(e, 'city')}
         placeholder='Город'
         width={170}
       />
       <Select
-        options={getFilterOptions(data.filters, 'category')}
+        options={getFilterOptions(data.data, 'category')}
         defaultValue={getValueSelect(selectedFilters, 'category')}
         onChange={(e) => onChange(e, 'category')}
         placeholder='Категория'
         width={160}
       />
       <Select
-        options={getFilterOptions(data.filters, 'sex')}
+        options={getFilterOptions(data.data, 'sex')}
         defaultValue={getValueSelect(selectedFilters, 'sex')}
         onChange={(e) => onChange(e, 'sex')}
         placeholder='Пол'
         width={100}
       />
       <Select
-        options={getFilterOptions(data.filters, 'experience')}
+        options={getFilterOptions(data.data, 'experience')}
         defaultValue={getValueSelect(selectedFilters, 'experience')}
         onChange={(e) => onChange(e, 'experience')}
         placeholder='Стаж работы'
         width={180}
       />
       <Select
-        options={getFilterOptions(data.filters, 'problems')}
+        options={getFilterOptions(data.data, 'problems')}
         defaultValue={getValueSelect(selectedFilters, 'problems')}
         onChange={(e) => onChange(e, 'problems')}
         placeholder='Проблема'
         width={340}
       />
       <Select
-        options={getFilterOptions(data.filters, 'strong_point')}
+        options={getFilterOptions(data.data, 'strong_point')}
         defaultValue={getValueSelect(selectedFilters, 'strong_point')}
         onChange={(e) => onChange(e, 'strong_point')}
         placeholder='Сильная сторона'

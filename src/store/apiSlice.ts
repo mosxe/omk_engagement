@@ -7,7 +7,8 @@ import {
   ResponseComments,
   ResponseKeyResults,
   ResponseAllComments,
-  ResponseResearch
+  ResponseResearch,
+  ResponseOrgTree
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
@@ -139,7 +140,7 @@ export const API = createApi({
       { filters: FilterParams[] }
     >({
       query: ({ filters }) => ({
-        url: postUrl('&action=getKeyResults'),
+        url: postUrl('&action=getTableDataList'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -170,13 +171,12 @@ export const API = createApi({
       transformResponse: (response: ResponseComments) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseComments = {
-            zones: mockData.dataComments.zones,
-            issues: mockData.dataComments.issues,
+            data: mockData.dataComments.data,
             isError: false,
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 5000);
+            return setTimeout(() => resolve(mockDataResponse), 1500);
           });
         } else {
           return response;
@@ -217,7 +217,7 @@ export const API = createApi({
       { filters: FilterParams[] }
     >({
       query: ({ filters }) => ({
-        url: postUrl('&action=getFilterEngegement'),
+        url: postUrl('&action=getFilterEngagement'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -265,7 +265,7 @@ export const API = createApi({
       transformResponse: (response: ResponseResearch) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseResearch = {
-            data: mockData.getResearchIssues.data,
+            data: mockData.getResearchIssues.data as any,
             isError: false,
             errorMessage: ''
           };
@@ -292,12 +292,39 @@ export const API = createApi({
       transformResponse: (response: ResponseResearch) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseResearch = {
-            data: mockData.getResearchIssues.data,
+            data: mockData.getResearchIssues.data as any,
             isError: false,
             errorMessage: ''
           };
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 5000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getOrgTree: builder.query<ResponseOrgTree, string | null>({
+      query: (code) =>
+        urlBuilder({
+          action: 'getOrgTree',
+          code
+        }),
+      transformResponse: (response: ResponseOrgTree, _, arg) => {
+        if (import.meta.env.DEV) {
+          let data = [];
+          if (arg === '4') {
+            data = mockData.getOrgTreeSelected.data;
+          } else {
+            data = mockData.getOrgTree.data;
+          }
+          const mockDataResponse: ResponseOrgTree = {
+            data: data,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1500);
           });
         } else {
           return response;
@@ -319,5 +346,6 @@ export const {
   useGetAllFiltersEngagementDataQuery,
   useGetFiltersCompassResultsQuery,
   useLazyGetResearchIssuesQuery,
-  useLazyGetResearchZonesQuery
+  useLazyGetResearchZonesQuery,
+  useLazyGetOrgTreeQuery
 } = API;

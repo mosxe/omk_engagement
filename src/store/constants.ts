@@ -1,11 +1,11 @@
 ﻿export const initialFiltersEngagement = {
-  filters: [],
+  data: [],
   isError: false,
   errorMessage: ''
 };
 
 export const initialFiltersCompass = {
-  filters: [],
+  data: [],
   isError: false,
   errorMessage: ''
 };
@@ -17,27 +17,22 @@ export const initialCategoryChart = {
 };
 
 export const initialKeyResults = {
-  data_problems: {
-    common: [],
-    subdivision: []
-  },
-  data_zones: {
-    common: [],
-    subdivision: []
+  data: {
+    negative: {
+      general: [],
+      local: []
+    },
+    positive: {
+      general: [],
+      local: []
+    }
   },
   isError: false,
   errorMessage: ''
 };
 
 export const initialComments = {
-  zones: {
-    data: [],
-    problem: ''
-  },
-  issues: {
-    data: [],
-    problem: ''
-  },
+  data: [],
   isError: false,
   errorMessage: ''
 };
@@ -50,7 +45,7 @@ export const initialAllComments = {
 };
 
 export const initialFiltersCompassResults = {
-  filters: [],
+  data: [],
   isError: false,
   errorMessage: ''
 };
@@ -69,6 +64,12 @@ export const initialResearchZones = {
     main: [],
     additional: []
   },
+  isError: false,
+  errorMessage: ''
+};
+
+export const initialOrgTree = {
+  data: [],
   isError: false,
   errorMessage: ''
 };

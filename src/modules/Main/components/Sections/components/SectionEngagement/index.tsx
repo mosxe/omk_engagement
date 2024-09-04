@@ -12,9 +12,14 @@ import {
   // useLazyGetFilterEngagementDataQuery,
   useLazyGetKeyResultsQuery,
   useLazyGetCommentsQuery
+  // useLazyGetOrgTreeQuery
   // useGetAllFiltersEngagementDataQuery
 } from 'store/apiSlice';
-import { initialCategoryChart, initialKeyResults } from 'store/constants';
+import {
+  initialCategoryChart,
+  initialKeyResults,
+  initialComments
+} from 'store/constants';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { clearSelectedFilters } from 'store/filterSlice';
 import { transformDataFilters, isDisabledBtn } from 'helpers';
@@ -39,8 +44,10 @@ const SectionEngagement = () => {
       isFetching: isFetchingKeyResults
     }
   ] = useLazyGetKeyResultsQuery();
-  const [getComments, { data: dataComments, isFetching: isFetchingComments }] =
-    useLazyGetCommentsQuery();
+  const [
+    getComments,
+    { data: dataComments = initialComments, isFetching: isFetchingComments }
+  ] = useLazyGetCommentsQuery();
 
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -106,22 +113,17 @@ const SectionEngagement = () => {
         isLoading={isFetchingCategoryChart}
       />
       <Issues
-        data={dataKeyResults.data_problems}
+        data={dataKeyResults.data.negative}
         isLoading={isFetchingKeyResults}
       />
       <Comments
-        data={dataComments?.issues}
+        data={dataComments.data}
         type='issue'
         isLoading={isFetchingComments}
       />
       <Zones
-        data={dataKeyResults.data_zones}
+        data={dataKeyResults.data.positive}
         isLoading={isFetchingKeyResults}
-      />
-      <Comments
-        data={dataComments?.zones}
-        type='zone'
-        isLoading={isFetchingComments}
       />
     </>
   );

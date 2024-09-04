@@ -3,15 +3,9 @@
 type Props = {
   isSorting?: boolean;
 };
-const COUNT = 6;
+const COUNT = 5;
 
-const TH = ({
-  isSorting = false,
-  title
-}: {
-  isSorting?: boolean;
-  title: string;
-}) => {
+const TH = ({ isSorting = false }: { isSorting?: boolean }) => {
   if (isSorting) {
     return (
       <th>
@@ -45,9 +39,9 @@ const Skeleton = ({ isSorting = false }: Props) => {
     <table className={`${styles.table} `}>
       <thead>
         <tr>
-          <TH title='Проблематика' isSorting={isSorting} />
-          <TH title='% влияния на вовлеченность' isSorting={isSorting} />
-          <TH title='Частота выбора' isSorting={isSorting} />
+          <TH isSorting={isSorting} />
+          <TH isSorting={isSorting} />
+          <TH isSorting={isSorting} />
         </tr>
       </thead>
       <tbody>

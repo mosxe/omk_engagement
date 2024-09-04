@@ -126,8 +126,8 @@ const CompassIssues = ({ data, isLoading }: Props) => {
     });
   };
 
-  const onChangeTreeSelect = (value: string) => {
-    setSelectedValue(value);
+  const onChangeTreeSelect = (value: string | string[]) => {
+    setSelectedValue(value as string);
   };
 
   // console.log(treeData);
@@ -146,8 +146,8 @@ const CompassIssues = ({ data, isLoading }: Props) => {
             <FIlterContainer
               onApply={onApply}
               onReset={onReset}
-              isLoading={false}
-              // isLoading={isLoadingApplyBtn}
+              // isLoading={false}
+              isLoading={isLoadingApplyBtn}
               isDisabled={isDisabledBtnApply}
               data={selectedFilters}
               text='Воспользуйтесь фильтром, чтобы сравнить результаты'

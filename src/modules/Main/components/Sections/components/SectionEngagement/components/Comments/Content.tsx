@@ -1,18 +1,12 @@
 ﻿import { CommentItem } from 'types';
-import Skeleton from './Skeleton';
 import Card from './Card';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: CommentItem[] | undefined;
-  isLoading: boolean;
+  data: CommentItem[];
 };
 
-const Content = ({ data, isLoading }: Props) => {
-  if (isLoading || data === undefined) {
-    return <Skeleton />;
-  }
-
+const Content = ({ data }: Props) => {
   if (!data.length) {
     return (
       <div className={styles['engagement-comments__empty']}>
@@ -23,9 +17,9 @@ const Content = ({ data, isLoading }: Props) => {
 
   return (
     <div className={styles['engagement-comments__wrapper']}>
-      {data.map((card) => (
+      {data.map((card, index) => (
         <Card
-          key={card.id}
+          key={index}
           text={card.text}
           person_name={card.person_name}
           position_name={card.position_name}
