@@ -1,5 +1,6 @@
 ﻿import { Bar, BarSkeleton } from 'components/Charts';
 import { SpeedChart } from 'types';
+import { transformDataBar } from 'helpers';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -45,15 +46,16 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
     );
   }
 
-  const filteredData = data.filter((card) => !card.is_be);
-  const matchingData = data.find((card) => card.is_be) as SpeedChart;
+  const tempTransformDataBar = transformDataBar(data);
+  const filteredData = tempTransformDataBar.filter((card) => !card.is_be);
+  const matchingData = tempTransformDataBar.find((card) => card.is_be) as never;
 
-  const getLabels = (labelsData: SpeedChart[]) => {
+  const getLabels = (labelsData: { year: string; percent: number }[]) => {
     const labels = labelsData.map((item) => item.year);
     return labels;
   };
 
-  const getData = (chartData: SpeedChart[]) => {
+  const getData = (chartData: { year: string; percent: number }[]) => {
     const data = chartData.map((item) => item.percent);
     return data;
   };
@@ -67,7 +69,7 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
       <div>
         <div className={styles['engagement-results__row']}>
           {transformData.map((chart, index) => {
-            const title = chart.is_be ? '' : chart.sub;
+            const title = chart.is_be ? '' : chart.name;
             return (
               <div
                 key={index}
@@ -84,7 +86,7 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
                   className={`${styles['engagement-results__chart']} ${styles['engagement-results__chart_bar']}`}
                 >
                   <Bar
-                    labels={getLabels(chart)}
+                    labels={getLabels(chart.data)}
                     data={getData(chart.data)}
                     title={title}
                     id={`bar_chart_${index}`}

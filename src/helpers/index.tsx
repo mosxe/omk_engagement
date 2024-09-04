@@ -1,4 +1,4 @@
-﻿import { Filters, FilterName } from 'types';
+﻿import { Filters, FilterName, SpeedChart } from 'types';
 
 const getLink = (link: string) => {
   if (link.startsWith('https://') || link.startsWith('http://')) {
@@ -63,6 +63,30 @@ const isDisabledBtn = (data: Filters[]) => {
   return hasValue;
 };
 
+const transformDataBar = (data: SpeedChart[]) => {
+  const unique = [...new Set(data.map((item) => item.code))];
+  const dataBar = unique.map((bar) => {
+    const findBar = data.find((item) => item.code === bar) as SpeedChart;
+    const tempData = {
+      code: findBar.code,
+      name: findBar.name,
+      is_be: findBar.is_be,
+      data: [] as { year: string; percent: number }[]
+    };
+    data.forEach((item) => {
+      if (item.code === bar) {
+        const value = {
+          year: item.year,
+          percent: item.percent
+        };
+        tempData.data.push(value);
+      }
+    });
+    return tempData;
+  });
+  return dataBar;
+};
+
 export {
   getLink,
   getLinkFile,
@@ -70,5 +94,6 @@ export {
   getValueSelect,
   transformDataFilters,
   declinationComments,
-  isDisabledBtn
+  isDisabledBtn,
+  transformDataBar
 };

@@ -36,7 +36,8 @@ export interface FilterParams {
 }
 
 export interface SpeedChart {
-  sub: string;
+  code: string;
+  name: string;
   year: string;
   percent: number;
   is_be: boolean;
