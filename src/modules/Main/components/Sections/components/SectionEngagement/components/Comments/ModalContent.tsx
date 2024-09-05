@@ -70,28 +70,18 @@ const ModalContent = ({ data, isLoading, onClose }: Props) => {
             </span>
           </div>
           <div className={styles['engagement-comments__wrapper']}>
-            {data.comments.map(
-              ({ text, person_name, position_name }, index) => {
-                return (
-                  <div
-                    className={styles['engagement-comments__card']}
-                    key={index}
-                  >
-                    <div className={styles['engagement-comments__card_text']}>
-                      {text}
-                    </div>
-                    <div className={styles['engagement-comments__card_name']}>
-                      {person_name}
-                    </div>
-                    <div
-                      className={styles['engagement-comments__card_position']}
-                    >
-                      {position_name}
-                    </div>
+            {data.comments.map(({ text }, index) => {
+              return (
+                <div
+                  className={styles['engagement-comments__card']}
+                  key={index}
+                >
+                  <div className={styles['engagement-comments__card_text']}>
+                    {text}
                   </div>
-                );
-              }
-            )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </Modal.Body>

@@ -57,8 +57,6 @@ export interface ResponseCategoryChart extends Error {
 
 export interface CommentItem {
   text: string;
-  person_name: string;
-  position_name: string;
 }
 
 export interface Comments {
