@@ -95,19 +95,19 @@ const iconProps = {
 };
 
 export type Node = {
+  key: React.Key;
   value: string | number;
   title: string;
-  // label: React.ReactNode;
-  key: React.Key;
+  parent_object_code: string;
   children: Node[] | [];
   isLeaf: boolean;
 };
 
 type NoticeProps = {
   data: Node[];
-  selectedValue: string | undefined;
+  selectedValue: string[] | undefined;
   onLoad: (dataNode: any) => Promise<unknown>;
-  onChange: (value: string | string[]) => void;
+  onChange: (value: string[]) => void;
 };
 
 const SwitcherIcon = () => (

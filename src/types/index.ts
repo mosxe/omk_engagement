@@ -93,8 +93,10 @@ export interface ResponseKeyResults extends Error {
 }
 
 export interface ResponseAllComments extends Error {
-  data: CommentItem[];
-  problem: string;
+  data: {
+    title: string;
+    comments: CommentItem[];
+  };
 }
 
 export interface ResponseResearch extends Error {
@@ -114,6 +116,5 @@ export interface OrgTree {
   title: string;
   parent_object_code: string;
   children: OrgTree[];
-  has_child: boolean;
   isLeaf: boolean;
 }

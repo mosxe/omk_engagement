@@ -1,4 +1,5 @@
 ﻿import { Bar, BarSkeleton } from 'components/Charts';
+import NoData from 'modules/Main/components/NoData';
 import { SpeedChart } from 'types';
 import { transformDataBar } from 'helpers';
 import styles from './styles.module.scss';
@@ -39,11 +40,7 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
   }
 
   if (!data.length) {
-    return (
-      <div className={styles['engagement-results__empty']}>
-        Данные отсутствуют
-      </div>
-    );
+    return <NoData />;
   }
 
   const tempTransformDataBar = transformDataBar(data);

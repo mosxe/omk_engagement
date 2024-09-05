@@ -1,4 +1,5 @@
 ﻿import { Doughnut, DoughnutSkeleton } from 'components/Charts';
+import NoData from 'modules/Main/components/NoData';
 import { SpeedChart } from 'types';
 import styles from './styles.module.scss';
 
@@ -51,11 +52,7 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
   }
 
   if (!data.length) {
-    return (
-      <div className={styles['engagement-results__empty']}>
-        Данные отсутствуют
-      </div>
-    );
+    return <NoData />;
   }
 
   const filteredData = data.filter((card) => !card.is_be);

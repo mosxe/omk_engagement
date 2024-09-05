@@ -37,13 +37,6 @@ export const initialComments = {
   errorMessage: ''
 };
 
-export const initialAllComments = {
-  data: [],
-  problem: '',
-  isError: false,
-  errorMessage: ''
-};
-
 export const initialFiltersCompassResults = {
   data: [],
   isError: false,

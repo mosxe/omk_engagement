@@ -5,9 +5,8 @@ import Modal from 'components/Modal';
 import ModalContent from './ModalContent';
 import Content from './Content';
 import Skeleton from './Skeleton';
-import { Comments as IComments } from 'types';
+import { Comments as IComments, CommentItem } from 'types';
 import { useLazyGetAllCommentsQuery } from 'store/apiSlice';
-import { initialAllComments } from 'store/constants';
 import { transformDataFilters } from 'helpers';
 import { useAppSelector } from 'store/hooks';
 import styles from './styles.module.scss';
@@ -18,33 +17,52 @@ type Props = {
 };
 
 const Comments = ({ data, isLoading }: Props) => {
-  const [
-    getAllComments,
-    {
-      data: dataAllComments = initialAllComments,
-      isFetching: isFetchingAllComments
-    }
-  ] = useLazyGetAllCommentsQuery();
+  const [getAllComments, { isFetching: isFetchingAllComments }] =
+    useLazyGetAllCommentsQuery();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.engagement
   );
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [commentId, setCommentId] = useState<string>('');
+  const [commentsData, setCommentsData] = useState<
+    { id: string; title: string; comments: CommentItem[] }[]
+  >([]);
 
-  const handleModal = () => {
-    setIsShowModal((prevValue) => {
-      if (!prevValue) {
+  const handleModal = (id: string) => {
+    if (id === '') {
+      setIsShowModal(false);
+    } else {
+      const findComments = commentsData.find((comment) => comment.id === id);
+      if (findComments == undefined) {
         const dataFilters = transformDataFilters(selectedFilters);
-        getAllComments({ filters: dataFilters, type: 'sadsadad' })
+        setIsShowModal(true);
+        setCommentId(id);
+        getAllComments({ filters: dataFilters, id })
           .then((payload) => {
-            if (payload.isError || payload.data?.isError) {
+            if (
+              payload.data === undefined ||
+              payload.isError ||
+              payload.data?.isError
+            ) {
               toast('Произошла ошибка');
+            } else {
+              const tempCommentsData = {
+                id: id,
+                title: payload.data.data.title,
+                comments: payload.data.data.comments
+              };
+              setCommentsData((prevData) => [...prevData, tempCommentsData]);
             }
           })
           .catch(() => toast('Произошла ошибка'));
+      } else {
+        setCommentId(id);
+        setIsShowModal(true);
       }
-      return !prevValue;
-    });
+    }
   };
+
+  const modalData = commentsData.find((comment) => comment.id === commentId);
 
   if (isLoading) {
     return (
@@ -73,49 +91,12 @@ const Comments = ({ data, isLoading }: Props) => {
             <img src={Image} alt='Картинка' />
           </div>
         </div>
-        {data.map((comment, index) => {
-          return (
-            <div key={comment.id}>
-              <div className={styles['engagement-comments__description']}>
-                <div className={styles['engagement-comments__text']}>
-                  {comment.title}
-                </div>
-                <span className={styles['engagement-comments__subtext']}>
-                  топ-проблематика
-                </span>
-              </div>
-              <Content data={comment.comments} />
-              {comment.is_all && (
-                <button
-                  className={styles['engagement-comments__btn']}
-                  type='button'
-                  onClick={handleModal}
-                >
-                  читать все комментарии
-                  <svg
-                    width='31'
-                    height='6'
-                    viewBox='0 0 31 6'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <path
-                      d='M0.5 5.5H30.5L21.0932 0.5'
-                      stroke='#E41910'
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                    />
-                  </svg>
-                </button>
-              )}
-            </div>
-          );
-        })}
+        <Content data={data} onClick={handleModal} />
       </section>
-      <Modal isShow={isShowModal} onClose={handleModal} width={1400}>
+      <Modal isShow={isShowModal} onClose={() => handleModal('')} width={1400}>
         <ModalContent
-          data={dataAllComments}
-          onClose={handleModal}
+          data={modalData}
+          onClose={() => handleModal('')}
           isLoading={isFetchingAllComments}
         />
       </Modal>

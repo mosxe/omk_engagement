@@ -247,27 +247,70 @@
     "errorMessage": ""
   },
   "dataAllComments": {
-    "data": [
-      {
-        "id": 1,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 2,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      },
-      {
-        "id": 3,
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
-        "person_name": "Иванов П.Е.",
-        "position_name": "Ведущий разработчик"
-      }
-    ],
-    "problem": "Руководитель 2222 отделяет себя от своих сотрудников, не встает на их сторону",
+    "data": {
+      "title": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону 1",
+      "comments": [
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        }
+      ]
+    },
+    "isError": false,
+    "errorMessage": ""
+  },
+  "dataAllComments2": {
+    "data": {
+      "title": "Руководитель отделяет себя от своих сотрудников, не встает на их сторону 2",
+      "comments": [
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        },
+        {
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ",
+          "person_name": "Иванов П.Е.",
+          "position_name": "Ведущий разработчик"
+        }
+      ]
+    },
     "isError": false,
     "errorMessage": ""
   },
@@ -493,7 +536,6 @@
         "title": "Поздразеделние 1",
         "parent_object_code": "",
         "children": [],
-        "has_child": true,
         "isLeaf": false
       },
       {
@@ -502,7 +544,6 @@
         "title": "Поздразеделние 2",
         "parent_object_code": "",
         "children": [],
-        "has_child": true,
         "isLeaf": true
       },
       {
@@ -511,7 +552,6 @@
         "title": "Поздразеделние 4",
         "parent_object_code": "",
         "children": [],
-        "has_child": true,
         "isLeaf": false
       }
     ]
@@ -524,7 +564,6 @@
         "title": "Поздразеделние 5",
         "parent_object_code": "4",
         "children": [],
-        "has_child": false,
         "isLeaf": true
       },
       {
@@ -533,7 +572,6 @@
         "title": "Поздразеделние 6",
         "parent_object_code": "4",
         "children": [],
-        "has_child": false,
         "isLeaf": true
       }
     ]

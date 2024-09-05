@@ -1,4 +1,5 @@
 ﻿import { useState, useEffect } from 'react';
+import Body from './Body';
 import TH from './Th';
 import Skeleton from './Skeleton';
 import { KeyResult } from 'types';
@@ -75,15 +76,7 @@ const Table = ({ data, isLoading, isSorting = false }: Props) => {
         </tr>
       </thead>
       <tbody>
-        {tableData.map((item: KeyResult, index: number) => {
-          return (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>{item.persent}</td>
-              <td>{item.periodicity}%</td>
-            </tr>
-          );
-        })}
+        <Body data={tableData} />
       </tbody>
     </table>
   );

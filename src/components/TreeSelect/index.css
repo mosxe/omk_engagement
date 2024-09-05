@@ -620,6 +620,7 @@
 
 /*Кастомные стили*/
 .tree-select-container .rc-tree-select-selector {
+  position: relative;
   padding: 4px 6px 4px 12px;
   border: none;
   background-color: var(--page-color-white);

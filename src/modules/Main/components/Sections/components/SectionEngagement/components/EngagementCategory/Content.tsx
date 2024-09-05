@@ -1,19 +1,49 @@
-﻿// const Content = () => {
-//   <div className={styles['engagement-category__wrapper']}>
-//     {isLoading &&
-//       [...Array(COUNT_SKELETON)].map((_, index) => <Skeleton key={index} />)}
-//     {!isLoading &&
-//       data.map((item, index) => {
-//         return (
-//           <Card
-//             title={item.name}
-//             percent={item.percent}
-//             color='black'
-//             key={index}
-//           />
-//         );
-//       })}
-//   </div>;
-// };
+﻿import NoData from 'modules/Main/components/NoData';
+import Card from './Card';
+import Skeleton from './Skeleton';
+import { CategoryChart } from 'types';
+import styles from './styles.module.scss';
 
-// export default Content;
+type Props = {
+  data: CategoryChart[];
+  isLoading: boolean;
+};
+
+const COUNT_SKELETON = 6;
+
+const Content = ({ data, isLoading }: Props) => {
+  if (isLoading) {
+    return (
+      <div className={styles['engagement-category__wrapper']}>
+        {[...Array(COUNT_SKELETON)].map((_, index) => (
+          <Skeleton key={index} />
+        ))}
+      </div>
+    );
+  }
+
+  if (!data.length) {
+    return (
+      <div className={styles['engagement-category__row']}>
+        <NoData />
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles['engagement-category__wrapper']}>
+      {data.map((item, index) => {
+        return (
+          <Card
+            title={item.name}
+            percent={item.value}
+            index={index}
+            key={index}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+export default Content;

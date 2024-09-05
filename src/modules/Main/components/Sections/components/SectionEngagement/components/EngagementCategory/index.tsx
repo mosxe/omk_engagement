@@ -1,6 +1,5 @@
-﻿import Card from './Card';
-import Skeleton from './Skeleton';
-import Image from 'assets/images/Engagement/img_3.png';
+﻿import Image from 'assets/images/Engagement/img_3.png';
+import Content from './Content';
 import { CategoryChart } from 'types';
 import styles from './styles.module.scss';
 
@@ -8,8 +7,6 @@ type Props = {
   data: CategoryChart[];
   isLoading: boolean;
 };
-
-const COUNT_SKELETON = 6;
 
 const EngagementCategory = ({ data, isLoading }: Props) => {
   return (
@@ -22,29 +19,7 @@ const EngagementCategory = ({ data, isLoading }: Props) => {
           <img src={Image} alt='Картинка' />
         </div>
       </div>
-      <div className={styles['engagement-category__wrapper']}>
-        {isLoading &&
-          [...Array(COUNT_SKELETON)].map((_, index) => (
-            <Skeleton key={index} />
-          ))}
-        {!isLoading &&
-          data.map((item, index) => {
-            return (
-              <Card
-                title={item.name}
-                percent={item.value}
-                index={index}
-                key={index}
-              />
-            );
-          })}
-        {/* <Card title='Движущая сила' percent={1} color='black' />
-        <Card title='Ослабленные' percent={2} color='purple' />
-        <Card title='Мученики' percent={4} color='blue' />
-        <Card title='Балласт' percent={5} color='red' />
-        <Card title='Будущий потенциал' percent={10} color='pink' />
-        <Card title='Мысленно уже не в компании' percent={50} color='orange' /> */}
-      </div>
+      <Content data={data} isLoading={isLoading} />
     </section>
   );
 };

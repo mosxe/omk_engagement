@@ -146,6 +146,10 @@
     &:last-child {
       border-right: 1px solid var(--page-color-gray);
     }
+
+    &[colspan] {
+      text-align: center;
+    }
   }
 
   & tbody tr:nth-child(even) td {

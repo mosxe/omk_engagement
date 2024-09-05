@@ -1,6 +1,5 @@
 ﻿import { useState, useEffect } from 'react';
 import { FilterEngagement } from '../../../Filters';
-import 'rc-tree/assets/index.css';
 import EngagementResults from './components/EngagementResults';
 import EngagementCategory from './components/EngagementCategory';
 import Issues from './components/Issues';
@@ -9,11 +8,8 @@ import Comments from './components/Comments';
 import {
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
-  // useLazyGetFilterEngagementDataQuery,
   useLazyGetKeyResultsQuery,
   useLazyGetCommentsQuery
-  // useLazyGetOrgTreeQuery
-  // useGetAllFiltersEngagementDataQuery
 } from 'store/apiSlice';
 import {
   initialCategoryChart,
@@ -36,7 +32,7 @@ const SectionEngagement = () => {
       isFetching: isFetchingCategoryChart
     }
   ] = useLazyGetCategoryDataQuery();
-  // const [updateFiltersEngagement] = useLazyGetFilterEngagementDataQuery();
+
   const [
     updateKeyResults,
     {
@@ -116,11 +112,7 @@ const SectionEngagement = () => {
         data={dataKeyResults.data.negative}
         isLoading={isFetchingKeyResults}
       />
-      <Comments
-        data={dataComments.data}
-        type='issue'
-        isLoading={isFetchingComments}
-      />
+      <Comments data={dataComments.data} isLoading={isFetchingComments} />
       <Zones
         data={dataKeyResults.data.positive}
         isLoading={isFetchingKeyResults}

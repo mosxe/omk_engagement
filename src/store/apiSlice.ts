@@ -6,9 +6,9 @@ import {
   ResponseCategoryChart,
   ResponseComments,
   ResponseKeyResults,
-  ResponseAllComments,
   ResponseResearch,
-  ResponseOrgTree
+  ResponseOrgTree,
+  ResponseAllComments
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
@@ -185,27 +185,29 @@ export const API = createApi({
     }),
     getAllComments: builder.query<
       ResponseAllComments,
-      { filters: FilterParams[]; type: 'zone' | 'issue' }
+      { filters: FilterParams[]; id: string }
     >({
-      query: ({ filters, type }) => ({
+      query: ({ filters, id }) => ({
         url: postUrl('&action=getAllComments'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           filters,
-          type
+          id
         })
       }),
-      transformResponse: (response: ResponseAllComments) => {
+      transformResponse: (response: ResponseAllComments, meta, arg) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseAllComments = {
-            data: mockData.dataAllComments.data,
-            problem: mockData.dataAllComments.problem,
+            data:
+              arg.id === '1'
+                ? mockData.dataAllComments.data
+                : mockData.dataAllComments2.data,
             isError: false,
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 5000);
+            return setTimeout(() => resolve(mockDataResponse), 1000);
           });
         } else {
           return response;
