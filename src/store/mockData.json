@@ -1,31 +1,4 @@
 ﻿{
-  "dataEngagement": {
-    "data": [
-      {
-        "name": "city",
-        "value": [
-          { "value": "Белгород", "label": "Белгород" },
-          { "value": "Выкса", "label": "Выкса" }
-        ]
-      },
-      {
-        "name": "group",
-        "value": [
-          { "value": "35 лет – 44 года", "label": "35 лет – 44 года" },
-          { "value": "45 лет – 54 года", "label": "45 лет – 54 года" }
-        ]
-      },
-      {
-        "name": "subs",
-        "value": [
-          { "value": "Дивизион \"Сталь\"", "label": "Дивизион \"Сталь\"" },
-          { "value": "50000026", "label": "Дивизион \"Выкса\"" }
-        ]
-      }
-    ],
-    "isError": false,
-    "errorMessage": ""
-  },
   "dataUpdateEngagement": {
     "data": [
       {

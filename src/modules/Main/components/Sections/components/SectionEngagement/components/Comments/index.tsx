@@ -12,11 +12,12 @@ import { useAppSelector } from 'store/hooks';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: IComments[];
+  data: IComments[] | undefined;
   isLoading: boolean;
+  isError: boolean;
 };
 
-const Comments = ({ data, isLoading }: Props) => {
+const Comments = ({ data, isLoading, isError }: Props) => {
   const [getAllComments, { isFetching: isFetchingAllComments }] =
     useLazyGetAllCommentsQuery();
   const selectedFilters = useAppSelector(
@@ -64,7 +65,7 @@ const Comments = ({ data, isLoading }: Props) => {
 
   const modalData = commentsData.find((comment) => comment.id === commentId);
 
-  if (isLoading) {
+  if (data === undefined || isLoading) {
     return (
       <section className={styles['engagement-comments']}>
         <div className={styles['engagement-comments__header']}>
@@ -91,7 +92,7 @@ const Comments = ({ data, isLoading }: Props) => {
             <img src={Image} alt='Картинка' />
           </div>
         </div>
-        <Content data={data} onClick={handleModal} />
+        <Content data={data} onClick={handleModal} isError={isError} />
       </section>
       <Modal isShow={isShowModal} onClose={() => handleModal('')} width={1400}>
         <ModalContent

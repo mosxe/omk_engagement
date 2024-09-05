@@ -9,12 +9,14 @@ import { useState } from 'react';
 type Props = {
   data: SpeedChart[] | undefined;
   isLoading: boolean;
+  isError: boolean;
   view: 'bar' | 'doughnut';
 };
 
-const EngagementResults = ({ data, isLoading, view }: Props) => {
+const EngagementResults = ({ data, isLoading, isError, view }: Props) => {
   const [value, setValue] = useState<boolean>(false);
-  const isShowCheckbox = data !== undefined && data.length > 0;
+  const isShowCheckbox =
+    data !== undefined && !isLoading && !isError && data.length > 0;
 
   return (
     <section className={styles['engagement-results']}>
@@ -42,10 +44,16 @@ const EngagementResults = ({ data, isLoading, view }: Props) => {
           <EngagementDoughnut
             data={data}
             isLoading={isLoading}
+            isError={isError}
             isChecked={value}
           />
         ) : (
-          <EngagementBar data={data} isLoading={isLoading} isChecked={value} />
+          <EngagementBar
+            data={data}
+            isLoading={isLoading}
+            isError={isError}
+            isChecked={value}
+          />
         )}
       </div>
     </section>

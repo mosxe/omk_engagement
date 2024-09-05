@@ -11,11 +11,6 @@ import {
   useLazyGetKeyResultsQuery,
   useLazyGetCommentsQuery
 } from 'store/apiSlice';
-import {
-  initialCategoryChart,
-  initialKeyResults,
-  initialComments
-} from 'store/constants';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { clearSelectedFilters } from 'store/filterSlice';
 import { transformDataFilters, isDisabledBtn } from 'helpers';
@@ -23,26 +18,36 @@ import { transformDataFilters, isDisabledBtn } from 'helpers';
 const SectionEngagement = () => {
   const [
     updateSpeedChart,
-    { data: dataSpeedChart, isFetching: isFetchingSpeedChart }
+    {
+      data: dataSpeedChart,
+      isFetching: isFetchingSpeedChart,
+      isError: isErrorSpeedChart
+    }
   ] = useLazyGetSpeedDataQuery();
   const [
     updateCategoryChart,
     {
-      data: dataCategoryChart = initialCategoryChart,
-      isFetching: isFetchingCategoryChart
+      data: dataCategoryChart,
+      isFetching: isFetchingCategoryChart,
+      isError: isErrorCategoryChart
     }
   ] = useLazyGetCategoryDataQuery();
 
   const [
     updateKeyResults,
     {
-      data: dataKeyResults = initialKeyResults,
-      isFetching: isFetchingKeyResults
+      data: dataKeyResults,
+      isFetching: isFetchingKeyResults,
+      isError: isErrorKeyResults
     }
   ] = useLazyGetKeyResultsQuery();
   const [
     getComments,
-    { data: dataComments = initialComments, isFetching: isFetchingComments }
+    {
+      data: dataComments,
+      isFetching: isFetchingComments,
+      isError: isErrorComments
+    }
   ] = useLazyGetCommentsQuery();
 
   const dispatch = useAppDispatch();
@@ -102,20 +107,28 @@ const SectionEngagement = () => {
       <EngagementResults
         data={dataSpeedChart?.data}
         isLoading={isFetchingSpeedChart}
+        isError={dataSpeedChart?.isError || isErrorSpeedChart}
         view={viewChart}
       />
       <EngagementCategory
-        data={dataCategoryChart.data}
+        data={dataCategoryChart?.data}
         isLoading={isFetchingCategoryChart}
+        isError={dataCategoryChart?.isError || isErrorCategoryChart}
       />
       <Issues
-        data={dataKeyResults.data.negative}
+        data={dataKeyResults?.data.negative}
         isLoading={isFetchingKeyResults}
+        isError={dataKeyResults?.isError || isErrorKeyResults}
       />
-      <Comments data={dataComments.data} isLoading={isFetchingComments} />
+      <Comments
+        data={dataComments?.data}
+        isLoading={isFetchingComments}
+        isError={dataComments?.isError || isErrorComments}
+      />
       <Zones
-        data={dataKeyResults.data.positive}
+        data={dataKeyResults?.data.positive}
         isLoading={isFetchingKeyResults}
+        isError={dataKeyResults?.isError || isErrorKeyResults}
       />
     </>
   );

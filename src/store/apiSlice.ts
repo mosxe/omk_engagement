@@ -37,30 +37,6 @@ export const API = createApi({
   reducerPath: 'API',
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
-    getFilterEngagementData: builder.query<
-      ResponseFilters,
-      { filters: FilterParams[] }
-    >({
-      query: ({ filters }) => ({
-        url: postUrl('&action=getFilterEngagement'),
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          filters
-        })
-      }),
-      transformResponse: (response: ResponseFilters) => {
-        if (import.meta.env.DEV) {
-          const mockDataResponse: ResponseFilters =
-            mockData.dataEngagement as ResponseFilters;
-          return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 1500);
-          });
-        } else {
-          return response;
-        }
-      }
-    }),
     getFilterCompassData: builder.query<
       ResponseFilters,
       { filters: FilterParams[]; is_starting: boolean }
@@ -170,11 +146,7 @@ export const API = createApi({
       }),
       transformResponse: (response: ResponseComments) => {
         if (import.meta.env.DEV) {
-          const mockDataResponse: ResponseComments = {
-            data: mockData.dataComments.data,
-            isError: false,
-            errorMessage: ''
-          };
+          const mockDataResponse: ResponseComments = mockData.dataComments;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -196,14 +168,14 @@ export const API = createApi({
           id
         })
       }),
-      transformResponse: (response: ResponseAllComments, meta, arg) => {
+      transformResponse: (response: ResponseAllComments, _, arg) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseAllComments = {
             data:
               arg.id === '1'
                 ? mockData.dataAllComments.data
                 : mockData.dataAllComments2.data,
-            isError: false,
+            isError: true,
             errorMessage: ''
           };
           return new Promise((resolve) => {
@@ -322,7 +294,7 @@ export const API = createApi({
           }
           const mockDataResponse: ResponseOrgTree = {
             data: data,
-            isError: false,
+            isError: true,
             errorMessage: ''
           };
           return new Promise((resolve) => {
@@ -337,8 +309,6 @@ export const API = createApi({
 });
 
 export const {
-  useGetFilterEngagementDataQuery,
-  useLazyGetFilterEngagementDataQuery,
   useLazyGetFilterCompassDataQuery,
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,

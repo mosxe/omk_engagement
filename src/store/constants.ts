@@ -10,33 +10,6 @@ export const initialFiltersCompass = {
   errorMessage: ''
 };
 
-export const initialCategoryChart = {
-  data: [],
-  isError: false,
-  errorMessage: ''
-};
-
-export const initialKeyResults = {
-  data: {
-    negative: {
-      general: [],
-      local: []
-    },
-    positive: {
-      general: [],
-      local: []
-    }
-  },
-  isError: false,
-  errorMessage: ''
-};
-
-export const initialComments = {
-  data: [],
-  isError: false,
-  errorMessage: ''
-};
-
 export const initialFiltersCompassResults = {
   data: [],
   isError: false,

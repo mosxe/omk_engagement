@@ -4,11 +4,12 @@ import { CategoryChart } from 'types';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: CategoryChart[];
+  data: CategoryChart[] | undefined;
   isLoading: boolean;
+  isError: boolean;
 };
 
-const EngagementCategory = ({ data, isLoading }: Props) => {
+const EngagementCategory = ({ data, isLoading, isError }: Props) => {
   return (
     <section className={styles['engagement-category']}>
       <div className={styles['engagement-category__header']}>
@@ -19,7 +20,7 @@ const EngagementCategory = ({ data, isLoading }: Props) => {
           <img src={Image} alt='Картинка' />
         </div>
       </div>
-      <Content data={data} isLoading={isLoading} />
+      <Content data={data} isLoading={isLoading} isError={isError} />
     </section>
   );
 };

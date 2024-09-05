@@ -5,14 +5,15 @@ import { CategoryChart } from 'types';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: CategoryChart[];
+  data: CategoryChart[] | undefined;
   isLoading: boolean;
+  isError: boolean;
 };
 
 const COUNT_SKELETON = 6;
 
-const Content = ({ data, isLoading }: Props) => {
-  if (isLoading) {
+const Content = ({ data, isLoading, isError }: Props) => {
+  if (data === undefined || isLoading) {
     return (
       <div className={styles['engagement-category__wrapper']}>
         {[...Array(COUNT_SKELETON)].map((_, index) => (
@@ -22,7 +23,7 @@ const Content = ({ data, isLoading }: Props) => {
     );
   }
 
-  if (!data.length) {
+  if (!data.length || isError) {
     return (
       <div className={styles['engagement-category__row']}>
         <NoData />

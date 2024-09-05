@@ -6,10 +6,11 @@ import styles from './styles.module.scss';
 type Props = {
   data: SpeedChart[] | undefined;
   isLoading: boolean;
+  isError: boolean;
   isChecked: boolean;
 };
 
-const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
+const EngagementDoughnut = ({ data, isLoading, isError, isChecked }: Props) => {
   if (data === undefined || isLoading) {
     return (
       <div className={styles['engagement-results__box']}>
@@ -51,7 +52,7 @@ const EngagementDoughnut = ({ data, isLoading, isChecked }: Props) => {
     );
   }
 
-  if (!data.length) {
+  if (!data.length || isError) {
     return <NoData />;
   }
 

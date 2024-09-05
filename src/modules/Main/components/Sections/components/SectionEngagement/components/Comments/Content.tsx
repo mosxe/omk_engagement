@@ -6,10 +6,11 @@ import styles from './styles.module.scss';
 type Props = {
   data: Comments[];
   onClick: (value: string) => void;
+  isError: boolean;
 };
 
-const Content = ({ data, onClick }: Props) => {
-  if (!data.length) {
+const Content = ({ data, onClick, isError }: Props) => {
+  if (!data.length || isError) {
     return (
       <div className={styles['engagement-comments__row']}>
         <NoData />
@@ -31,12 +32,7 @@ const Content = ({ data, onClick }: Props) => {
         {
           <div className={styles['engagement-comments__wrapper']}>
             {comment.comments.map((card, index) => (
-              <Card
-                key={index}
-                text={card.text}
-                person_name={card.person_name}
-                position_name={card.position_name}
-              />
+              <Card key={index} text={card.text} />
             ))}
           </div>
         }

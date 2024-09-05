@@ -7,10 +7,11 @@ import styles from './styles.module.scss';
 type Props = {
   data: SpeedChart[] | undefined;
   isLoading: boolean;
+  isError: boolean;
   isChecked: boolean;
 };
 
-const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
+const EngagementBar = ({ data, isLoading, isError, isChecked }: Props) => {
   if (data === undefined || isLoading) {
     const COUNT_SKELETON = isChecked ? 4 : 3;
     return (
@@ -39,7 +40,7 @@ const EngagementBar = ({ data, isLoading, isChecked }: Props) => {
     );
   }
 
-  if (!data.length) {
+  if (!data.length || isError) {
     return <NoData />;
   }
 

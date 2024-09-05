@@ -101,16 +101,16 @@ const FilterEngagement = ({
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
       <Select
-        options={getFilterOptions(data.data, 'group')}
+        options={[]}
         defaultValue={getValueSelect(selectedFilters, 'group')}
         onChange={(e) => onChange(e, 'group')}
         value={getValueSelect(selectedFilters, 'group')}
         placeholder='Группа'
-        width={180}
+        width={300}
         isDisabled={isLoadingFilter}
       />
       <TreeSelect
-        data={treeData}
+        data={[]}
         selectedValue={selectedValue}
         onLoad={loadData}
         onChange={onChangeTreeSelect}
@@ -121,7 +121,7 @@ const FilterEngagement = ({
         onChange={(e) => onChange(e, 'city')}
         value={getValueSelect(selectedFilters, 'city')}
         placeholder='Город'
-        width={170}
+        width={200}
         isDisabled={isLoadingFilter}
       />
     </FilterContainer>
