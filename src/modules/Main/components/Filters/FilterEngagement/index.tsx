@@ -31,7 +31,6 @@ const FilterEngagement = ({
   const {
     data = initialFiltersEngagement,
     isLoading: isLoadingFilters
-    // isError
   } = useGetAllFiltersEngagementDataQuery({ filters: [] });
 
   const [treeData, setTreeData] = useState<Node[]>([]);
@@ -101,7 +100,7 @@ const FilterEngagement = ({
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
       <Select
-        options={[]}
+        options={getFilterOptions(data.data, 'group')}
         defaultValue={getValueSelect(selectedFilters, 'group')}
         onChange={(e) => onChange(e, 'group')}
         value={getValueSelect(selectedFilters, 'group')}
@@ -110,7 +109,7 @@ const FilterEngagement = ({
         isDisabled={isLoadingFilter}
       />
       <TreeSelect
-        data={[]}
+        data={treeData}
         selectedValue={selectedValue}
         onLoad={loadData}
         onChange={onChangeTreeSelect}
