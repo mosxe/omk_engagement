@@ -109,6 +109,7 @@ export interface OrgTree {
   key: string;
   value: string;
   title: string;
+  is_selected: boolean;
   parent_object_code: string;
   children: OrgTree[];
   isLeaf: boolean;

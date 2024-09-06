@@ -85,53 +85,6 @@ const CompassIssues = ({ data, isLoading }: Props) => {
   const isLoadingApplyBtn = isLoading || isFetching;
   const isDisabledBtnApply = isDisabledBtn(selectedFilters);
 
-  // const loadData = (treeNode: Node) => {
-  //   return new Promise((resolve) => {
-  //     setTimeout(() => {
-  //       const treeDataTest = treeData.slice();
-
-  //       treeDataTest.forEach((item: Node) => {
-  //         if (item.key === treeNode.key) {
-  //           item.children = [
-  //             {
-  //               key: 3,
-  //               value: 3,
-  //               title: 'Node 3',
-  //               children: [],
-  //               isLeaf: true
-  //             },
-  //             {
-  //               key: 4,
-  //               value: 4,
-  //               title: 'Node 4',
-  //               children: [],
-  //               isLeaf: true
-  //             }
-  //           ];
-  //         }
-  //       });
-
-  //       setTreeData(treeDataTest);
-  //       // let { treeData } = this.state;
-  //       // treeData = treeData.slice();
-  //       // getNewTreeData(
-  //       //   treeData,
-  //       //   treeNode.props.eventKey,
-  //       //   generateTreeNodes(treeNode),
-  //       //   2
-  //       // );
-  //       // this.setState({ treeData });
-  //       resolve([]);
-  //     }, 500);
-  //   });
-  // };
-
-  // const onChangeTreeSelect = (value: string | string[]) => {
-  //   setSelectedValue(value as string);
-  // };
-
-  // console.log(treeData);
-
   return (
     <section className={styles['compass-issues']}>
       <div className={styles['compass-issues__header']}>

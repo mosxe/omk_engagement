@@ -144,6 +144,12 @@
     padding: 0px !important;
     color: var(--page-color-black) !important;
     transition: color 0.3s;
+
+    & div {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 }
 

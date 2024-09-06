@@ -105,7 +105,7 @@ export type Node = {
 
 type NoticeProps = {
   data: Node[];
-  selectedValue: string[] | undefined;
+  selectedValue: string[] | Node[] | undefined;
   onLoad: (dataNode: any) => Promise<unknown>;
   onChange: (value: string[]) => void;
 };

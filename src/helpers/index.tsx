@@ -1,4 +1,4 @@
-﻿import { Filters, FilterName, SpeedChart } from 'types';
+﻿import { Filters, FilterName, SpeedChart, OrgTree } from 'types';
 
 const getLink = (link: string) => {
   if (link.startsWith('https://') || link.startsWith('http://')) {
@@ -87,6 +87,11 @@ const transformDataBar = (data: SpeedChart[]) => {
   return dataBar;
 };
 
+const getSelectedValuesTree = (data: OrgTree[]) => {
+  const selectedNodes = data.filter((node) => node.is_selected);
+  return selectedNodes;
+};
+
 export {
   getLink,
   getLinkFile,
@@ -95,5 +100,6 @@ export {
   transformDataFilters,
   declinationComments,
   isDisabledBtn,
-  transformDataBar
+  transformDataBar,
+  getSelectedValuesTree
 };

@@ -4,9 +4,13 @@ import TreeSelect, { Node } from 'components/TreeSelect';
 import Select from 'components/Select';
 import FilterContainer from '../FIlterContainer';
 import { OptionChange } from 'components/Select/types';
-import { FilterName, Filter } from 'types';
+import { FilterName, Filter, OrgTree } from 'types';
 import { FilterProps } from '../index';
-import { getFilterOptions, getValueSelect } from 'helpers';
+import {
+  getFilterOptions,
+  getValueSelect,
+  getSelectedValuesTree
+} from 'helpers';
 import { initialFiltersEngagement } from 'store/constants';
 import {
   useLazyGetOrgTreeQuery,
@@ -28,21 +32,64 @@ const FilterEngagement = ({
 
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
 
-  const {
-    data = initialFiltersEngagement,
-    isLoading: isLoadingFilters
-  } = useGetAllFiltersEngagementDataQuery({ filters: [] });
+  const { data = initialFiltersEngagement, isLoading: isLoadingFilters } =
+    useGetAllFiltersEngagementDataQuery({ filters: [] });
 
   const [treeData, setTreeData] = useState<Node[]>([]);
-  const [selectedValue, setSelectedValue] = useState<string[]>([]);
+  const [selectedValue, setSelectedValue] = useState<string[] | OrgTree[]>([]);
 
   useEffect(() => {
     updateOrg(null).then((data) => {
       if (data.data?.data) {
+        const selectedValues = getSelectedValuesTree(data.data.data);
+        console.log(selectedValues);
         setTreeData(data.data.data);
+        setSelectedValue(selectedValues);
+
+        const tempValues = selectedValues.map((node: OrgTree) => {
+          return {
+            value: node.value,
+            label: ''
+          };
+        });
+
+        const filterValues = {
+          name: 'subs' as const,
+          value: tempValues as Filter[]
+        };
+        dispatch(
+          updateSelectedFilters({ tab: 'engagement', data: filterValues })
+        );
       }
     });
   }, []);
+
+  useEffect(() => {
+    const labels = document.querySelectorAll(
+      '.rc-tree-select-selection-overflow .rc-tree-select-selection-overflow-item'
+    );
+    labels.forEach((node, index) => {
+      if (labels.length - 1 !== index) {
+        const textElem = node.querySelector(
+          '.rc-tree-select-selection-item'
+        ) as HTMLElement;
+        if (textElem) {
+          const title = textElem.getAttribute('title') as string;
+          textElem.innerText =
+            labels.length < 3 || labels.length - 2 === index
+              ? title
+              : title + ',';
+        }
+      }
+    });
+  }, [selectedValue]);
+
+  useEffect(() => {
+    const values = getValueSelect(selectedFilters, 'subs');
+    if (!values.length && selectedValue.length) {
+      setSelectedValue([]);
+    }
+  }, [selectedFilters]);
 
   const onChange = (options: OptionChange, filterName: FilterName) => {
     const filterValues = {

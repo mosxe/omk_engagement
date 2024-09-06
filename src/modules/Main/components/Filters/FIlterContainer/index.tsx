@@ -31,7 +31,7 @@ const FilterContainer = ({
         <div className={styles.filters__text}>{text}</div>
         <div className={styles.filters__container}>
           <div className={styles.filters__row}>{children}</div>
-          <div className={styles.filters__row}>
+          <div className={styles.filters__col}>
             <button
               className={`${styles.filters__btn} ${styles.filters__btn_apply}`}
               type='button'
