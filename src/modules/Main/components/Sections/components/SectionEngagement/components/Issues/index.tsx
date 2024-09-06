@@ -4,21 +4,24 @@ import styles from './styles.module.scss';
 
 type Props = {
   data: KeyResults | undefined;
+  year: string | undefined;
   isLoading: boolean;
   isError: boolean;
 };
 
-const EngagementIssues = ({ data, isLoading, isError }: Props) => {
+const EngagementIssues = ({ data, year, isLoading, isError }: Props) => {
   const isLoadingTable = isLoading || data === undefined;
   const dataTableGeneral = isError || data === undefined ? [] : data.general;
   const dataTableLocal = isError || data === undefined ? [] : data.local;
 
+  const title = year
+    ? `Ключевая проблематика, выявленная в результате исследования ${year} года`
+    : 'Ключевая проблематика, выявленная в результате исследования';
+
   return (
     <section className={styles['engagement-issues']}>
       <div className={styles['engagement-issues__header']}>
-        <h2>
-          Ключевая проблематика, выявленная в результате исследования 2024 года
-        </h2>
+        <h2>{title}</h2>
       </div>
       <div className={styles['engagement-issues__wrapper']}>
         <div className={styles['engagement-issues__container']}>

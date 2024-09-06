@@ -117,6 +117,7 @@ const SectionEngagement = () => {
       />
       <Issues
         data={dataKeyResults?.data.negative}
+        year={dataKeyResults?.year}
         isLoading={isFetchingKeyResults}
         isError={dataKeyResults?.isError || isErrorKeyResults}
       />

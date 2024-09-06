@@ -84,6 +84,7 @@ export interface DataKeyResults {
 
 export interface ResponseKeyResults extends Error {
   data: DataKeyResults;
+  year: string;
 }
 
 export interface ResponseAllComments extends Error {
