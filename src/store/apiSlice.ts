@@ -137,7 +137,7 @@ export const API = createApi({
     }),
     getComments: builder.query<ResponseComments, { filters: FilterParams[] }>({
       query: ({ filters }) => ({
-        url: postUrl('&action=getComments'),
+        url: postUrl('&action=getCommentList'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -160,7 +160,7 @@ export const API = createApi({
       { filters: FilterParams[]; id: string }
     >({
       query: ({ filters, id }) => ({
-        url: postUrl('&action=getAllComments'),
+        url: postUrl('&action=getAllComment'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -175,7 +175,7 @@ export const API = createApi({
               arg.id === '1'
                 ? mockData.dataAllComments.data
                 : mockData.dataAllComments2.data,
-            isError: true,
+            isError: false,
             errorMessage: ''
           };
           return new Promise((resolve) => {
@@ -294,7 +294,7 @@ export const API = createApi({
           }
           const mockDataResponse: ResponseOrgTree = {
             data: data,
-            isError: true,
+            isError: false,
             errorMessage: ''
           };
           return new Promise((resolve) => {

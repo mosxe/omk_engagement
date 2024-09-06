@@ -1,11 +1,11 @@
 ﻿import Modal, { ButtonClose } from 'components/Modal';
+import NoData from 'modules/Main/components/NoData';
 import { LoaderContent } from 'components/Loader';
-import { CommentItem } from 'types';
 import { declinationComments } from 'helpers';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: { id: string; title: string; comments: CommentItem[] } | undefined;
+  data: { id: string; title: string; comments: string[] } | undefined;
   isLoading: boolean;
   onClose: () => void;
 };
@@ -37,9 +37,7 @@ const ModalContent = ({ data, isLoading, onClose }: Props) => {
           </div>
         </Modal.Header>
         <Modal.Body>
-          <div className={styles['engagement-comments__empty']}>
-            Данные отсутствуют
-          </div>
+          <NoData />
         </Modal.Body>
       </>
     );
@@ -70,14 +68,14 @@ const ModalContent = ({ data, isLoading, onClose }: Props) => {
             </span>
           </div>
           <div className={styles['engagement-comments__wrapper']}>
-            {data.comments.map(({ text }, index) => {
+            {data.comments.map((card, index) => {
               return (
                 <div
                   className={styles['engagement-comments__card']}
                   key={index}
                 >
                   <div className={styles['engagement-comments__card_text']}>
-                    {text}
+                    {card}
                   </div>
                 </div>
               );

@@ -55,15 +55,11 @@ export interface ResponseCategoryChart extends Error {
   data: CategoryChart[];
 }
 
-export interface CommentItem {
-  text: string;
-}
-
 export interface Comments {
   id: string;
   title: string;
   is_all: boolean;
-  comments: CommentItem[];
+  comments: string[];
 }
 
 export interface ResponseComments extends Error {
@@ -93,7 +89,7 @@ export interface ResponseKeyResults extends Error {
 export interface ResponseAllComments extends Error {
   data: {
     title: string;
-    comments: CommentItem[];
+    comments: string[];
   };
 }
 

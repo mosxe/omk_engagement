@@ -5,7 +5,7 @@ import Modal from 'components/Modal';
 import ModalContent from './ModalContent';
 import Content from './Content';
 import Skeleton from './Skeleton';
-import { Comments as IComments, CommentItem } from 'types';
+import { Comments as IComments } from 'types';
 import { useLazyGetAllCommentsQuery } from 'store/apiSlice';
 import { transformDataFilters } from 'helpers';
 import { useAppSelector } from 'store/hooks';
@@ -26,7 +26,7 @@ const Comments = ({ data, isLoading, isError }: Props) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<string>('');
   const [commentsData, setCommentsData] = useState<
-    { id: string; title: string; comments: CommentItem[] }[]
+    { id: string; title: string; comments: string[] }[]
   >([]);
 
   const handleModal = (id: string) => {

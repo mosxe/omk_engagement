@@ -32,7 +32,7 @@ const Content = ({ data, onClick, isError }: Props) => {
         {
           <div className={styles['engagement-comments__wrapper']}>
             {comment.comments.map((card, index) => (
-              <Card key={index} text={card.text} />
+              <Card key={index} text={card} />
             ))}
           </div>
         }

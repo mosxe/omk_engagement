@@ -1,7 +1,6 @@
-﻿import { CommentItem } from 'types';
-import styles from './styles.module.scss';
+﻿import styles from './styles.module.scss';
 
-const Card = ({ text }: CommentItem) => {
+const Card = ({ text }: { text: string }) => {
   return (
     <div className={styles['engagement-comments__card']}>
       <div className={styles['engagement-comments__card_text']}>{text}</div>
