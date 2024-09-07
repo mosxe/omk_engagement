@@ -1,72 +1,73 @@
-﻿import { useEffect, useState } from 'react';
+﻿import { useState } from 'react';
 import Select from 'components/Select';
 import Table from 'components/Table';
-// import TreeSelect, { Node } from 'components/TreeSelect';
 import FIlterContainer from '../../../../../Filters/FIlterContainer';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import {
   updateResearchIssuesFilters,
   clearResearchIssuesFilters
 } from 'store/filterSlice';
-import { useLazyGetResearchIssuesQuery } from 'store/apiSlice';
-import { initialResearchIssues } from 'store/constants';
+import { useLazyGetResearchIssuesCompareQuery } from 'store/apiSlice';
 import {
   getFilterOptions,
   getValueSelect,
   transformDataFilters,
   isDisabledBtn
 } from 'helpers';
-import { Filters, Filter, FilterName } from 'types';
+import { toast } from 'react-toastify';
+import { Filters, Filter, FilterName, KeyResult } from 'types';
 import { OptionChange } from 'components/Select/types';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: Filters[];
+  data: KeyResult[] | undefined;
+  dataFilters: Filters[];
   isLoading: boolean;
+  isLoadingFilters: boolean;
+  isError: boolean;
 };
 
-const CompassIssues = ({ data, isLoading }: Props) => {
+const CompassIssues = ({
+  data,
+  dataFilters,
+  isLoading,
+  isLoadingFilters,
+  isError
+}: Props) => {
   const [isShowTable, setIsShowTable] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const selectedFilters = useAppSelector(
+  const selectedFiltersCompare = useAppSelector(
     (state) => state.filters.researchIssues
   );
+  const selectedFilters = useAppSelector(
+    (state) => state.filters.selectedFilters.compass
+  );
   const [
-    getResearchIssues,
-    { data: dataResearchIssues = initialResearchIssues, isFetching }
-  ] = useLazyGetResearchIssuesQuery();
+    getResearchIssuesCompare,
+    {
+      data: dataResearchIssuesCompare,
+      isFetching: isFetchingCompare,
+      isError: isErrorCompare
+    }
+  ] = useLazyGetResearchIssuesCompareQuery();
 
-  // const [treeData, setTreeData] = useState<Node[]>([
-  //   {
-  //     key: 1,
-  //     value: 1,
-  //     title: 'Node 1',
-  //     children: [],
-  //     isLeaf: true
-  //   },
-  //   {
-  //     key: 2,
-  //     value: 2,
-  //     title: 'Node 2',
-  //     children: [],
-  //     isLeaf: false
-  //   }
-  // ]);
-  // const [selectedValue, setSelectedValue] = useState<string | undefined>(
-  //   undefined
-  // );
-
-  useEffect(() => {
-    getResearchIssues({ filters: [] });
-  }, []);
-
-  const onApply = () => {
+  const onApply = async () => {
     const dataFilters = transformDataFilters(selectedFilters);
-    const hasFilters = isDisabledBtn(selectedFilters);
-    getResearchIssues({ filters: dataFilters });
+    const dataFiltersCompare = transformDataFilters(selectedFiltersCompare);
+    setIsShowTable(true);
 
-    if (!hasFilters) {
-      setIsShowTable(true);
+    try {
+      const payload = await getResearchIssuesCompare({
+        filters: dataFilters,
+        filtersCompare: dataFiltersCompare
+      }).unwrap();
+
+      if (payload.data === undefined || payload.isError) {
+        toast('Произошла ошибка');
+      }
+    } catch (e) {
+      toast('Произошла ошибка');
+      console.error(e);
     }
   };
 
@@ -82,8 +83,15 @@ const CompassIssues = ({ data, isLoading }: Props) => {
     dispatch(updateResearchIssuesFilters(filterValues));
   };
 
-  const isLoadingApplyBtn = isLoading || isFetching;
-  const isDisabledBtnApply = isDisabledBtn(selectedFilters);
+  const isLoadingApplyBtn = isLoading || isFetchingCompare || isLoadingFilters;
+  const isDisabledBtnApply = isDisabledBtn(selectedFiltersCompare);
+  const dataTable = isError || data === undefined ? [] : data;
+  const dataTableCompare =
+    isErrorCompare ||
+    dataResearchIssuesCompare === undefined ||
+    dataResearchIssuesCompare.isError
+      ? []
+      : dataResearchIssuesCompare.data;
 
   return (
     <section className={styles['compass-issues']}>
@@ -99,10 +107,9 @@ const CompassIssues = ({ data, isLoading }: Props) => {
             <FIlterContainer
               onApply={onApply}
               onReset={onReset}
-              // isLoading={false}
               isLoading={isLoadingApplyBtn}
               isDisabled={isDisabledBtnApply}
-              data={selectedFilters}
+              data={selectedFiltersCompare}
               text='Воспользуйтесь фильтром, чтобы сравнить результаты'
             >
               {/* <TreeSelect
@@ -112,9 +119,9 @@ const CompassIssues = ({ data, isLoading }: Props) => {
                 onChange={onChangeTreeSelect}
               /> */}
               <Select
-                options={getFilterOptions(data, 'year')}
+                options={getFilterOptions(dataFilters, 'year')}
                 onChange={(e) => onChange(e, 'year')}
-                value={getValueSelect(selectedFilters, 'year')}
+                value={getValueSelect(selectedFiltersCompare, 'year')}
                 placeholder='Год'
                 width={140}
                 isDisabled={isLoading}
@@ -123,17 +130,13 @@ const CompassIssues = ({ data, isLoading }: Props) => {
           </div>
           <div className={styles['compass-issues__row']}>
             <div>
-              <Table
-                data={dataResearchIssues.data.main}
-                isLoading={isFetching}
-                isSorting={true}
-              />
+              <Table data={dataTable} isLoading={isLoading} isSorting={true} />
             </div>
             {isShowTable && (
               <div>
                 <Table
-                  data={dataResearchIssues.data.main}
-                  isLoading={isFetching}
+                  data={dataTableCompare}
+                  isLoading={isLoading || isFetchingCompare}
                   isSorting={true}
                 />
               </div>

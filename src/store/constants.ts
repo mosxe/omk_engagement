@@ -17,19 +17,13 @@ export const initialFiltersCompassResults = {
 };
 
 export const initialResearchIssues = {
-  data: {
-    main: [],
-    additional: []
-  },
+  data: [],
   isError: false,
   errorMessage: ''
 };
 
 export const initialResearchZones = {
-  data: {
-    main: [],
-    additional: []
-  },
+  data: [],
   isError: false,
   errorMessage: ''
 };

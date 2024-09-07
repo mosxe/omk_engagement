@@ -6,7 +6,7 @@ import { KeyResult } from 'types';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: KeyResult[];
+  data: KeyResult[] | undefined;
   isLoading: boolean;
   isSorting?: boolean;
 };
@@ -19,7 +19,9 @@ const Table = ({ data, isLoading, isSorting = false }: Props) => {
   const [order, setOrder] = useState<Sort>('asc');
 
   useEffect(() => {
-    setTableData(data);
+    if (data !== undefined) {
+      setTableData(data);
+    }
   }, [data]);
 
   const handleSortingChange = (field: string, sortOrder: Sort) => {
@@ -50,7 +52,7 @@ const Table = ({ data, isLoading, isSorting = false }: Props) => {
     return '';
   };
 
-  if (isLoading) {
+  if (isLoading || data === undefined) {
     return <Skeleton isSorting={isSorting} />;
   }
 

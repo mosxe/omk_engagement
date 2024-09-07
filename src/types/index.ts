@@ -14,7 +14,8 @@ export type FilterName =
   | 'experience'
   | 'problems'
   | 'strong_point'
-  | 'year';
+  | 'year'
+  | 'age';
 
 export interface Filter {
   value: string;
@@ -95,10 +96,11 @@ export interface ResponseAllComments extends Error {
 }
 
 export interface ResponseResearch extends Error {
-  data: {
-    main: KeyResult[];
-    additional: KeyResult[];
-  };
+  data: KeyResult[];
+}
+
+export interface ResponseCompassCompare extends Error {
+  data: KeyResult[];
 }
 
 export interface ResponseOrgTree extends Error {

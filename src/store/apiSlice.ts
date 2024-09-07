@@ -8,12 +8,12 @@ import {
   ResponseKeyResults,
   ResponseResearch,
   ResponseOrgTree,
-  ResponseAllComments
+  ResponseAllComments,
+  ResponseCompassCompare
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
 
-// RANDOM в параметрах нужно будет удалить перед билдом на прод!!!!!!
 const postUrl = (urlParams: string) => {
   return import.meta.env.DEV
     ? 'https://jsonplaceholder.typicode.com/posts'
@@ -37,24 +37,46 @@ export const API = createApi({
   reducerPath: 'API',
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   endpoints: (builder) => ({
-    getFilterCompassData: builder.query<
+    getAllFiltersEngagementData: builder.query<
       ResponseFilters,
-      { filters: FilterParams[]; is_starting: boolean }
+      { filters: FilterParams[] }
     >({
-      query: ({ filters, is_starting }) => ({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getFilterEngagement'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseFilters) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseFilters =
+            mockData.dataFiltersEngagement as ResponseFilters;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1500);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getAllFiltersCompassData: builder.query<
+      ResponseFilters,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
         url: postUrl('&action=getFilterCompassData'),
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          filters,
-          is_starting
+          filters
         })
       }),
-      transformResponse: (response: ResponseFilters, _, arg) => {
+      transformResponse: (response: ResponseFilters) => {
         if (import.meta.env.DEV) {
-          const mockDataResponse: ResponseFilters = arg.is_starting
-            ? (mockData.dataCompass as ResponseFilters)
-            : (mockData.dataUpdateCompass as ResponseFilters);
+          const mockDataResponse: ResponseFilters =
+            mockData.dataFiltersCompass as ResponseFilters;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -186,30 +208,6 @@ export const API = createApi({
         }
       }
     }),
-    getAllFiltersEngagementData: builder.query<
-      ResponseFilters,
-      { filters: FilterParams[] }
-    >({
-      query: ({ filters }) => ({
-        url: postUrl('&action=getFilterEngagement'),
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          filters
-        })
-      }),
-      transformResponse: (response: ResponseFilters) => {
-        if (import.meta.env.DEV) {
-          const mockDataResponse: ResponseFilters =
-            mockData.dataFiltersEngagement as ResponseFilters;
-          return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 1500);
-          });
-        } else {
-          return response;
-        }
-      }
-    }),
     getFiltersCompassResults: builder.query<ResponseFilters, void>({
       query: () => urlBuilder({ actin: 'getFiltersCompassResults' }),
       transformResponse: (response: ResponseFilters) => {
@@ -217,7 +215,7 @@ export const API = createApi({
           const mockDataResponse: ResponseFilters =
             mockData.dataFiltersCompassResults as ResponseFilters;
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 1500);
+            return setTimeout(() => resolve(mockDataResponse), 2000);
           });
         } else {
           return response;
@@ -239,7 +237,7 @@ export const API = createApi({
       transformResponse: (response: ResponseResearch) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseResearch = {
-            data: mockData.getResearchIssues.data as any,
+            data: mockData.getResearchIssues.data,
             isError: false,
             errorMessage: ''
           };
@@ -265,11 +263,7 @@ export const API = createApi({
       }),
       transformResponse: (response: ResponseResearch) => {
         if (import.meta.env.DEV) {
-          const mockDataResponse: ResponseResearch = {
-            data: mockData.getResearchIssues.data as any,
-            isError: false,
-            errorMessage: ''
-          };
+          const mockDataResponse: ResponseResearch = mockData.getResearchZones;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 5000);
           });
@@ -304,20 +298,78 @@ export const API = createApi({
           return response;
         }
       }
+    }),
+    getResearchIssuesCompare: builder.query<
+      ResponseCompassCompare,
+      { filters: FilterParams[]; filtersCompare: FilterParams[] }
+    >({
+      query: ({ filters, filtersCompare }) => ({
+        url: postUrl('&action=getResearchIssuesCompare'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters,
+          filtersCompare
+        })
+      }),
+      transformResponse: (response: ResponseCompassCompare) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseCompassCompare = {
+            data: mockData.getResearchIssuesCompare.data,
+            isError: true,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 2000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getResearchZonesCompare: builder.query<
+      ResponseCompassCompare,
+      { filters: FilterParams[]; filtersCompare: FilterParams[] }
+    >({
+      query: ({ filters, filtersCompare }) => ({
+        url: postUrl('&action=getResearchZonesCompare'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters,
+          filtersCompare
+        })
+      }),
+      transformResponse: (response: ResponseCompassCompare) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseCompassCompare = {
+            data: mockData.getResearchZonesCompare.data,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 2000);
+          });
+        } else {
+          return response;
+        }
+      }
     })
   })
 });
 
 export const {
-  useLazyGetFilterCompassDataQuery,
+  useGetAllFiltersEngagementDataQuery,
+  useGetAllFiltersCompassDataQuery,
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
   useLazyGetCommentsQuery,
   useLazyGetKeyResultsQuery,
   useLazyGetAllCommentsQuery,
-  useGetAllFiltersEngagementDataQuery,
   useGetFiltersCompassResultsQuery,
   useLazyGetResearchIssuesQuery,
   useLazyGetResearchZonesQuery,
-  useLazyGetOrgTreeQuery
+  useLazyGetOrgTreeQuery,
+  useLazyGetResearchIssuesCompareQuery,
+  useLazyGetResearchZonesCompareQuery
 } = API;

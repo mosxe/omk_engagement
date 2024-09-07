@@ -1,5 +1,28 @@
 ﻿{
-  "dataCompass": {
+  "dataFiltersEngagement": {
+    "data": [
+      {
+        "name": "city",
+        "value": [
+          { "value": "Белгород", "label": "Белгород" },
+          { "value": "Выкса", "label": "Выкса" }
+        ]
+      },
+      {
+        "name": "group",
+        "value": [
+          {
+            "value": "35 лет – 44 года - 35 лет - 40 - лет - 50 лет - 60 лет",
+            "label": "35 лет – 44 года - 35 лет - 40 - лет - 50 лет - 60 лет"
+          },
+          { "value": "45 лет – 54 года", "label": "45 лет – 54 года" }
+        ]
+      }
+    ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "dataFiltersCompass": {
     "data": [
       {
         "name": "city",
@@ -21,6 +44,53 @@
         "value": [
           { "value": "Дивизион \"Сталь\"", "label": "Дивизион \"Сталь\"" },
           { "value": "50000026", "label": "Дивизион \"Выкса\"" }
+        ]
+      },
+      {
+        "name": "city",
+        "value": [
+          { "value": "Москва", "label": "Москва" },
+          { "value": "Владимир", "label": "Владимир" },
+          { "value": "Выкса", "label": "Выкса" }
+        ]
+      },
+      {
+        "name": "sex",
+        "value": [
+          { "value": "Мужской", "label": "Мужской" },
+          { "value": "Женский", "label": "Женский" }
+        ]
+      },
+      {
+        "name": "experience",
+        "value": [
+          { "value": "1", "label": "0 - 5 лет" },
+          { "value": "2", "label": "5- 15 лет" },
+          { "value": "3", "label": "больше 15 лет" }
+        ]
+      },
+      {
+        "name": "problems",
+        "value": [
+          { "value": "1", "label": "Большая проблема" },
+          { "value": "2", "label": "Средняя проблема" },
+          { "value": "3", "label": "Маленькая проблема" }
+        ]
+      },
+      {
+        "name": "strong_point",
+        "value": [
+          { "value": "1", "label": "Сильная сторона" },
+          { "value": "2", "label": "Среднаяя сторона" },
+          { "value": "3", "label": "Слабая сторона" }
+        ]
+      },
+      {
+        "name": "category",
+        "value": [
+          { "value": "1", "label": "Категория 1" },
+          { "value": "2", "label": "Категория 2" },
+          { "value": "3", "label": "Категория 3" }
         ]
       }
     ],
@@ -216,29 +286,6 @@
     "isError": false,
     "errorMessage": ""
   },
-  "dataFiltersEngagement": {
-    "data": [
-      {
-        "name": "city",
-        "value": [
-          { "value": "Белгород", "label": "Белгород" },
-          { "value": "Выкса", "label": "Выкса" }
-        ]
-      },
-      {
-        "name": "group",
-        "value": [
-          {
-            "value": "35 лет – 44 года - 35 лет - 40 - лет - 50 лет - 60 лет",
-            "label": "35 лет – 44 года - 35 лет - 40 - лет - 50 лет - 60 лет"
-          },
-          { "value": "45 лет – 54 года", "label": "45 лет – 54 года" }
-        ]
-      }
-    ],
-    "isError": false,
-    "errorMessage": ""
-  },
   "dataFiltersCompassResults": {
     "data": [
       {
@@ -256,102 +303,171 @@
     "errorMessage": ""
   },
   "getResearchIssues": {
-    "data": {
-      "main": [
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу 22222",
-          "procent": 22,
-          "frequency": 20
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу",
-          "procent": 33,
-          "frequency": 80
-        },
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу 22222",
-          "procent": 22,
-          "frequency": 20
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу",
-          "procent": 33,
-          "frequency": 80
-        }
-      ],
-      "additional": [
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу 22222",
-          "procent": 22,
-          "frequency": 20
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу",
-          "procent": 33,
-          "frequency": 80
-        },
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 50
-        },
-        {
-          "name": "Нет мотивации за выслугу лет",
-          "procent": 100,
-          "frequency": 33
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу 22222",
-          "procent": 25,
-          "frequency": 11
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу",
-          "procent": 33,
-          "frequency": 32
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу 22222",
-          "procent": 25,
-          "frequency": 11
-        },
-        {
-          "name": "Людей не достаточно, чтобы выполнять работу",
-          "procent": 33,
-          "frequency": 32
-        }
-      ]
-    },
+    "data": [
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 22222",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу",
+        "persent": 33,
+        "periodicity": 80
+      },
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 22222",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу",
+        "persent": 33,
+        "periodicity": 80
+      }
+    ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "getResearchIssuesCompare": {
+    "data": [
+      {
+        "name": "Нет мотивации за выслугу лет 2222",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Нет мотивации за выслугу лет 222",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 2222",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 2222",
+        "persent": 33,
+        "periodicity": 80
+      },
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 22222",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу",
+        "persent": 33,
+        "periodicity": 80
+      }
+    ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "getResearchZones": {
+    "data": [
+      {
+        "name": "Нет мотивации за выслугу лет 000",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 000",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 000",
+        "persent": 33,
+        "periodicity": 80
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 22222",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу",
+        "persent": 33,
+        "periodicity": 80
+      }
+    ],
+    "isError": false,
+    "errorMessage": ""
+  },
+  "getResearchZonesCompare": {
+    "data": [
+      {
+        "name": "Нет мотивации за выслугу лет 66666",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Нет мотивации за выслугу лет 66666",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 66666",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 66666",
+        "persent": 33,
+        "periodicity": 80
+      },
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Нет мотивации за выслугу лет",
+        "persent": 100,
+        "periodicity": 50
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу 22222",
+        "persent": 22,
+        "periodicity": 20
+      },
+      {
+        "name": "Людей не достаточно, чтобы выполнять работу",
+        "persent": 33,
+        "periodicity": 80
+      }
+    ],
     "isError": false,
     "errorMessage": ""
   },

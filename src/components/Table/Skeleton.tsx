@@ -39,7 +39,7 @@ const Skeleton = ({ isSorting = false }: Props) => {
     <table className={`${styles.table} `}>
       <thead>
         <tr>
-          <TH isSorting={isSorting} />
+          <TH />
           <TH isSorting={isSorting} />
           <TH isSorting={isSorting} />
         </tr>

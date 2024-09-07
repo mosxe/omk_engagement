@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react';
+﻿import { useState } from 'react';
 import Select from 'components/Select';
 import Table from 'components/Table';
 import FIlterContainer from '../../../../../Filters/FIlterContainer';
@@ -7,51 +7,72 @@ import {
   updateResearchZonesFilters,
   clearResearchZonesFilters
 } from 'store/filterSlice';
-import { useLazyGetResearchZonesQuery } from 'store/apiSlice';
-import { initialResearchZones } from 'store/constants';
+import { useLazyGetResearchZonesCompareQuery } from 'store/apiSlice';
 import {
   getFilterOptions,
   getValueSelect,
   transformDataFilters,
   isDisabledBtn
 } from 'helpers';
-import { Filters, Filter, FilterName } from 'types';
+import { toast } from 'react-toastify';
+import { Filters, Filter, FilterName, KeyResult } from 'types';
 import { OptionChange } from 'components/Select/types';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: Filters[];
+  data: KeyResult[] | undefined;
+  dataFilters: Filters[];
   isLoading: boolean;
+  isLoadingFilters: boolean;
+  isError: boolean;
 };
 
-const CompassZones = ({ data, isLoading }: Props) => {
+const CompassZones = ({
+  data,
+  dataFilters,
+  isLoading,
+  isLoadingFilters,
+  isError
+}: Props) => {
   const [isShowTable, setIsShowTable] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const selectedFilters = useAppSelector(
+  const selectedFiltersCompare = useAppSelector(
     (state) => state.filters.researchZones
   );
+  const selectedFilters = useAppSelector(
+    (state) => state.filters.selectedFilters.compass
+  );
   const [
-    getResearchZones,
-    { data: dataResearchIssues = initialResearchZones, isFetching }
-  ] = useLazyGetResearchZonesQuery();
+    getResearchZonesCompare,
+    {
+      data: dataResearcZonesCompare,
+      isFetching: isFetchingCompare,
+      isError: isErrorCompare
+    }
+  ] = useLazyGetResearchZonesCompareQuery();
 
-  useEffect(() => {
-    getResearchZones({ filters: [] });
-  }, []);
-
-  const onApply = () => {
+  const onApply = async () => {
     const dataFilters = transformDataFilters(selectedFilters);
-    const hasFilters = isDisabledBtn(selectedFilters);
-    getResearchZones({ filters: dataFilters });
+    const dataFiltersCompare = transformDataFilters(selectedFiltersCompare);
+    setIsShowTable(true);
 
-    if (!hasFilters) {
-      setIsShowTable(true);
+    try {
+      const payload = await getResearchZonesCompare({
+        filters: dataFilters,
+        filtersCompare: dataFiltersCompare
+      }).unwrap();
+
+      if (payload.data === undefined || payload.isError) {
+        toast('Произошла ошибка');
+      }
+    } catch (e) {
+      toast('Произошла ошибка');
+      console.error(e);
     }
   };
 
   const onReset = () => {
     dispatch(clearResearchZonesFilters());
-    setIsShowTable(false);
   };
 
   const onChange = (options: OptionChange, filterName: FilterName) => {
@@ -62,8 +83,15 @@ const CompassZones = ({ data, isLoading }: Props) => {
     dispatch(updateResearchZonesFilters(filterValues));
   };
 
-  const isLoadingApplyBtn = isLoading || isFetching;
-  const isDisabledBtnApply = isDisabledBtn(selectedFilters);
+  const isLoadingApplyBtn = isLoading || isFetchingCompare || isLoadingFilters;
+  const isDisabledBtnApply = isDisabledBtn(selectedFiltersCompare);
+  const dataTable = isError || data === undefined ? [] : data;
+  const dataTableCompare =
+    isErrorCompare ||
+    dataResearcZonesCompare === undefined ||
+    dataResearcZonesCompare.isError
+      ? []
+      : dataResearcZonesCompare.data;
 
   return (
     <section className={styles['compass-zones']}>
@@ -83,13 +111,13 @@ const CompassZones = ({ data, isLoading }: Props) => {
               onReset={onReset}
               isLoading={isLoadingApplyBtn}
               isDisabled={isDisabledBtnApply}
-              data={selectedFilters}
+              data={selectedFiltersCompare}
               text='Воспользуйтесь фильтром, чтобы сравнить результаты'
             >
               <Select
-                options={getFilterOptions(data, 'year')}
+                options={getFilterOptions(dataFilters, 'year')}
                 onChange={(e) => onChange(e, 'year')}
-                value={getValueSelect(selectedFilters, 'year')}
+                value={getValueSelect(selectedFiltersCompare, 'year')}
                 placeholder='Год'
                 width={140}
                 isDisabled={isLoading}
@@ -98,17 +126,13 @@ const CompassZones = ({ data, isLoading }: Props) => {
           </div>
           <div className={styles['compass-zones__row']}>
             <div>
-              <Table
-                data={dataResearchIssues.data.main}
-                isLoading={isFetching}
-                isSorting={true}
-              />
+              <Table data={dataTable} isLoading={isLoading} isSorting={true} />
             </div>
             {isShowTable && (
               <div>
                 <Table
-                  data={dataResearchIssues.data.main}
-                  isLoading={isFetching}
+                  data={dataTableCompare}
+                  isLoading={isLoading || isFetchingCompare}
                   isSorting={true}
                 />
               </div>

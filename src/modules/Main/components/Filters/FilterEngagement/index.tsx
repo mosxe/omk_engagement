@@ -42,7 +42,6 @@ const FilterEngagement = ({
     updateOrg(null).then((data) => {
       if (data.data?.data) {
         const selectedValues = getSelectedValuesTree(data.data.data);
-        console.log(selectedValues);
         setTreeData(data.data.data);
         setSelectedValue(selectedValues);
 
@@ -146,30 +145,34 @@ const FilterEngagement = ({
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
-      <Select
-        options={getFilterOptions(data.data, 'group')}
-        defaultValue={getValueSelect(selectedFilters, 'group')}
-        onChange={(e) => onChange(e, 'group')}
-        value={getValueSelect(selectedFilters, 'group')}
-        placeholder='Группа'
-        width={300}
-        isDisabled={isLoadingFilter}
-      />
+      <div>
+        <Select
+          options={getFilterOptions(data.data, 'group')}
+          defaultValue={getValueSelect(selectedFilters, 'group')}
+          value={getValueSelect(selectedFilters, 'group')}
+          onChange={(e) => onChange(e, 'group')}
+          placeholder='Группа'
+          width={300}
+          isDisabled={isLoadingFilter}
+        />
+      </div>
       <TreeSelect
         data={treeData}
         selectedValue={selectedValue}
         onLoad={loadData}
         onChange={onChangeTreeSelect}
       />
-      <Select
-        options={getFilterOptions(data.data, 'city')}
-        defaultValue={getValueSelect(selectedFilters, 'city')}
-        onChange={(e) => onChange(e, 'city')}
-        value={getValueSelect(selectedFilters, 'city')}
-        placeholder='Город'
-        width={200}
-        isDisabled={isLoadingFilter}
-      />
+      <div>
+        <Select
+          options={getFilterOptions(data.data, 'city')}
+          defaultValue={getValueSelect(selectedFilters, 'city')}
+          value={getValueSelect(selectedFilters, 'city')}
+          onChange={(e) => onChange(e, 'city')}
+          placeholder='Город'
+          width={200}
+          isDisabled={isLoadingFilter}
+        />
+      </div>
     </FilterContainer>
   );
 };
