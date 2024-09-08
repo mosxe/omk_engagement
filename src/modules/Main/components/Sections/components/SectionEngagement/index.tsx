@@ -95,6 +95,7 @@ const SectionEngagement = () => {
     isFetchingComments;
 
   const isDisabledBtnApply = isDisabledBtn(selectedFilters);
+  console.log(dataKeyResults);
 
   return (
     <>

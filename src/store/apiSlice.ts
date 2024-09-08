@@ -209,7 +209,7 @@ export const API = createApi({
       }
     }),
     getFiltersCompassResults: builder.query<ResponseFilters, void>({
-      query: () => urlBuilder({ actin: 'getFiltersCompassResults' }),
+      query: () => urlBuilder({ action: 'getFiltersCompassResults' }),
       transformResponse: (response: ResponseFilters) => {
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseFilters =

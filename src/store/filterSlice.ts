@@ -57,6 +57,10 @@ const initialState: IFiltersState = {
       {
         name: 'strong_point',
         value: []
+      },
+      {
+        name: 'age',
+        value: []
       }
     ],
     questions: []
