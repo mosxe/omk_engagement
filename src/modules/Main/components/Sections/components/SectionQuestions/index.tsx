@@ -1,5 +1,7 @@
-﻿const SectionQuestions = () => {
-  return <div>SectionQuestions</div>;
+﻿import Tab from './components/Tab';
+
+const SectionQuestions = () => {
+  return <Tab />;
 };
 
 export default SectionQuestions;

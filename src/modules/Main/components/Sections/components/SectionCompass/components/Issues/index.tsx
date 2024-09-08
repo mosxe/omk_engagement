@@ -12,7 +12,7 @@ import {
   getFilterOptions,
   getValueSelect,
   transformDataFilters,
-  isDisabledBtn
+  hasFilter
 } from 'helpers';
 import { toast } from 'react-toastify';
 import { Filters, Filter, FilterName, KeyResult } from 'types';
@@ -84,7 +84,7 @@ const CompassIssues = ({
   };
 
   const isLoadingApplyBtn = isLoading || isFetchingCompare || isLoadingFilters;
-  const isDisabledBtnApply = isDisabledBtn(selectedFiltersCompare);
+  const isDisabledBtnApply = !hasFilter(selectedFiltersCompare);
   const dataTable = isError || data === undefined ? [] : data;
   const dataTableCompare =
     isErrorCompare ||

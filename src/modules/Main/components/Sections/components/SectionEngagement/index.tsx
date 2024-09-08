@@ -13,7 +13,7 @@ import {
 } from 'store/apiSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { clearSelectedFilters } from 'store/filterSlice';
-import { transformDataFilters, isDisabledBtn } from 'helpers';
+import { transformDataFilters, hasFilter } from 'helpers';
 
 const SectionEngagement = () => {
   const [
@@ -94,8 +94,7 @@ const SectionEngagement = () => {
     isFetchingKeyResults ||
     isFetchingComments;
 
-  const isDisabledBtnApply = isDisabledBtn(selectedFilters);
-  console.log(dataKeyResults);
+  const isDisabledBtnApply = !hasFilter(selectedFilters);
 
   return (
     <>

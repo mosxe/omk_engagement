@@ -131,7 +131,7 @@ const FilterCompass = ({
     }
   };
 
-  const isLoadingFilter = isLoadingFilters || isLoading;
+  const isLoadingFilter = isLoadingFilters || isLoading || isLoadingOrg;
 
   return (
     <FilterContainer

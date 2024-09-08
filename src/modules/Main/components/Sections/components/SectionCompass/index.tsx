@@ -1,20 +1,27 @@
 ﻿import { useEffect } from 'react';
 import { FilterCompass } from '../../../Filters';
-// import Compass from './components/Compass';
 import Results from './components/Results';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import {
   useLazyGetResearchIssuesQuery,
-  useLazyGetResearchZonesQuery
+  useLazyGetResearchZonesQuery,
+  useLazyGetResearchIssuesCompareQuery,
+  useLazyGetResearchZonesCompareQuery
 } from 'store/apiSlice';
 import { clearSelectedFilters } from 'store/filterSlice';
 import { initialResearchIssues, initialResearchZones } from 'store/constants';
-import { transformDataFilters, isDisabledBtn } from 'helpers';
+import { transformDataFilters, hasFilter } from 'helpers';
 
 const SectionCompass = () => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.compass
+  );
+  const selectedFiltersIssuesCompare = useAppSelector(
+    (state) => state.filters.researchIssues
+  );
+  const selectedFiltersZonesCompare = useAppSelector(
+    (state) => state.filters.researchZones
   );
   const [
     getResearchIssues,
@@ -33,6 +40,9 @@ const SectionCompass = () => {
     }
   ] = useLazyGetResearchZonesQuery();
 
+  const [getResearchIssuesCompare] = useLazyGetResearchIssuesCompareQuery();
+  const [getResearchZonesCompare] = useLazyGetResearchZonesCompareQuery();
+
   useEffect(() => {
     getResearchIssues({
       filters: []
@@ -44,12 +54,35 @@ const SectionCompass = () => {
 
   const handleApply = () => {
     const dataFilters = transformDataFilters(selectedFilters);
+    const dataIssuesCompareFilters = hasFilter(selectedFiltersIssuesCompare);
+    const dataZonesCompareFilters = hasFilter(selectedFiltersZonesCompare);
+
     getResearchIssues({
       filters: dataFilters
     });
     getResearchZones({
       filters: dataFilters
     });
+
+    if (dataIssuesCompareFilters) {
+      const dataIssuesTransformFilters = transformDataFilters(
+        selectedFiltersIssuesCompare
+      );
+      getResearchIssuesCompare({
+        filters: dataFilters,
+        filtersCompare: dataIssuesTransformFilters
+      });
+    }
+
+    if (dataZonesCompareFilters) {
+      const dataZonesTransformFilters = transformDataFilters(
+        selectedFiltersZonesCompare
+      );
+      getResearchZonesCompare({
+        filters: dataFilters,
+        filtersCompare: dataZonesTransformFilters
+      });
+    }
   };
 
   const handleReset = () => {
@@ -57,8 +90,7 @@ const SectionCompass = () => {
   };
 
   const isLoadingBtnApply = isFetchingIssues || isFetchingZones;
-
-  const isDisabledBtnApply = isDisabledBtn(selectedFilters);
+  const isDisabledBtnApply = !hasFilter(selectedFilters);
 
   return (
     <>
@@ -68,7 +100,6 @@ const SectionCompass = () => {
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
       />
-      {/* <Compass /> */}
       <Results
         dataIssues={dataResearchIssues?.data}
         dataZones={dataResearchZones?.data}

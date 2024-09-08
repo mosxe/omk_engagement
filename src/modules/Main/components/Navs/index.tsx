@@ -11,7 +11,7 @@ const Navs = ({ tab, onClick }: Props) => {
     <div className={styles.navs}>
       <button
         className={`${styles.navs__btn} ${
-          tab === 'engagement' && styles.navs__btn_active
+          tab === 'engagement' ? styles.navs__btn_active : ''
         }`}
         type='button'
         onClick={() => onClick('engagement')}
@@ -29,10 +29,9 @@ const Navs = ({ tab, onClick }: Props) => {
       </button>
       <button
         className={`${styles.navs__btn} ${
-          tab === 'questions' && styles.navs__btn_active
+          tab === 'questions' ? styles.navs__btn_active : ''
         }`}
         type='button'
-        disabled
         onClick={() => onClick('questions')}
       >
         Открытые вопросы

@@ -1,6 +1,6 @@
 ﻿import { LoaderContent } from 'components/Loader';
 import { Filters } from 'types';
-import { isDisabledBtn } from 'helpers';
+import { hasFilter } from 'helpers';
 import styles from '../styles.module.scss';
 
 type Props = {
@@ -22,7 +22,7 @@ const FilterContainer = ({
   data,
   text
 }: Props) => {
-  const isDisabledClearBtn = isDisabledBtn(data);
+  const isDisabledClearBtn = !hasFilter(data);
 
   return (
     <div className={styles.filters}>

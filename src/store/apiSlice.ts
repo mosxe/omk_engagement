@@ -242,7 +242,7 @@ export const API = createApi({
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 5000);
+            return setTimeout(() => resolve(mockDataResponse), 1500);
           });
         } else {
           return response;
@@ -292,7 +292,7 @@ export const API = createApi({
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 1500);
+            return setTimeout(() => resolve(mockDataResponse), 10000);
           });
         } else {
           return response;
@@ -316,11 +316,11 @@ export const API = createApi({
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseCompassCompare = {
             data: mockData.getResearchIssuesCompare.data,
-            isError: true,
+            isError: false,
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 2000);
+            return setTimeout(() => resolve(mockDataResponse), 1500);
           });
         } else {
           return response;
@@ -348,7 +348,7 @@ export const API = createApi({
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 2000);
+            return setTimeout(() => resolve(mockDataResponse), 1000);
           });
         } else {
           return response;

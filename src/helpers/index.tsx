@@ -58,8 +58,8 @@ const declinationComments = (value: number) => {
   return words[value % 100 > 4 && value % 100 < 20 ? 2 : cases[indexValue]];
 };
 
-const isDisabledBtn = (data: Filters[]) => {
-  const hasValue = !data.some((filter) => filter.value.length > 0);
+const hasFilter = (data: Filters[]) => {
+  const hasValue = data.some((filter) => filter.value.length > 0);
   return hasValue;
 };
 
@@ -99,7 +99,7 @@ export {
   getValueSelect,
   transformDataFilters,
   declinationComments,
-  isDisabledBtn,
+  hasFilter,
   transformDataBar,
   getSelectedValuesTree
 };
