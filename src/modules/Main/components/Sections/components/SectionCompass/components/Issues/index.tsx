@@ -112,20 +112,26 @@ const CompassIssues = ({
               data={selectedFiltersCompare}
               text='Воспользуйтесь фильтром, чтобы сравнить результаты'
             >
-              {/* <TreeSelect
-                data={treeData}
-                selectedValue={selectedValue}
-                onLoad={loadData}
-                onChange={onChangeTreeSelect}
-              /> */}
-              <Select
-                options={getFilterOptions(dataFilters, 'year')}
-                onChange={(e) => onChange(e, 'year')}
-                value={getValueSelect(selectedFiltersCompare, 'year')}
-                placeholder='Год'
-                width={140}
-                isDisabled={isLoading}
-              />
+              <div>
+                <Select
+                  options={getFilterOptions(dataFilters, 'subs')}
+                  value={getValueSelect(selectedFiltersCompare, 'subs')}
+                  onChange={(e) => onChange(e, 'subs')}
+                  placeholder='Подразделение/БЕ'
+                  width={230}
+                  isDisabled={isLoading}
+                />
+              </div>
+              <div>
+                <Select
+                  options={getFilterOptions(dataFilters, 'year')}
+                  onChange={(e) => onChange(e, 'year')}
+                  value={getValueSelect(selectedFiltersCompare, 'year')}
+                  placeholder='Год'
+                  width={140}
+                  isDisabled={isLoading}
+                />
+              </div>
             </FIlterContainer>
           </div>
           <div className={styles['compass-issues__row']}>
