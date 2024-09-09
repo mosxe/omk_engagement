@@ -1,0 +1,150 @@
+﻿.issue-card {
+  flex-basis: calc(50% - 20px);
+  display: flex;
+  gap: 24px;
+  background-color: rgba(236, 239, 243, 1);
+  border-radius: 8px;
+  padding: 40px 20px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  &__text {
+    flex: 1;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__btn {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    color: var(--page-color-dark-blue);
+    border-radius: 5px;
+    padding: 16px 10px;
+    text-transform: uppercase;
+    background-color: transparent !important;
+    cursor: pointer;
+    outline: 0 !important;
+    margin: 0px;
+    border: 1px solid var(--page-color-dark-blue);
+    white-space: nowrap;
+    transition: border-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      border-color: var(--page-color-red);
+      color: var(--page-color-red);
+    }
+
+    &:active {
+      border-color: var(--page-color-link);
+      color: var(--page-color-link);
+    }
+  }
+
+  &_end {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__modal {
+    padding-right: 10px;
+
+    &_text {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+      color: var(--page-color-black);
+    }
+
+    &_subtext {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 22px;
+      color: var(--page-color-link);
+      text-align: right;
+
+      &-m {
+        font-size: 14px;
+        text-align: left;
+      }
+    }
+
+    &_box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &_container {
+      height: 200px;
+    }
+
+    &_row {
+      margin-top: 20px;
+    }
+
+    &_wrapper {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 20px;
+    }
+
+    &_card {
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--page-color-gray);
+
+      &-text {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18.2px;
+        color: var(--page-color-link);
+      }
+    }
+  }
+
+  &__skeleton {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 60%
+      )
+      #ededed;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 1.2s loading ease-in-out infinite;
+
+    &_line {
+      background-color: var(--page-color-gray);
+      min-height: 16px;
+      min-width: 140px;
+      border-radius: 8px;
+      animation-delay: 0.05s;
+    }
+
+    &_btn {
+      background-color: var(--page-color-gray);
+      min-height: 50px;
+      min-width: 100%;
+      border-radius: 8px;
+      animation-delay: 0.05s;
+    }
+  }
+
+  @keyframes loading {
+    to {
+      background-position-x: -20%;
+    }
+  }
+}

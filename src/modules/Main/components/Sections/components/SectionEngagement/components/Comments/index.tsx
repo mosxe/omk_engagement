@@ -18,8 +18,10 @@ type Props = {
 };
 
 const Comments = ({ data, isLoading, isError }: Props) => {
-  const [getAllComments, { isFetching: isFetchingAllComments }] =
-    useLazyGetAllCommentsQuery();
+  const [
+    getAllComments,
+    { isFetching: isFetchingAllComments, isError: isErrorAllComments }
+  ] = useLazyGetAllCommentsQuery();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.engagement
   );
@@ -99,6 +101,7 @@ const Comments = ({ data, isLoading, isError }: Props) => {
           data={modalData}
           onClose={() => handleModal('')}
           isLoading={isFetchingAllComments}
+          isError={isErrorAllComments}
         />
       </Modal>
     </>

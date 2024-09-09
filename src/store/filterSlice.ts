@@ -1,12 +1,16 @@
 ﻿import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Tab, Filters } from 'types';
+import { Tab, Filters, QuestionsTab } from 'types';
 
 export interface IFiltersState {
   selectedFilters: {
-    [key in Partial<Tab>]: Filters[];
+    engagement: Filters[];
+    compass: Filters[];
+    questions: Filters[];
+    issues: Filters[];
   };
   researchIssues: Filters[];
   researchZones: Filters[];
+  questionsTab: QuestionsTab;
 }
 
 const initialState: IFiltersState = {
@@ -63,7 +67,66 @@ const initialState: IFiltersState = {
         value: []
       }
     ],
-    questions: []
+    questions: [
+      {
+        name: 'group',
+        value: []
+      },
+      {
+        name: 'subs',
+        value: []
+      },
+      {
+        name: 'city',
+        value: []
+      },
+      {
+        name: 'category',
+        value: []
+      },
+      {
+        name: 'sex',
+        value: []
+      },
+      {
+        name: 'experience',
+        value: []
+      },
+      {
+        name: 'open_question',
+        value: []
+      }
+    ],
+    issues: [
+      {
+        name: 'group',
+        value: []
+      },
+      {
+        name: 'subs',
+        value: []
+      },
+      {
+        name: 'city',
+        value: []
+      },
+      {
+        name: 'category',
+        value: []
+      },
+      {
+        name: 'sex',
+        value: []
+      },
+      {
+        name: 'experience',
+        value: []
+      },
+      {
+        name: 'problems',
+        value: []
+      }
+    ]
   },
   researchIssues: [
     {
@@ -84,7 +147,8 @@ const initialState: IFiltersState = {
       name: 'year',
       value: []
     }
-  ]
+  ],
+  questionsTab: 'questions'
 };
 
 const filtersSlice = createSlice({
@@ -99,7 +163,6 @@ const filtersSlice = createSlice({
       const filter = tabData.find(
         (item) => item.name === action.payload.data.name
       );
-
       if (filter !== undefined) {
         filter.value = action.payload.data.value;
       }
@@ -130,6 +193,9 @@ const filtersSlice = createSlice({
     },
     clearResearchZonesFilters: (state) => {
       state.researchZones.forEach((filter) => (filter.value = []));
+    },
+    changeQuestionsTab: (state, action: PayloadAction<QuestionsTab>) => {
+      state.questionsTab = action.payload;
     }
   }
 });
@@ -140,7 +206,8 @@ export const {
   updateResearchIssuesFilters,
   clearResearchIssuesFilters,
   updateResearchZonesFilters,
-  clearResearchZonesFilters
+  clearResearchZonesFilters,
+  changeQuestionsTab
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

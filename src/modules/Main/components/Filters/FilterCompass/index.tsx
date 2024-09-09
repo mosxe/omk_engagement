@@ -20,6 +20,7 @@ import { updateSelectedFilters } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
 const FilterCompass = ({
+  dataOrg,
   onApply,
   onReset,
   isLoading,
@@ -38,27 +39,68 @@ const FilterCompass = ({
   );
 
   useEffect(() => {
-    updateOrg(null).then((data) => {
-      if (data.data?.data) {
-        const selectedValues = getSelectedValuesTree(data.data.data);
-        setTreeData(data.data.data);
-        setSelectedValue(selectedValues);
-
-        const tempValues = selectedValues.map((node: OrgTree) => {
-          return {
-            value: node.value,
-            label: ''
-          };
-        });
-
-        const filterValues = {
-          name: 'subs' as const,
-          value: tempValues as Filter[]
+    if (dataOrg !== undefined) {
+      const selectedValues = getSelectedValuesTree(dataOrg);
+      setTreeData(dataOrg);
+      setSelectedValue(selectedValues);
+      const tempValues = selectedValues.map((node: OrgTree) => {
+        return {
+          value: node.value,
+          label: ''
         };
-        dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
-      }
-    });
-  }, []);
+      });
+      const filterValues = {
+        name: 'subs' as const,
+        value: tempValues as Filter[]
+      };
+      dispatch(
+        updateSelectedFilters({ tab: 'engagement', data: filterValues })
+      );
+    }
+    // updateOrg(null).then((data) => {
+    //   if (data.data?.data) {
+    //     const selectedValues = getSelectedValuesTree(data.data.data);
+    //     setTreeData(data.data.data);
+    //     setSelectedValue(selectedValues);
+    //     const tempValues = selectedValues.map((node: OrgTree) => {
+    //       return {
+    //         value: node.value,
+    //         label: ''
+    //       };
+    //     });
+    //     const filterValues = {
+    //       name: 'subs' as const,
+    //       value: tempValues as Filter[]
+    //     };
+    //     dispatch(
+    //       updateSelectedFilters({ tab: 'engagement', data: filterValues })
+    //     );
+    //   }
+    // });
+  }, [dataOrg]);
+
+  // useEffect(() => {
+  //   updateOrg(null).then((data) => {
+  //     if (data.data?.data) {
+  //       const selectedValues = getSelectedValuesTree(data.data.data);
+  //       setTreeData(data.data.data);
+  //       setSelectedValue(selectedValues);
+
+  //       const tempValues = selectedValues.map((node: OrgTree) => {
+  //         return {
+  //           value: node.value,
+  //           label: ''
+  //         };
+  //       });
+
+  //       const filterValues = {
+  //         name: 'subs' as const,
+  //         value: tempValues as Filter[]
+  //       };
+  //       dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
     const labels = document.querySelectorAll(
@@ -107,7 +149,7 @@ const FilterCompass = ({
       name: 'subs' as const,
       value: tempValues as Filter[]
     };
-    dispatch(updateSelectedFilters({ tab: 'engagement', data: filterValues }));
+    dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
   };
 
   const loadData = async (treeNode: Node) => {
@@ -142,14 +184,13 @@ const FilterCompass = ({
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
-      <div>
+      <div style={{ width: '200px' }}>
         <Select
           options={getFilterOptions(data.data, 'group')}
           defaultValue={getValueSelect(selectedFilters, 'group')}
           value={getValueSelect(selectedFilters, 'group')}
           onChange={(e) => onChange(e, 'group')}
           placeholder='Группа'
-          width={180}
         />
       </div>
       <TreeSelect

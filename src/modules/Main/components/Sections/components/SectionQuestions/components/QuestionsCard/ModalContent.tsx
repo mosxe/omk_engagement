@@ -1,11 +1,11 @@
 ﻿import Modal, { ButtonClose } from 'components/Modal';
 import NoData from 'modules/Main/components/NoData';
 import { LoaderContent } from 'components/Loader';
-import { declinationComments } from 'helpers';
+import { declinationAnswers } from 'helpers';
 import styles from './styles.module.scss';
 
 type Props = {
-  data: { id: string; title: string; comments: string[] } | undefined;
+  data: { title: string; comments: string[] } | undefined;
   isLoading: boolean;
   isError: boolean;
   onClose: () => void;
@@ -16,12 +16,12 @@ const ModalContent = ({ data, isLoading, isError, onClose }: Props) => {
     return (
       <>
         <Modal.Header>
-          <div className={styles['engagement-comments_end']}>
+          <div className={styles['question-card_end']}>
             <ButtonClose onClick={onClose} />
           </div>
         </Modal.Header>
         <Modal.Body>
-          <div className={styles['engagement-comments__container']}>
+          <div className={styles['question-card__modal_container']}>
             <LoaderContent />
           </div>
         </Modal.Body>
@@ -33,7 +33,7 @@ const ModalContent = ({ data, isLoading, isError, onClose }: Props) => {
     return (
       <>
         <Modal.Header>
-          <div className={styles['engagement-comments_end']}>
+          <div className={styles['question-card_end']}>
             <ButtonClose onClick={onClose} />
           </div>
         </Modal.Header>
@@ -47,35 +47,28 @@ const ModalContent = ({ data, isLoading, isError, onClose }: Props) => {
   return (
     <>
       <Modal.Header>
-        <div className={styles['engagement-comments_end']}>
+        <div className={styles['question-card_end']}>
           <ButtonClose onClick={onClose} />
         </div>
       </Modal.Header>
       <Modal.Body>
-        <div className={styles['engagement-comments__modal']}>
-          <div className={styles['engagement-comments__box']}>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_m']}`}
-            >
-              Топ-проблематика
-            </span>
-            <div className={styles['engagement-comments__text']}>
+        <div className={styles['question-card__modal']}>
+          <div className={styles['question-card__modal_box']}>
+            <span className={styles['question-card__modal_text']}>
               {data.title}
-            </div>
-            <span
-              className={`${styles['engagement-comments__subtext']} ${styles['engagement-comments__subtext_l']}`}
-            >
-              {data.comments.length} {declinationComments(data.comments.length)}
+            </span>
+            <span className={styles['question-card__modal_subtext']}>
+              {data.comments.length} {declinationAnswers(data.comments.length)}
             </span>
           </div>
-          <div className={styles['engagement-comments__wrapper']}>
+          <div className={styles['question-card__modal_wrapper']}>
             {data.comments.map((card, index) => {
               return (
                 <div
-                  className={styles['engagement-comments__card']}
+                  className={styles['question-card__modal_card']}
                   key={index}
                 >
-                  <div className={styles['engagement-comments__card_text']}>
+                  <div className={styles['question-card__modal_card-text']}>
                     {card}
                   </div>
                 </div>

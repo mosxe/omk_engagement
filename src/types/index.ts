@@ -3,7 +3,8 @@
   errorMessage: string;
 }
 
-export type Tab = 'engagement' | 'compass' | 'questions';
+export type Tab = 'engagement' | 'compass' | 'questions' | 'issues';
+export type QuestionsTab = Exclude<Tab, 'engagement' | 'compass'>;
 
 export type FilterName =
   | 'group'
@@ -15,7 +16,8 @@ export type FilterName =
   | 'problems'
   | 'strong_point'
   | 'year'
-  | 'age';
+  | 'age'
+  | 'open_question';
 
 export interface Filter {
   value: string;
@@ -115,4 +117,22 @@ export interface OrgTree {
   parent_object_code: string;
   children: OrgTree[];
   isLeaf: boolean;
+}
+
+export interface Question {
+  id: string;
+  name: string;
+}
+
+export interface ResponseOpenQuestions extends Error {
+  data: Question[];
+}
+
+export interface Issue {
+  id: string;
+  name: string;
+}
+
+export interface ResponseIssues extends Error {
+  data: Issue[];
 }

@@ -9,7 +9,9 @@ import {
   ResponseResearch,
   ResponseOrgTree,
   ResponseAllComments,
-  ResponseCompassCompare
+  ResponseCompassCompare,
+  ResponseOpenQuestions,
+  ResponseIssues
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
@@ -77,6 +79,30 @@ export const API = createApi({
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseFilters =
             mockData.dataFiltersCompass as ResponseFilters;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1500);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getAllFiltersQuestionsData: builder.query<
+      ResponseFilters,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getFilterQuestion'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseFilters) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseFilters =
+            mockData.dataFiltersQuestions as ResponseFilters;
           return new Promise((resolve) => {
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
@@ -265,7 +291,7 @@ export const API = createApi({
         if (import.meta.env.DEV) {
           const mockDataResponse: ResponseResearch = mockData.getResearchZones;
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 5000);
+            return setTimeout(() => resolve(mockDataResponse), 2000);
           });
         } else {
           return response;
@@ -292,7 +318,7 @@ export const API = createApi({
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 10000);
+            return setTimeout(() => resolve(mockDataResponse), 2000);
           });
         } else {
           return response;
@@ -354,6 +380,113 @@ export const API = createApi({
           return response;
         }
       }
+    }),
+    getOpenQuestions: builder.query<
+      ResponseOpenQuestions,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getOpenQuestionAllList'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseOpenQuestions) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseOpenQuestions = {
+            data: mockData.getOpenQuestions.data,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getIssues: builder.query<ResponseIssues, { filters: FilterParams[] }>({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getCommentProblemAllList'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseIssues) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseIssues = {
+            data: mockData.getIssues.data,
+            isError: false,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getAllQuestionsComments: builder.query<
+      ResponseAllComments,
+      { filters: FilterParams[]; id: string }
+    >({
+      query: ({ filters, id }) => ({
+        url: postUrl('&action=getOpenQuestionListByQuestion'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters,
+          id
+        })
+      }),
+      transformResponse: (response: ResponseAllComments, _, arg) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseAllComments = {
+            data:
+              arg.id === '1'
+                ? mockData.dataAllComments.data
+                : mockData.dataAllComments2.data,
+            isError: true,
+            errorMessage: ''
+          };
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getAllIssuesComments: builder.query<
+      ResponseAllComments,
+      { filters: FilterParams[]; id: string }
+    >({
+      query: ({ filters, id }) => ({
+        url: postUrl('&action=getCommentProblemListByProblem'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters,
+          id
+        })
+      }),
+      transformResponse: (response: ResponseAllComments) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseAllComments =
+            mockData.dataAllComments;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1500);
+          });
+        } else {
+          return response;
+        }
+      }
     })
   })
 });
@@ -361,6 +494,7 @@ export const API = createApi({
 export const {
   useGetAllFiltersEngagementDataQuery,
   useGetAllFiltersCompassDataQuery,
+  useGetAllFiltersQuestionsDataQuery,
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
   useLazyGetCommentsQuery,
@@ -370,6 +504,11 @@ export const {
   useLazyGetResearchIssuesQuery,
   useLazyGetResearchZonesQuery,
   useLazyGetOrgTreeQuery,
+  useGetOrgTreeQuery,
   useLazyGetResearchIssuesCompareQuery,
-  useLazyGetResearchZonesCompareQuery
+  useLazyGetResearchZonesCompareQuery,
+  useLazyGetOpenQuestionsQuery,
+  useLazyGetAllQuestionsCommentsQuery,
+  useLazyGetIssuesQuery,
+  useLazyGetAllIssuesCommentsQuery
 } = API;

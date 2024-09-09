@@ -1,42 +1,42 @@
 ﻿import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import TreeSelect, { Node } from 'components/TreeSelect';
 import Select from 'components/Select';
+import TreeSelect, { Node } from 'components/TreeSelect';
 import FilterContainer from '../FIlterContainer';
 import { OptionChange } from 'components/Select/types';
-import { FilterName, Filter, OrgTree } from 'types';
+import { Filter, FilterName, OrgTree } from 'types';
 import { FilterProps } from '../index';
+import { toast } from 'react-toastify';
+import {
+  useGetAllFiltersQuestionsDataQuery,
+  useLazyGetOrgTreeQuery
+} from 'store/apiSlice';
+import { initialFiltersQuestions } from 'store/constants';
 import {
   getFilterOptions,
   getValueSelect,
   getSelectedValuesTree
 } from 'helpers';
-import { initialFiltersEngagement } from 'store/constants';
-import {
-  useLazyGetOrgTreeQuery,
-  useGetAllFiltersEngagementDataQuery
-} from 'store/apiSlice';
 import { updateSelectedFilters } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
-const FilterEngagement = ({
+const FilterQuestions = ({
   dataOrg,
   onApply,
   onReset,
   isLoading,
   isDisabled
 }: FilterProps) => {
-  const dispatch = useAppDispatch();
-  const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.engagement
-  );
-
+  const { data = initialFiltersQuestions, isLoading: isLoadingFilters } =
+    useGetAllFiltersQuestionsDataQuery({ filters: [] });
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
-  const { data = initialFiltersEngagement, isLoading: isLoadingFilters } =
-    useGetAllFiltersEngagementDataQuery({ filters: [] });
 
   const [treeData, setTreeData] = useState<Node[]>([]);
   const [selectedValue, setSelectedValue] = useState<string[] | OrgTree[]>([]);
+
+  const dispatch = useAppDispatch();
+  const selectedFilters = useAppSelector(
+    (state) => state.filters.selectedFilters.questions
+  );
 
   useEffect(() => {
     if (dataOrg !== undefined) {
@@ -106,12 +106,12 @@ const FilterEngagement = ({
     }
   }, [selectedFilters]);
 
-  const onChange = (options: OptionChange, filterName: FilterName) => {
+  const onChange = async (options: OptionChange, filterName: FilterName) => {
     const filterValues = {
       name: filterName,
       value: options as Filter[]
     };
-    dispatch(updateSelectedFilters({ tab: 'engagement', data: filterValues }));
+    dispatch(updateSelectedFilters({ tab: 'questions', data: filterValues }));
   };
 
   const onChangeTreeSelect = (values: string[]) => {
@@ -126,7 +126,7 @@ const FilterEngagement = ({
       name: 'subs' as const,
       value: tempValues as Filter[]
     };
-    dispatch(updateSelectedFilters({ tab: 'engagement', data: filterValues }));
+    dispatch(updateSelectedFilters({ tab: 'questions', data: filterValues }));
   };
 
   const loadData = async (treeNode: Node) => {
@@ -150,7 +150,7 @@ const FilterEngagement = ({
     }
   };
 
-  const isLoadingFilter = isLoadingFilters || isLoadingOrg || isLoading;
+  const isLoadingFilter = isLoadingFilters || isLoading || isLoadingOrg;
 
   return (
     <FilterContainer
@@ -161,14 +161,14 @@ const FilterEngagement = ({
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
-      <div style={{ width: '200px' }}>
+      <div>
         <Select
           options={getFilterOptions(data.data, 'group')}
           defaultValue={getValueSelect(selectedFilters, 'group')}
           value={getValueSelect(selectedFilters, 'group')}
           onChange={(e) => onChange(e, 'group')}
           placeholder='Группа'
-          isDisabled={isLoadingFilter}
+          width={180}
         />
       </div>
       <TreeSelect
@@ -184,12 +184,51 @@ const FilterEngagement = ({
           value={getValueSelect(selectedFilters, 'city')}
           onChange={(e) => onChange(e, 'city')}
           placeholder='Город'
-          width={200}
-          isDisabled={isLoadingFilter}
+          width={170}
+        />
+      </div>
+      <div>
+        <Select
+          options={getFilterOptions(data.data, 'category')}
+          defaultValue={getValueSelect(selectedFilters, 'category')}
+          value={getValueSelect(selectedFilters, 'category')}
+          onChange={(e) => onChange(e, 'category')}
+          placeholder='Категория'
+          width={160}
+        />
+      </div>
+      <div>
+        <Select
+          options={getFilterOptions(data.data, 'sex')}
+          defaultValue={getValueSelect(selectedFilters, 'sex')}
+          value={getValueSelect(selectedFilters, 'sex')}
+          onChange={(e) => onChange(e, 'sex')}
+          placeholder='Пол'
+          width={100}
+        />
+      </div>
+      <div>
+        <Select
+          options={getFilterOptions(data.data, 'experience')}
+          defaultValue={getValueSelect(selectedFilters, 'experience')}
+          value={getValueSelect(selectedFilters, 'experience')}
+          onChange={(e) => onChange(e, 'experience')}
+          placeholder='Стаж работы'
+          width={180}
+        />
+      </div>
+      <div>
+        <Select
+          options={getFilterOptions(data.data, 'open_question')}
+          defaultValue={getValueSelect(selectedFilters, 'open_question')}
+          value={getValueSelect(selectedFilters, 'open_question')}
+          onChange={(e) => onChange(e, 'open_question')}
+          placeholder='Открытый вопрос'
+          width={340}
         />
       </div>
     </FilterContainer>
   );
 };
 
-export default FilterEngagement;
+export default FilterQuestions;

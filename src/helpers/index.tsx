@@ -58,6 +58,14 @@ const declinationComments = (value: number) => {
   return words[value % 100 > 4 && value % 100 < 20 ? 2 : cases[indexValue]];
 };
 
+const declinationAnswers = (value: number) => {
+  const words = ['ответ', 'ответа', 'ответов'];
+  const cases = [2, 0, 1, 1, 1, 2];
+  const indexValue = value % 10 < 5 ? value % 10 : 5;
+
+  return words[value % 100 > 4 && value % 100 < 20 ? 2 : cases[indexValue]];
+};
+
 const hasFilter = (data: Filters[]) => {
   const hasValue = data.some((filter) => filter.value.length > 0);
   return hasValue;
@@ -101,5 +109,6 @@ export {
   declinationComments,
   hasFilter,
   transformDataBar,
-  getSelectedValuesTree
+  getSelectedValuesTree,
+  declinationAnswers
 };

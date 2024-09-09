@@ -1,0 +1,12 @@
+﻿.questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 50px 0px 56px 0px;
+
+  &_empty {
+    justify-content: center;
+    width: 100%;
+    margin: 40px 0px 60px;
+  }
+}

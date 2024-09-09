@@ -1,16 +1,30 @@
-﻿// import { useState } from 'react';
-// import styles from './styles.module.scss';
+﻿import { QuestionsTab } from 'types';
+import styles from './styles.module.scss';
 
-const Tab = () => {
-  // const [tab, setTab] = useState<'questions' | 'issues'>('questions');
-
+type Props = {
+  tab: QuestionsTab;
+  onClick: (value: QuestionsTab) => void;
+};
+const Tab = ({ tab, onClick }: Props) => {
   return (
-    <nav className='menu'>
-      <ul>
-        <li>Открытые вопросы</li>
-        <li>Проблематики</li>
-      </ul>
-    </nav>
+    <ul className={styles['questions-tab']}>
+      <li
+        className={`${styles['questions-tab__item']} ${
+          tab === 'questions' ? styles['questions-tab__item_active'] : ''
+        }`}
+        onClick={() => onClick('questions')}
+      >
+        Открытые вопросы
+      </li>
+      <li
+        className={`${styles['questions-tab__item']} ${
+          tab === 'issues' ? styles['questions-tab__item_active'] : ''
+        }`}
+        onClick={() => onClick('issues')}
+      >
+        Комментарии к проблематике
+      </li>
+    </ul>
   );
 };
 

@@ -16,8 +16,7 @@ const Select = (props: SelectProps): JSX.Element => {
     value,
     isDisabled = false,
     defaultValue = [],
-    innerRef = undefined,
-    width
+    innerRef = undefined
   } = props;
 
   const OptionSelect = (props: OptionProps<Option>) => {
@@ -86,8 +85,8 @@ const Select = (props: SelectProps): JSX.Element => {
         multiValueLabel: () => styles['select__multi-label']
       }}
       styles={{
-        multiValueRemove: (base) => ({ ...base, display: 'none' }),
-        control: (base) => ({ ...base, width: width ? width : '100%' })
+        multiValueRemove: (base) => ({ ...base, display: 'none' })
+        // control: (base) => ({ ...base, width: width ? width : '100%' })
       }}
       value={value}
       onChange={onChange}
