@@ -1,4 +1,5 @@
-﻿import QuestionCard from '../QuestionsCard';
+﻿import { useState } from 'react';
+import QuestionCard from '../QuestionsCard';
 import Skeleton from '../QuestionsCard/Skeleton';
 import NoData from 'modules/Main/components/NoData';
 import { Question } from 'types';
@@ -13,30 +14,47 @@ type Props = {
 const COUNT_SKELETON = 4;
 
 const Content = ({ data, isLoading, isError }: Props) => {
+  const [count, setCount] = useState<number>(10);
+
+  const handleClick = () => {
+    setCount((prevValue) => prevValue + 10);
+  };
+
   if (data === undefined || isLoading) {
     return (
-      <div className={styles.questions}>
+      <section className={styles.questions}>
         {[...Array(COUNT_SKELETON)].map((_, index) => (
           <Skeleton key={index} />
         ))}
-      </div>
+      </section>
     );
   }
 
   if (!data.length || isError) {
     return (
-      <div className={`${styles.questions} ${styles.questions_empty}`}>
+      <section className={`${styles.questions} ${styles.questions_empty}`}>
         <NoData />
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className={styles.questions}>
-      {data.map((card) => (
-        <QuestionCard key={card.id} id={card.id} name={card.name} />
-      ))}
-    </div>
+    <section className={styles.questions}>
+      <div className={styles.questions__wrapper}>
+        {data.slice(0, count).map((card) => (
+          <QuestionCard key={card.id} id={card.id} name={card.name} />
+        ))}
+      </div>
+      {count < data.length && (
+        <button
+          className={styles.questions__btn}
+          type='button'
+          onClick={handleClick}
+        >
+          Показать ещё 10 вопросов
+        </button>
+      )}
+    </section>
   );
 };
 

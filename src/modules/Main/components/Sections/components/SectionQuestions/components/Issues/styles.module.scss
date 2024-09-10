@@ -1,12 +1,49 @@
 ﻿.issues {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 40px;
-  margin: 50px 0px 56px 0px;
+  margin: 50px 0px 100px 0px;
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
 
   &_empty {
     justify-content: center;
     width: 100%;
     margin: 40px 0px 60px;
+  }
+
+  &__btn {
+    align-self: center;
+    max-width: 400px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    color: var(--page-color-link);
+    border-radius: 5px;
+    padding: 16px 10px;
+    text-transform: uppercase;
+    background-color: transparent !important;
+    cursor: pointer;
+    outline: 0 !important;
+    margin: 0px;
+    border: 1px solid var(--page-color-link);
+    white-space: nowrap;
+    transition: border-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      border-color: var(--page-color-red);
+      color: var(--page-color-red);
+    }
+
+    &:active {
+      border-color: var(--page-color-dark-blue);
+      color: var(--page-color-dark-blue);
+    }
   }
 }

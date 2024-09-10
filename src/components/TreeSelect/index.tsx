@@ -63,13 +63,9 @@ const switcherIcon = (obj: any) => {
   );
 };
 
-// const suffixIcon = getSvg(bubblePath);
-// const clearIcon = getSvg(clearPath);
 const removeIcon = getSvg(clearPath);
 
 const iconProps = {
-  // suffixIcon,
-  // clearIcon,
   removeIcon,
   switcherIcon
 };
@@ -111,7 +107,7 @@ class RCTreeSelect extends React.Component<NoticeProps> {
 
     return (
       <TreeSelect
-        style={{ width: 300 }}
+        style={{ width: 400 }}
         treeData={data}
         labelInValue={false}
         value={selectedValue}
