@@ -14,14 +14,12 @@ import {
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { clearSelectedFilters } from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
-import { OrgTree } from 'types';
 
 type Props = {
-  dataOrg: OrgTree[] | undefined;
   isLoading: boolean;
 };
 
-const SectionEngagement = ({ dataOrg, isLoading }: Props) => {
+const SectionEngagement = ({ isLoading }: Props) => {
   const [
     updateSpeedChart,
     {
@@ -98,14 +96,14 @@ const SectionEngagement = ({ dataOrg, isLoading }: Props) => {
     isFetchingSpeedChart ||
     isFetchingCategoryChart ||
     isFetchingKeyResults ||
-    isFetchingComments;
+    isFetchingComments ||
+    isLoading;
 
   const isDisabledBtnApply = !hasFilter(selectedFilters);
 
   return (
     <>
       <FilterEngagement
-        dataOrg={dataOrg}
         onApply={handleApply}
         onReset={handleReset}
         isLoading={isLoadingBtnApply}

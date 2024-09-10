@@ -1,9 +1,9 @@
-﻿import { useState, useEffect } from 'react';
+﻿import { useEffect } from 'react';
 import Select from 'components/Select';
 import TreeSelect, { Node } from 'components/TreeSelect';
 import FilterContainer from '../FIlterContainer';
 import { OptionChange } from 'components/Select/types';
-import { Filter, FilterName, OrgTree } from 'types';
+import { Filter, FilterName } from 'types';
 import { FilterProps } from '../index';
 import { toast } from 'react-toastify';
 import {
@@ -11,73 +11,32 @@ import {
   useLazyGetOrgTreeQuery
 } from 'store/apiSlice';
 import { initialFiltersQuestions } from 'store/constants';
+import { getFilterOptions, getValueSelect } from 'helpers';
 import {
-  getFilterOptions,
-  getValueSelect,
-  getSelectedValuesTree
-} from 'helpers';
-import { updateSelectedFilters } from 'store/filterSlice';
+  updateSelectedFilters,
+  updateSubs,
+  updateSelectedSubs
+} from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 
 const FilterQuestions = ({
-  dataOrg,
   onApply,
   onReset,
   isLoading,
   isDisabled
 }: FilterProps) => {
-  const { data = initialFiltersQuestions, isLoading: isLoadingFilters } =
-    useGetAllFiltersQuestionsDataQuery({ filters: [] });
-  const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
-
-  const [treeData, setTreeData] = useState<Node[]>([]);
-  const [selectedValue, setSelectedValue] = useState<string[] | OrgTree[]>([]);
-
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.questions
   );
+  const subsState = useAppSelector((state) => state.filters.subs.questions);
+  const selectedSubs = useAppSelector(
+    (state) => state.filters.selectedSubs.questions
+  );
 
-  useEffect(() => {
-    if (dataOrg !== undefined) {
-      const selectedValues = getSelectedValuesTree(dataOrg);
-      setTreeData(dataOrg);
-      setSelectedValue(selectedValues);
-      const tempValues = selectedValues.map((node: OrgTree) => {
-        return {
-          value: node.value,
-          label: ''
-        };
-      });
-      const filterValues = {
-        name: 'subs' as const,
-        value: tempValues as Filter[]
-      };
-      dispatch(
-        updateSelectedFilters({ tab: 'engagement', data: filterValues })
-      );
-    }
-    // updateOrg(null).then((data) => {
-    //   if (data.data?.data) {
-    //     const selectedValues = getSelectedValuesTree(data.data.data);
-    //     setTreeData(data.data.data);
-    //     setSelectedValue(selectedValues);
-    //     const tempValues = selectedValues.map((node: OrgTree) => {
-    //       return {
-    //         value: node.value,
-    //         label: ''
-    //       };
-    //     });
-    //     const filterValues = {
-    //       name: 'subs' as const,
-    //       value: tempValues as Filter[]
-    //     };
-    //     dispatch(
-    //       updateSelectedFilters({ tab: 'engagement', data: filterValues })
-    //     );
-    //   }
-    // });
-  }, [dataOrg]);
+  const { data = initialFiltersQuestions, isLoading: isLoadingFilters } =
+    useGetAllFiltersQuestionsDataQuery({ filters: [] });
+  const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
 
   useEffect(() => {
     const labels = document.querySelectorAll(
@@ -97,12 +56,12 @@ const FilterQuestions = ({
         }
       }
     });
-  }, [selectedValue]);
+  }, [selectedSubs]);
 
   useEffect(() => {
     const values = getValueSelect(selectedFilters, 'subs');
-    if (!values.length && selectedValue.length) {
-      setSelectedValue([]);
+    if (!values.length && selectedSubs.length) {
+      dispatch(updateSelectedSubs({ tab: 'questions', data: [] }));
     }
   }, [selectedFilters]);
 
@@ -115,7 +74,6 @@ const FilterQuestions = ({
   };
 
   const onChangeTreeSelect = (values: string[]) => {
-    setSelectedValue(values);
     const tempValues = values.map((val: string) => {
       return {
         value: val,
@@ -126,6 +84,7 @@ const FilterQuestions = ({
       name: 'subs' as const,
       value: tempValues as Filter[]
     };
+    dispatch(updateSelectedSubs({ tab: 'questions', data: values }));
     dispatch(updateSelectedFilters({ tab: 'questions', data: filterValues }));
   };
 
@@ -135,14 +94,14 @@ const FilterQuestions = ({
       if (payload.data === undefined || payload.isError) {
         toast('Произошла ошибка');
       } else {
-        const tempTreeData = treeData.map((node) => {
+        const tempTreeData = subsState.map((node) => {
           const tempNode = { ...node };
           if (tempNode.value === treeNode.value) {
             tempNode.children = payload.data;
           }
           return tempNode;
         });
-        setTreeData(tempTreeData);
+        dispatch(updateSubs({ tab: 'questions', data: tempTreeData }));
       }
     } catch (e) {
       toast('Произошла ошибка');
@@ -172,8 +131,8 @@ const FilterQuestions = ({
         />
       </div>
       <TreeSelect
-        data={treeData}
-        selectedValue={selectedValue}
+        data={subsState}
+        selectedValue={selectedSubs}
         onLoad={loadData}
         onChange={onChangeTreeSelect}
       />

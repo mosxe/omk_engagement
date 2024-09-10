@@ -1,5 +1,5 @@
 ﻿import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Tab, Filters, QuestionsTab } from 'types';
+import { Tab, Filters, QuestionsTab, OrgTree } from 'types';
 
 export interface IFiltersState {
   selectedFilters: {
@@ -7,6 +7,18 @@ export interface IFiltersState {
     compass: Filters[];
     questions: Filters[];
     issues: Filters[];
+  };
+  subs: {
+    engagement: OrgTree[];
+    compass: OrgTree[];
+    questions: OrgTree[];
+    issues: OrgTree[];
+  };
+  selectedSubs: {
+    engagement: string[];
+    compass: string[];
+    questions: string[];
+    issues: string[];
   };
   researchIssues: Filters[];
   researchZones: Filters[];
@@ -148,6 +160,18 @@ const initialState: IFiltersState = {
       value: []
     }
   ],
+  subs: {
+    engagement: [],
+    compass: [],
+    questions: [],
+    issues: []
+  },
+  selectedSubs: {
+    engagement: [],
+    compass: [],
+    questions: [],
+    issues: []
+  },
   questionsTab: 'questions'
 };
 
@@ -196,6 +220,49 @@ const filtersSlice = createSlice({
     },
     changeQuestionsTab: (state, action: PayloadAction<QuestionsTab>) => {
       state.questionsTab = action.payload;
+    },
+    setSubs: (state, action: PayloadAction<OrgTree[]>) => {
+      state.subs.engagement = action.payload;
+      state.subs.compass = action.payload;
+      state.subs.questions = action.payload;
+      state.subs.issues = action.payload;
+    },
+    updateSubs: (
+      state,
+      action: PayloadAction<{ tab: Tab; data: OrgTree[] }>
+    ) => {
+      state.subs[action.payload.tab] = action.payload.data;
+    },
+    setDefaultSelectedSubs: (state, action: PayloadAction<string[]>) => {
+      state.selectedSubs.engagement = action.payload;
+      state.selectedSubs.compass = action.payload;
+      state.selectedSubs.questions = action.payload;
+      state.selectedSubs.issues = action.payload;
+    },
+    setDefaultFilterSubs: (state, action: PayloadAction<Filters>) => {
+      const filterEngagement = state.selectedFilters.engagement.find(
+        (item) => item.name === 'subs'
+      ) as Filters;
+      const filterCompass = state.selectedFilters.compass.find(
+        (item) => item.name === 'subs'
+      ) as Filters;
+      const filterQuestions = state.selectedFilters.questions.find(
+        (item) => item.name === 'subs'
+      ) as Filters;
+      const filterIssues = state.selectedFilters.issues.find(
+        (item) => item.name === 'subs'
+      ) as Filters;
+
+      filterEngagement.value = action.payload.value;
+      filterCompass.value = action.payload.value;
+      filterQuestions.value = action.payload.value;
+      filterIssues.value = action.payload.value;
+    },
+    updateSelectedSubs: (
+      state,
+      action: PayloadAction<{ tab: Tab; data: string[] }>
+    ) => {
+      state.selectedSubs[action.payload.tab] = action.payload.data;
     }
   }
 });
@@ -207,7 +274,12 @@ export const {
   clearResearchIssuesFilters,
   updateResearchZonesFilters,
   clearResearchZonesFilters,
-  changeQuestionsTab
+  changeQuestionsTab,
+  setSubs,
+  updateSubs,
+  updateSelectedSubs,
+  setDefaultSelectedSubs,
+  setDefaultFilterSubs
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

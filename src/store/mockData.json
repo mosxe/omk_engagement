@@ -562,7 +562,7 @@
         "title": "Поздразеделние 2",
         "parent_object_code": "",
         "children": [],
-        "is_selected": false,
+        "is_selected": true,
         "isLeaf": true
       },
       {
@@ -571,7 +571,7 @@
         "title": "Поздразеделние 4",
         "parent_object_code": "",
         "children": [],
-        "is_selected": true,
+        "is_selected": false,
         "isLeaf": false
       }
     ]

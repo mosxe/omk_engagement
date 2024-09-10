@@ -4,14 +4,12 @@ import Issues from './components/Issues';
 import { QuestionsTab } from 'types';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { changeQuestionsTab } from 'store/filterSlice';
-import { OrgTree } from 'types';
 
 type Props = {
-  dataOrg: OrgTree[] | undefined;
   isLoading: boolean;
 };
 
-const SectionQuestions = ({ dataOrg, isLoading }: Props) => {
+const SectionQuestions = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
   const questionsTab = useAppSelector((state) => state.filters.questionsTab);
 
@@ -23,12 +21,8 @@ const SectionQuestions = ({ dataOrg, isLoading }: Props) => {
   return (
     <>
       <Tab tab={questionsTab} onClick={handleClick} />
-      {questionsTab === 'questions' && (
-        <Questions dataOrg={dataOrg} isLoading={isLoading} />
-      )}
-      {questionsTab === 'issues' && (
-        <Issues dataOrg={dataOrg} isLoading={isLoading} />
-      )}
+      {questionsTab === 'questions' && <Questions isLoading={isLoading} />}
+      {questionsTab === 'issues' && <Issues isLoading={isLoading} />}
     </>
   );
 };

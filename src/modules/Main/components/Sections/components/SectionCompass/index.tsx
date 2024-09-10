@@ -11,14 +11,12 @@ import {
 import { clearSelectedFilters } from 'store/filterSlice';
 import { initialResearchIssues, initialResearchZones } from 'store/constants';
 import { transformDataFilters, hasFilter } from 'helpers';
-import { OrgTree } from 'types';
 
 type Props = {
-  dataOrg: OrgTree[] | undefined;
   isLoading: boolean;
 };
 
-const SectionCompass = ({ dataOrg, isLoading }: Props) => {
+const SectionCompass = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.compass
@@ -95,13 +93,12 @@ const SectionCompass = ({ dataOrg, isLoading }: Props) => {
     dispatch(clearSelectedFilters({ tab: 'compass' }));
   };
 
-  const isLoadingBtnApply = isFetchingIssues || isFetchingZones;
+  const isLoadingBtnApply = isFetchingIssues || isFetchingZones || isLoading;
   const isDisabledBtnApply = !hasFilter(selectedFilters);
 
   return (
     <>
       <FilterCompass
-        dataOrg={dataOrg}
         onApply={handleApply}
         onReset={handleReset}
         isLoading={isLoadingBtnApply}

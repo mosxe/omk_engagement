@@ -5,14 +5,12 @@ import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { useLazyGetIssuesQuery } from 'store/apiSlice';
 import { clearSelectedFilters } from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
-import { OrgTree } from 'types';
 
 type Props = {
-  dataOrg: OrgTree[] | undefined;
   isLoading: boolean;
 };
 
-const Issues = ({ dataOrg, isLoading }: Props) => {
+const Issues = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.issues
@@ -43,15 +41,14 @@ const Issues = ({ dataOrg, isLoading }: Props) => {
     dispatch(clearSelectedFilters({ tab: 'issues' }));
   };
 
-  const isLoadingBtnApply = isLoadingUpdateIssues || isFetchingUpdate;
+  const isLoadingBtnApply =
+    isLoadingUpdateIssues || isFetchingUpdate || isLoading;
   const isDisabledBtnApply = !hasFilter(selectedFilters);
   const isErrorIssues = isError;
-  const isLoadingIssues = isLoadingUpdateIssues || isFetchingUpdate;
 
   return (
     <>
       <FilterIssues
-        dataOrg={dataOrg}
         onApply={handleApply}
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
@@ -59,7 +56,7 @@ const Issues = ({ dataOrg, isLoading }: Props) => {
       />
       <Content
         data={data?.data}
-        isLoading={isLoadingIssues}
+        isLoading={isLoadingBtnApply}
         isError={isErrorIssues}
       />
     </>
