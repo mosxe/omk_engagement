@@ -504,7 +504,7 @@
         "periodicity": 80
       }
     ],
-    "isError": false,
+    "isError": true,
     "errorMessage": ""
   },
   "getResearchZonesCompare": {

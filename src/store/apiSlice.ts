@@ -327,7 +327,10 @@ export const API = createApi({
     }),
     getResearchIssuesCompare: builder.query<
       ResponseCompassCompare,
-      { filters: FilterParams[]; filtersCompare: FilterParams[] }
+      {
+        filters: FilterParams[];
+        filtersCompare: FilterParams[];
+      }
     >({
       query: ({ filters, filtersCompare }) => ({
         url: postUrl('&action=getResearchIssuesCompare'),

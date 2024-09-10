@@ -1,5 +1,4 @@
-﻿import { useState } from 'react';
-import Select from 'components/Select';
+﻿import Select from 'components/Select';
 import Table from 'components/Table';
 import FIlterContainer from '../../../../../Filters/FIlterContainer';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
@@ -7,69 +6,41 @@ import {
   updateResearchZonesFilters,
   clearResearchZonesFilters
 } from 'store/filterSlice';
-import { useLazyGetResearchZonesCompareQuery } from 'store/apiSlice';
-import {
-  getFilterOptions,
-  getValueSelect,
-  transformDataFilters,
-  hasFilter
-} from 'helpers';
-import { toast } from 'react-toastify';
+import { getFilterOptions, getValueSelect, hasFilter } from 'helpers';
 import { Filters, Filter, FilterName, KeyResult } from 'types';
 import { OptionChange } from 'components/Select/types';
 import styles from './styles.module.scss';
 
 type Props = {
   data: KeyResult[] | undefined;
+  dataCompare: KeyResult[] | undefined;
   dataFilters: Filters[];
   isLoading: boolean;
   isLoadingFilters: boolean;
   isError: boolean;
+  isErrorCompare: boolean;
+  isFetchingCompare: boolean;
+  onApplyCompare: () => Promise<any>;
 };
 
 const CompassZones = ({
   data,
+  dataCompare,
   dataFilters,
   isLoading,
   isLoadingFilters,
-  isError
+  isError,
+  isErrorCompare,
+  isFetchingCompare,
+  onApplyCompare
 }: Props) => {
-  const [isShowTable, setIsShowTable] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const selectedFiltersCompare = useAppSelector(
     (state) => state.filters.researchZones
   );
-  const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.compass
+  const isShowTable = useAppSelector(
+    (state) => state.filters.researchTable.questions
   );
-  const [
-    getResearchZonesCompare,
-    {
-      data: dataResearcZonesCompare,
-      isFetching: isFetchingCompare,
-      isError: isErrorCompare
-    }
-  ] = useLazyGetResearchZonesCompareQuery();
-
-  const onApply = async () => {
-    const dataFilters = transformDataFilters(selectedFilters);
-    const dataFiltersCompare = transformDataFilters(selectedFiltersCompare);
-    setIsShowTable(true);
-
-    try {
-      const payload = await getResearchZonesCompare({
-        filters: dataFilters,
-        filtersCompare: dataFiltersCompare
-      }).unwrap();
-
-      if (payload.data === undefined || payload.isError) {
-        toast('Произошла ошибка');
-      }
-    } catch (e) {
-      toast('Произошла ошибка');
-      console.error(e);
-    }
-  };
 
   const onReset = () => {
     dispatch(clearResearchZonesFilters());
@@ -87,11 +58,7 @@ const CompassZones = ({
   const isDisabledBtnApply = !hasFilter(selectedFiltersCompare);
   const dataTable = isError || data === undefined ? [] : data;
   const dataTableCompare =
-    isErrorCompare ||
-    dataResearcZonesCompare === undefined ||
-    dataResearcZonesCompare.isError
-      ? []
-      : dataResearcZonesCompare.data;
+    isErrorCompare || dataCompare === undefined ? [] : dataCompare;
 
   return (
     <section className={styles['compass-zones']}>
@@ -107,7 +74,7 @@ const CompassZones = ({
           </div>
           <div className={styles['compass-zones__filters']}>
             <FIlterContainer
-              onApply={onApply}
+              onApply={onApplyCompare}
               onReset={onReset}
               isLoading={isLoadingApplyBtn}
               isDisabled={isDisabledBtnApply}

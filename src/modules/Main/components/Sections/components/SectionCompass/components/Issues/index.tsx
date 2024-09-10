@@ -1,5 +1,4 @@
-﻿import { useState } from 'react';
-import Select from 'components/Select';
+﻿import Select from 'components/Select';
 import Table from 'components/Table';
 import FIlterContainer from '../../../../../Filters/FIlterContainer';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
@@ -7,69 +6,41 @@ import {
   updateResearchIssuesFilters,
   clearResearchIssuesFilters
 } from 'store/filterSlice';
-import { useLazyGetResearchIssuesCompareQuery } from 'store/apiSlice';
-import {
-  getFilterOptions,
-  getValueSelect,
-  transformDataFilters,
-  hasFilter
-} from 'helpers';
-import { toast } from 'react-toastify';
+import { getFilterOptions, getValueSelect, hasFilter } from 'helpers';
 import { Filters, Filter, FilterName, KeyResult } from 'types';
 import { OptionChange } from 'components/Select/types';
 import styles from './styles.module.scss';
 
 type Props = {
   data: KeyResult[] | undefined;
+  dataCompare: KeyResult[] | undefined;
   dataFilters: Filters[];
   isLoading: boolean;
   isLoadingFilters: boolean;
   isError: boolean;
+  isErrorCompare: boolean;
+  isFetchingCompare: boolean;
+  onApplyCompare: () => Promise<any>;
 };
 
 const CompassIssues = ({
   data,
+  dataCompare,
   dataFilters,
   isLoading,
   isLoadingFilters,
-  isError
+  isFetchingCompare,
+  isError,
+  isErrorCompare,
+  onApplyCompare
 }: Props) => {
-  const [isShowTable, setIsShowTable] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const selectedFiltersCompare = useAppSelector(
     (state) => state.filters.researchIssues
   );
-  const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.compass
+  const isShowTable = useAppSelector(
+    (state) => state.filters.researchTable.issues
   );
-  const [
-    getResearchIssuesCompare,
-    {
-      data: dataResearchIssuesCompare,
-      isFetching: isFetchingCompare,
-      isError: isErrorCompare
-    }
-  ] = useLazyGetResearchIssuesCompareQuery();
-
-  const onApply = async () => {
-    const dataFilters = transformDataFilters(selectedFilters);
-    const dataFiltersCompare = transformDataFilters(selectedFiltersCompare);
-    setIsShowTable(true);
-
-    try {
-      const payload = await getResearchIssuesCompare({
-        filters: dataFilters,
-        filtersCompare: dataFiltersCompare
-      }).unwrap();
-
-      if (payload.data === undefined || payload.isError) {
-        toast('Произошла ошибка');
-      }
-    } catch (e) {
-      toast('Произошла ошибка');
-      console.error(e);
-    }
-  };
 
   const onReset = () => {
     dispatch(clearResearchIssuesFilters());
@@ -86,12 +57,9 @@ const CompassIssues = ({
   const isLoadingApplyBtn = isLoading || isFetchingCompare || isLoadingFilters;
   const isDisabledBtnApply = !hasFilter(selectedFiltersCompare);
   const dataTable = isError || data === undefined ? [] : data;
+
   const dataTableCompare =
-    isErrorCompare ||
-    dataResearchIssuesCompare === undefined ||
-    dataResearchIssuesCompare.isError
-      ? []
-      : dataResearchIssuesCompare.data;
+    isErrorCompare || dataCompare === undefined ? [] : dataCompare;
 
   return (
     <section className={styles['compass-issues']}>
@@ -105,7 +73,7 @@ const CompassIssues = ({
           </div>
           <div className={styles['compass-issues__filters']}>
             <FIlterContainer
-              onApply={onApply}
+              onApply={onApplyCompare}
               onReset={onReset}
               isLoading={isLoadingApplyBtn}
               isDisabled={isDisabledBtnApply}

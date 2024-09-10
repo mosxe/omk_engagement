@@ -22,6 +22,10 @@ export interface IFiltersState {
   };
   researchIssues: Filters[];
   researchZones: Filters[];
+  researchTable: {
+    questions: boolean;
+    issues: boolean;
+  };
   questionsTab: QuestionsTab;
 }
 
@@ -172,6 +176,10 @@ const initialState: IFiltersState = {
     questions: [],
     issues: []
   },
+  researchTable: {
+    questions: false,
+    issues: false
+  },
   questionsTab: 'questions'
 };
 
@@ -263,6 +271,12 @@ const filtersSlice = createSlice({
       action: PayloadAction<{ tab: Tab; data: string[] }>
     ) => {
       state.selectedSubs[action.payload.tab] = action.payload.data;
+    },
+    changeShowResearchTable: (
+      state,
+      action: PayloadAction<{ tab: 'questions' | 'issues'; isShow: boolean }>
+    ) => {
+      state.researchTable[action.payload.tab] = action.payload.isShow;
     }
   }
 });
@@ -279,7 +293,8 @@ export const {
   updateSubs,
   updateSelectedSubs,
   setDefaultSelectedSubs,
-  setDefaultFilterSubs
+  setDefaultFilterSubs,
+  changeShowResearchTable
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

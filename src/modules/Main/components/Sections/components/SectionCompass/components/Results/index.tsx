@@ -6,20 +6,36 @@ import { KeyResult } from 'types';
 
 type Props = {
   dataIssues: KeyResult[] | undefined;
+  dataIssuesCompare: KeyResult[] | undefined;
   dataZones: KeyResult[] | undefined;
+  dataZonesCompare: KeyResult[] | undefined;
   isErrorIssues: boolean;
+  isErrorIssuesCompare: boolean;
   isErrorZones: boolean;
+  isErrorZonesCompare: boolean;
   isLoadingIssues: boolean;
   isLoadingZones: boolean;
+  onApplyIssuesCompare: () => Promise<any>;
+  onApplyZonesCompare: () => Promise<any>;
+  isFetchingIssuesCompare: boolean;
+  isFetchingZonesCompare: boolean;
 };
 
 const Results = ({
   dataIssues,
+  dataIssuesCompare,
+  isErrorIssuesCompare,
   dataZones,
+  dataZonesCompare,
   isErrorIssues,
   isErrorZones,
+  isErrorZonesCompare,
   isLoadingIssues,
-  isLoadingZones
+  isLoadingZones,
+  onApplyIssuesCompare,
+  onApplyZonesCompare,
+  isFetchingIssuesCompare,
+  isFetchingZonesCompare
 }: Props) => {
   const { data = initialFiltersCompassResults, isLoading: isLoadingFilters } =
     useGetFiltersCompassResultsQuery();
@@ -32,6 +48,10 @@ const Results = ({
         isLoading={isLoadingIssues}
         isLoadingFilters={isLoadingFilters}
         isError={isErrorIssues}
+        dataCompare={dataIssuesCompare}
+        isErrorCompare={isErrorIssuesCompare}
+        onApplyCompare={onApplyIssuesCompare}
+        isFetchingCompare={isFetchingIssuesCompare}
       />
       <CompassZones
         data={dataZones}
@@ -39,6 +59,10 @@ const Results = ({
         isLoading={isLoadingZones}
         isLoadingFilters={isLoadingFilters}
         isError={isErrorZones}
+        dataCompare={dataZonesCompare}
+        isErrorCompare={isErrorZonesCompare}
+        onApplyCompare={onApplyZonesCompare}
+        isFetchingCompare={isFetchingZonesCompare}
       />
     </>
   );
