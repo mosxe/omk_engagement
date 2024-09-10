@@ -18,6 +18,7 @@ import {
   updateSelectedSubs
 } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import styles from '../styles.module.scss';
 
 const FilterIssues = ({
   onApply,
@@ -120,7 +121,7 @@ const FilterIssues = ({
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
-      <div>
+      <div className={styles.filters_group}>
         <Select
           options={getFilterOptions(data.data, 'group')}
           defaultValue={getValueSelect(selectedFilters, 'group')}
@@ -136,7 +137,7 @@ const FilterIssues = ({
         onLoad={loadData}
         onChange={onChangeTreeSelect}
       />
-      <div>
+      <div className={styles.filters_city}>
         <Select
           options={getFilterOptions(data.data, 'city')}
           defaultValue={getValueSelect(selectedFilters, 'city')}
@@ -146,7 +147,7 @@ const FilterIssues = ({
           width={170}
         />
       </div>
-      <div>
+      <div className={styles.filters_category}>
         <Select
           options={getFilterOptions(data.data, 'category')}
           defaultValue={getValueSelect(selectedFilters, 'category')}
@@ -156,17 +157,7 @@ const FilterIssues = ({
           width={160}
         />
       </div>
-      <div>
-        <Select
-          options={getFilterOptions(data.data, 'sex')}
-          defaultValue={getValueSelect(selectedFilters, 'sex')}
-          value={getValueSelect(selectedFilters, 'sex')}
-          onChange={(e) => onChange(e, 'sex')}
-          placeholder='Пол'
-          width={100}
-        />
-      </div>
-      <div>
+      <div className={styles.filters_experience}>
         <Select
           options={getFilterOptions(data.data, 'experience')}
           defaultValue={getValueSelect(selectedFilters, 'experience')}
@@ -176,7 +167,17 @@ const FilterIssues = ({
           width={180}
         />
       </div>
-      <div>
+      <div className={styles.filters_sex}>
+        <Select
+          options={getFilterOptions(data.data, 'sex')}
+          defaultValue={getValueSelect(selectedFilters, 'sex')}
+          value={getValueSelect(selectedFilters, 'sex')}
+          onChange={(e) => onChange(e, 'sex')}
+          placeholder='Пол'
+          width={100}
+        />
+      </div>
+      <div className={styles.filters_problems}>
         <Select
           options={getFilterOptions(data.data, 'problems')}
           defaultValue={getValueSelect(selectedFilters, 'problems')}

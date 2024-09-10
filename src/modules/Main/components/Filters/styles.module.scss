@@ -120,6 +120,42 @@
     justify-content: space-between;
     align-items: flex-start;
   }
+
+  &_group {
+    width: 330px;
+  }
+
+  &_city {
+    width: 220px;
+  }
+
+  &_category {
+    width: 350px;
+  }
+
+  &_sex {
+    width: 150px;
+  }
+
+  &_experience {
+    width: 220px;
+  }
+
+  &_problems {
+    width: 450px;
+  }
+
+  &_strong_point {
+    width: 450px;
+  }
+
+  &_age {
+    width: 150px;
+  }
+
+  &_open_question {
+    width: 450px;
+  }
 }
 
 // @media screen and (max-width: 767px) {

@@ -18,6 +18,7 @@ import {
   updateSelectedSubs
 } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import styles from '../styles.module.scss';
 
 const FilterCompass = ({
   onApply,
@@ -120,7 +121,7 @@ const FilterCompass = ({
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
-      <div style={{ width: '200px' }}>
+      <div className={styles.filters_group}>
         <Select
           options={getFilterOptions(data.data, 'group')}
           defaultValue={getValueSelect(selectedFilters, 'group')}
@@ -135,7 +136,7 @@ const FilterCompass = ({
         onLoad={loadData}
         onChange={onChangeTreeSelect}
       />
-      <div>
+      <div className={styles.filters_city}>
         <Select
           options={getFilterOptions(data.data, 'city')}
           defaultValue={getValueSelect(selectedFilters, 'city')}
@@ -145,7 +146,7 @@ const FilterCompass = ({
           width={170}
         />
       </div>
-      <div>
+      <div className={styles.filters_category}>
         <Select
           options={getFilterOptions(data.data, 'category')}
           defaultValue={getValueSelect(selectedFilters, 'category')}
@@ -155,17 +156,7 @@ const FilterCompass = ({
           width={160}
         />
       </div>
-      <div>
-        <Select
-          options={getFilterOptions(data.data, 'sex')}
-          defaultValue={getValueSelect(selectedFilters, 'sex')}
-          value={getValueSelect(selectedFilters, 'sex')}
-          onChange={(e) => onChange(e, 'sex')}
-          placeholder='Пол'
-          width={100}
-        />
-      </div>
-      <div>
+      <div className={styles.filters_experience}>
         <Select
           options={getFilterOptions(data.data, 'experience')}
           defaultValue={getValueSelect(selectedFilters, 'experience')}
@@ -175,7 +166,27 @@ const FilterCompass = ({
           width={180}
         />
       </div>
-      <div>
+      <div className={styles.filters_sex}>
+        <Select
+          options={getFilterOptions(data.data, 'sex')}
+          defaultValue={getValueSelect(selectedFilters, 'sex')}
+          value={getValueSelect(selectedFilters, 'sex')}
+          onChange={(e) => onChange(e, 'sex')}
+          placeholder='Пол'
+          width={100}
+        />
+      </div>
+      <div className={styles.filters_strong_age}>
+        <Select
+          options={getFilterOptions(data.data, 'age')}
+          defaultValue={getValueSelect(selectedFilters, 'age')}
+          value={getValueSelect(selectedFilters, 'age')}
+          onChange={(e) => onChange(e, 'age')}
+          placeholder='Возраст'
+          width={200}
+        />
+      </div>
+      <div className={styles.filters_problems}>
         <Select
           options={getFilterOptions(data.data, 'problems')}
           defaultValue={getValueSelect(selectedFilters, 'problems')}
@@ -185,7 +196,7 @@ const FilterCompass = ({
           width={340}
         />
       </div>
-      <div>
+      <div className={styles.filters_strong_point}>
         <Select
           options={getFilterOptions(data.data, 'strong_point')}
           defaultValue={getValueSelect(selectedFilters, 'strong_point')}
@@ -193,16 +204,6 @@ const FilterCompass = ({
           onChange={(e) => onChange(e, 'strong_point')}
           placeholder='Сильная сторона'
           width={340}
-        />
-      </div>
-      <div>
-        <Select
-          options={getFilterOptions(data.data, 'age')}
-          defaultValue={getValueSelect(selectedFilters, 'age')}
-          value={getValueSelect(selectedFilters, 'age')}
-          onChange={(e) => onChange(e, 'age')}
-          placeholder='Возраст'
-          width={200}
         />
       </div>
     </FilterContainer>

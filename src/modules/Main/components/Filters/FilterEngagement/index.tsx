@@ -18,6 +18,7 @@ import {
   updateSelectedSubs
 } from 'store/filterSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
+import styles from '../styles.module.scss';
 
 const FilterEngagement = ({
   onApply,
@@ -120,7 +121,7 @@ const FilterEngagement = ({
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
     >
-      <div style={{ width: '200px' }}>
+      <div className={styles.filters_group}>
         <Select
           options={getFilterOptions(data.data, 'group')}
           defaultValue={getValueSelect(selectedFilters, 'group')}
@@ -136,7 +137,7 @@ const FilterEngagement = ({
         onLoad={loadData}
         onChange={onChangeTreeSelect}
       />
-      <div>
+      <div className={styles.filters_city}>
         <Select
           options={getFilterOptions(data.data, 'city')}
           defaultValue={getValueSelect(selectedFilters, 'city')}

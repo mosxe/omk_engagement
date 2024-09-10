@@ -5,7 +5,9 @@
         "name": "city",
         "value": [
           { "value": "Белгород", "label": "Белгород" },
-          { "value": "Выкса", "label": "Выкса" }
+          { "value": "Выкса", "label": "Выкса" },
+          { "value": "Выкса", "label": "Санкт-Петербург" },
+          { "value": "Выкса", "label": "Нижний новгородддд" }
         ]
       },
       {
@@ -67,7 +69,10 @@
         "value": [
           { "value": "1", "label": "Большая проблема" },
           { "value": "2", "label": "Средняя проблема" },
-          { "value": "3", "label": "Маленькая проблема" }
+          {
+            "value": "3",
+            "label": "facere sequi a et qui velit dolorem earum quo ut molestiae rerum quia similique rerum repellendus soluta iure cumque unde eligendi expedita alias aut eos consequatur quae enim velit itaque quo blanditiis molestiae eum voluptatem error voluptas aspernatur sed tempore enim "
+          }
         ]
       },
       {
@@ -154,7 +159,10 @@
             "label": "Сильная сторона Сильная сторона Сильная сторона Сильная сторона Сильная сторона"
           },
           { "value": "2", "label": "Среднаяя сторона" },
-          { "value": "3", "label": "Слабая сторона" }
+          {
+            "value": "3",
+            "label": "facere sequi a et qui velit dolorem earum quo ut molestiae rerum quia similique rerum repellendus soluta iure cumque unde eligendi expedita alias aut eos consequatur quae enim velit itaque quo blanditiis molestiae eum voluptatem error voluptas aspernatur sed tempore enim "
+          }
         ]
       }
     ],
