@@ -9,6 +9,10 @@
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+
+    &_end {
+      justify-content: flex-end;
+    }
   }
 
   &__col {

@@ -26,7 +26,6 @@
 
   &__filters {
     width: 100%;
-    max-width: 800px;
     align-self: center;
   }
 
@@ -42,5 +41,13 @@
     line-height: 28.8px;
     text-align: center;
     color: var(--page-color-black);
+  }
+
+  &__subs {
+    width: 400px;
+  }
+
+  &__year {
+    width: 150px;
   }
 }

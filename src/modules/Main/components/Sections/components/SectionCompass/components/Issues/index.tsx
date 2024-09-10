@@ -111,8 +111,9 @@ const CompassIssues = ({
               isDisabled={isDisabledBtnApply}
               data={selectedFiltersCompare}
               text='Воспользуйтесь фильтром, чтобы сравнить результаты'
+              isRow={true}
             >
-              <div>
+              <div className={styles['compass-issues__subs']}>
                 <Select
                   options={getFilterOptions(dataFilters, 'subs')}
                   value={getValueSelect(selectedFiltersCompare, 'subs')}
@@ -122,7 +123,7 @@ const CompassIssues = ({
                   isDisabled={isLoading}
                 />
               </div>
-              <div>
+              <div className={styles['compass-issues__year']}>
                 <Select
                   options={getFilterOptions(dataFilters, 'year')}
                   onChange={(e) => onChange(e, 'year')}

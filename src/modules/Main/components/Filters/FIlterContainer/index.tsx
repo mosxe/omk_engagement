@@ -11,6 +11,7 @@ type Props = {
   children: React.ReactNode;
   data: Filters[];
   text: string;
+  isRow?: boolean;
 };
 
 const FilterContainer = ({
@@ -20,9 +21,14 @@ const FilterContainer = ({
   isDisabled,
   children,
   data,
-  text
+  text,
+  isRow = false
 }: Props) => {
   const isDisabledClearBtn = !hasFilter(data);
+
+  const classNameBtns = isRow
+    ? `${styles.filters__row} ${styles.filters__row_end}`
+    : styles.filters__col;
 
   return (
     <div className={styles.filters}>
@@ -31,7 +37,7 @@ const FilterContainer = ({
         <div className={styles.filters__text}>{text}</div>
         <div className={styles.filters__container}>
           <div className={styles.filters__row}>{children}</div>
-          <div className={styles.filters__col}>
+          <div className={classNameBtns}>
             <button
               className={`${styles.filters__btn} ${styles.filters__btn_apply}`}
               type='button'
