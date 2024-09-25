@@ -6,7 +6,10 @@ import {
   useLazyGetIssuesQuery,
   useLazyGetCountRespondentCommentProblemQuery
 } from 'store/apiSlice';
-import { clearSelectedFilters } from 'store/filterSlice';
+import {
+  clearSelectedFilters,
+  updateCountRespondents
+} from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
 
 type Props = {
@@ -35,6 +38,16 @@ const Issues = ({ isLoading }: Props) => {
     updateIssues({ filters: [] });
   }, []);
 
+  useEffect(() => {
+    if (dataCountRespondent?.data !== undefined)
+      dispatch(
+        updateCountRespondents({
+          tab: 'issues',
+          data: dataCountRespondent.data
+        })
+      );
+  }, [dataCountRespondent]);
+
   const handleApply = () => {
     const dataFilters = transformDataFilters(selectedFilters);
     updateIssues({
@@ -59,7 +72,6 @@ const Issues = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
-        countRespondent={dataCountRespondent?.data}
       />
       <Content
         data={data?.data}

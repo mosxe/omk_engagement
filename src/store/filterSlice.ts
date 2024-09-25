@@ -27,6 +27,12 @@ export interface IFiltersState {
     issues: boolean;
   };
   questionsTab: QuestionsTab;
+  respondents: {
+    engagement: number | undefined;
+    compass: number | undefined;
+    questions: number | undefined;
+    issues: number | undefined;
+  };
 }
 
 const initialState: IFiltersState = {
@@ -180,7 +186,13 @@ const initialState: IFiltersState = {
     questions: false,
     issues: false
   },
-  questionsTab: 'questions'
+  questionsTab: 'questions',
+  respondents: {
+    engagement: undefined,
+    compass: undefined,
+    questions: undefined,
+    issues: undefined
+  }
 };
 
 const filtersSlice = createSlice({
@@ -277,6 +289,12 @@ const filtersSlice = createSlice({
       action: PayloadAction<{ tab: 'questions' | 'issues'; isShow: boolean }>
     ) => {
       state.researchTable[action.payload.tab] = action.payload.isShow;
+    },
+    updateCountRespondents: (
+      state,
+      action: PayloadAction<{ tab: Tab; data: number }>
+    ) => {
+      state.respondents[action.payload.tab] = action.payload.data;
     }
   }
 });
@@ -294,7 +312,8 @@ export const {
   updateSelectedSubs,
   setDefaultSelectedSubs,
   setDefaultFilterSubs,
-  changeShowResearchTable
+  changeShowResearchTable,
+  updateCountRespondents
 } = filtersSlice.actions;
 
 export default filtersSlice.reducer;

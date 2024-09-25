@@ -13,7 +13,10 @@ import {
   useLazyGetCountRespondentEngegamentQuery
 } from 'store/apiSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
-import { clearSelectedFilters } from 'store/filterSlice';
+import {
+  clearSelectedFilters,
+  updateCountRespondents
+} from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
 
 type Props = {
@@ -72,6 +75,16 @@ const SectionEngagement = ({ isLoading }: Props) => {
     getComments({ filters: [] });
   }, []);
 
+  useEffect(() => {
+    if (dataCountRespondent?.data !== undefined)
+      dispatch(
+        updateCountRespondents({
+          tab: 'engagement',
+          data: dataCountRespondent.data
+        })
+      );
+  }, [dataCountRespondent]);
+
   const handleApply = () => {
     const dataFilters = transformDataFilters(selectedFilters);
     const filterSubs = selectedFilters.find((filter) => filter.name === 'subs');
@@ -112,7 +125,6 @@ const SectionEngagement = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
-        countRespondent={dataCountRespondent?.data}
       />
       <EngagementResults
         data={dataSpeedChart?.data}

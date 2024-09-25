@@ -25,8 +25,7 @@ const FilterCompass = ({
   onApply,
   onReset,
   // isLoading,
-  isDisabled,
-  countRespondent
+  isDisabled
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -35,6 +34,9 @@ const FilterCompass = ({
   const subsState = useAppSelector((state) => state.filters.subs.compass);
   const selectedSubs = useAppSelector(
     (state) => state.filters.selectedSubs.compass
+  );
+  const respondentsState = useAppSelector(
+    (state) => state.filters.respondents.compass
   );
 
   const { data = initialFiltersCompass, isLoading: isLoadingFilters } =
@@ -118,8 +120,8 @@ const FilterCompass = ({
   const isLoadingFilter = isLoadingFilters || isLoadingOrg;
 
   const countRespondentEngagement =
-    countRespondent !== undefined
-      ? countRespondent
+    respondentsState !== undefined
+      ? respondentsState
       : dataCountRespondent?.data ?? 0;
 
   return (

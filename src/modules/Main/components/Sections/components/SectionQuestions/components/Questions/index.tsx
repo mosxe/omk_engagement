@@ -6,7 +6,10 @@ import {
   useLazyGetOpenQuestionsQuery,
   useLazyGetCountRespondentOpenQuestionQuery
 } from 'store/apiSlice';
-import { clearSelectedFilters } from 'store/filterSlice';
+import {
+  clearSelectedFilters,
+  updateCountRespondents
+} from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
 
 type Props = {
@@ -35,6 +38,16 @@ const Questions = ({ isLoading }: Props) => {
     updateOpenQuestions({ filters: [] });
   }, []);
 
+  useEffect(() => {
+    if (dataCountRespondent?.data !== undefined)
+      dispatch(
+        updateCountRespondents({
+          tab: 'questions',
+          data: dataCountRespondent.data
+        })
+      );
+  }, [dataCountRespondent]);
+
   const handleApply = () => {
     const dataFilters = transformDataFilters(selectedFilters);
     updateOpenQuestions({
@@ -60,7 +73,6 @@ const Questions = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
-        countRespondent={dataCountRespondent?.data}
       />
       <Content
         data={data?.data}

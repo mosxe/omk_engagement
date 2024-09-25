@@ -12,7 +12,8 @@ import {
 } from 'store/apiSlice';
 import {
   clearSelectedFilters,
-  changeShowResearchTable
+  changeShowResearchTable,
+  updateCountRespondents
 } from 'store/filterSlice';
 import { initialResearchIssues, initialResearchZones } from 'store/constants';
 import { transformDataFilters, hasFilter } from 'helpers';
@@ -100,6 +101,16 @@ const SectionCompass = ({ isLoading }: Props) => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (dataCountRespondent?.data !== undefined)
+      dispatch(
+        updateCountRespondents({
+          tab: 'compass',
+          data: dataCountRespondent.data
+        })
+      );
+  }, [dataCountRespondent]);
 
   const handleApply = () => {
     const dataFilters = transformDataFilters(selectedFilters);
@@ -194,7 +205,6 @@ const SectionCompass = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
-        countRespondent={dataCountRespondent?.data}
       />
       <Results
         dataIssues={dataResearchIssues?.data}

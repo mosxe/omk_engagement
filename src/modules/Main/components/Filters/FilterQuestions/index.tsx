@@ -25,8 +25,7 @@ const FilterQuestions = ({
   onApply,
   onReset,
   // isLoading,
-  isDisabled,
-  countRespondent
+  isDisabled
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -35,6 +34,9 @@ const FilterQuestions = ({
   const subsState = useAppSelector((state) => state.filters.subs.questions);
   const selectedSubs = useAppSelector(
     (state) => state.filters.selectedSubs.questions
+  );
+  const respondentsState = useAppSelector(
+    (state) => state.filters.respondents.questions
   );
 
   const { data = initialFiltersQuestions, isLoading: isLoadingFilters } =
@@ -118,8 +120,8 @@ const FilterQuestions = ({
   const isLoadingFilter = isLoadingFilters || isLoadingOrg;
 
   const countRespondentEngagement =
-    countRespondent !== undefined
-      ? countRespondent
+    respondentsState !== undefined
+      ? respondentsState
       : dataCountRespondent?.data ?? 0;
 
   return (
