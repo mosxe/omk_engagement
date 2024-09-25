@@ -100,6 +100,28 @@ const getSelectedValuesTree = (data: OrgTree[]) => {
   return selectedNodes;
 };
 
+const loopTree = (
+  dataTree: OrgTree[],
+  dataTreeChild: OrgTree[],
+  selectedNode: string
+) => {
+  const tempTreeData = dataTree.map((node) => {
+    const tempNode = { ...node };
+    if (tempNode.key === selectedNode) {
+      tempNode.children = dataTreeChild;
+    } else if (tempNode.children) {
+      const tempChild = loopTree(
+        tempNode.children,
+        dataTreeChild,
+        selectedNode
+      );
+      tempNode.children = tempChild;
+    }
+    return tempNode;
+  });
+  return tempTreeData;
+};
+
 export {
   getLink,
   getLinkFile,
@@ -110,5 +132,6 @@ export {
   hasFilter,
   transformDataBar,
   getSelectedValuesTree,
-  declinationAnswers
+  declinationAnswers,
+  loopTree
 };

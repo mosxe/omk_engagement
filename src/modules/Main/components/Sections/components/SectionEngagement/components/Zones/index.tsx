@@ -24,7 +24,7 @@ const EngagementZones = ({ data, isLoading, isError }: Props) => {
       <div className={styles['engagement-zones__wrapper']}>
         <div className={styles['engagement-zones__container']}>
           <div className={styles['engagement-zones__title']}>
-            Общие зоны развития
+            Общие сильные стороны
           </div>
           <div>
             <Table data={dataTableGeneral} isLoading={isLoadingTable} />
@@ -32,7 +32,7 @@ const EngagementZones = ({ data, isLoading, isError }: Props) => {
         </div>
         <div className={styles['engagement-zones__container']}>
           <div className={styles['engagement-zones__title']}>
-            Зоны развития в подразделениях
+            Сильные зоны в подразделениях
           </div>
           <div>
             <Table data={dataTableLocal} isLoading={isLoadingTable} />

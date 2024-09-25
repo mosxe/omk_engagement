@@ -307,8 +307,10 @@ export const API = createApi({
       transformResponse: (response: ResponseOrgTree, _, arg) => {
         if (import.meta.env.DEV) {
           let data = [];
-          if (arg === '4') {
+          if (arg === '1') {
             data = mockData.getOrgTreeSelected.data;
+          } else if (arg === '5') {
+            data = mockData.getOrgTreeSelected2.data;
           } else {
             data = mockData.getOrgTree.data;
           }
@@ -318,7 +320,8 @@ export const API = createApi({
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 2000);
+            const delay = arg === '5' ? 2000 : 2000;
+            return setTimeout(() => resolve(mockDataResponse), delay);
           });
         } else {
           return response;

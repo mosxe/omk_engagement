@@ -123,7 +123,7 @@ class RCTreeSelect extends React.Component<NoticeProps> {
         allowClear={false}
         notFoundContent='Данные отсутствуют'
         dropdownStyle={{
-          maxHeight: 400,
+          maxHeight: 600,
           overflow: 'auto',
           zIndex: 1500
         }}

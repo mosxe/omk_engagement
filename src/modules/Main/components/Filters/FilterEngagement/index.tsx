@@ -6,7 +6,7 @@ import FilterContainer from '../FIlterContainer';
 import { OptionChange } from 'components/Select/types';
 import { FilterName, Filter } from 'types';
 import { FilterProps } from '../index';
-import { getFilterOptions, getValueSelect } from 'helpers';
+import { getFilterOptions, getValueSelect, loopTree } from 'helpers';
 import { initialFiltersEngagement } from 'store/constants';
 import {
   useLazyGetOrgTreeQuery,
@@ -95,13 +95,11 @@ const FilterEngagement = ({
       if (payload.data === undefined || payload.isError) {
         toast('Произошла ошибка');
       } else {
-        const tempTreeData = subsState.map((node) => {
-          const tempNode = { ...node };
-          if (tempNode.value === treeNode.value) {
-            tempNode.children = payload.data;
-          }
-          return tempNode;
-        });
+        const tempTreeData = loopTree(
+          subsState,
+          payload.data,
+          String(treeNode.value)
+        );
         dispatch(updateSubs({ tab: 'engagement', data: tempTreeData }));
       }
     } catch (e) {

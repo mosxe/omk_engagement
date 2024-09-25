@@ -412,6 +412,7 @@
   span.rc-tree-select-tree-iconEle {
   display: inline-block;
   width: 16px;
+  min-width: 16px;
   height: 16px;
   margin-right: 2px;
   line-height: 16px;
@@ -669,12 +670,30 @@
   animation: rotation 1s linear infinite;
 }
 
-.rc-tree-select-tree-treenode-loading .rc-tree-select-tree-switcher_open {
-  opacity: 0;
+.rc-tree-select-tree-treenode-loading .rc-tree-select-tree-switcher_open svg {
+  display: none;
+}
+
+.rc-tree-select-tree-treenode-loading
+  .rc-tree-select-tree-switcher_open::before {
+  content: '';
+  position: absolute;
+  background: none;
+  vertical-align: middle;
+  top: 9px;
+  /* left: 0px; */
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--page-color-dark-blue);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
 .rc-tree-select-tree-treenode-loading .rc-tree-select-tree-icon_loading {
-  display: block !important;
+  display: none !important;
 }
 
 .rc-tree-select-tree
@@ -688,6 +707,7 @@
   background-color: var(--page-color-white);
   border: 1px solid var(--page-color-gray);
   border-radius: 5px;
+  flex-shrink: 0;
   transition: all 0.3s;
 }
 

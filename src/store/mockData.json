@@ -561,24 +561,6 @@
         "title": "Поздразеделние 1",
         "parent_object_code": "",
         "children": [],
-        "is_selected": true,
-        "isLeaf": false
-      },
-      {
-        "key": "2",
-        "value": "2",
-        "title": "Поздразеделние 2",
-        "parent_object_code": "",
-        "children": [],
-        "is_selected": true,
-        "isLeaf": true
-      },
-      {
-        "key": "4",
-        "value": "4",
-        "title": "Поздразеделние 4",
-        "parent_object_code": "",
-        "children": [],
         "is_selected": false,
         "isLeaf": false
       }
@@ -593,13 +575,26 @@
         "parent_object_code": "4",
         "is_selected": false,
         "children": [],
-        "isLeaf": true
+        "isLeaf": false
       },
       {
         "key": "6",
         "value": "6",
         "title": "Поздразеделние 6",
         "parent_object_code": "4",
+        "is_selected": false,
+        "children": [],
+        "isLeaf": true
+      }
+    ]
+  },
+  "getOrgTreeSelected2": {
+    "data": [
+      {
+        "key": "10",
+        "value": "10",
+        "title": "Поздразеделние 10 Поздразеделние 10 Поздразеделние 10  Поздразеделние 10",
+        "parent_object_code": "5",
         "is_selected": false,
         "children": [],
         "isLeaf": true
