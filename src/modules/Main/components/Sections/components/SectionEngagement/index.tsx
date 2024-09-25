@@ -9,7 +9,8 @@ import {
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
   useLazyGetKeyResultsQuery,
-  useLazyGetCommentsQuery
+  useLazyGetCommentsQuery,
+  useLazyGetCountRespondentEngegamentQuery
 } from 'store/apiSlice';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import { clearSelectedFilters } from 'store/filterSlice';
@@ -53,6 +54,8 @@ const SectionEngagement = ({ isLoading }: Props) => {
       isError: isErrorComments
     }
   ] = useLazyGetCommentsQuery();
+  const [getCountRespondent, { data: dataCountRespondent }] =
+    useLazyGetCountRespondentEngegamentQuery();
 
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -86,6 +89,7 @@ const SectionEngagement = ({ isLoading }: Props) => {
     });
     updateKeyResults({ filters: dataFilters });
     getComments({ filters: dataFilters });
+    getCountRespondent({ filters: dataFilters });
   };
 
   const handleReset = () => {
@@ -108,6 +112,7 @@ const SectionEngagement = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
+        countRespondent={dataCountRespondent?.data}
       />
       <EngagementResults
         data={dataSpeedChart?.data}

@@ -8,6 +8,8 @@ export type FilterProps = {
   onReset: () => void;
   isLoading: boolean;
   isDisabled: boolean;
+  countRespondent: number | undefined;
+  isShowCountRespondent?: boolean;
 };
 
 export { FilterEngagement, FilterCompass, FilterQuestions, FilterIssues };

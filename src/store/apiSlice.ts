@@ -11,7 +11,8 @@ import {
   ResponseAllComments,
   ResponseCompassCompare,
   ResponseOpenQuestions,
-  ResponseIssues
+  ResponseIssues,
+  ResponseCountRespondent
 } from 'types';
 import mockData from './mockData.json';
 const baseURL = window.location.origin;
@@ -56,7 +57,7 @@ export const API = createApi({
           const mockDataResponse: ResponseFilters =
             mockData.dataFiltersEngagement as ResponseFilters;
           return new Promise((resolve) => {
-            return setTimeout(() => resolve(mockDataResponse), 1500);
+            return setTimeout(() => resolve(mockDataResponse), 500);
           });
         } else {
           return response;
@@ -320,8 +321,7 @@ export const API = createApi({
             errorMessage: ''
           };
           return new Promise((resolve) => {
-            const delay = arg === '5' ? 2000 : 2000;
-            return setTimeout(() => resolve(mockDataResponse), delay);
+            return setTimeout(() => resolve(mockDataResponse), 2000);
           });
         } else {
           return response;
@@ -493,6 +493,102 @@ export const API = createApi({
           return response;
         }
       }
+    }),
+    getCountRespondentEngegament: builder.query<
+      ResponseCountRespondent,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getCountRespondentEngegament'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseCountRespondent) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseCountRespondent =
+            mockData.getCountRespondent;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getCountRespondentCompas: builder.query<
+      ResponseCountRespondent,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getCountRespondentCompas'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseCountRespondent) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseCountRespondent =
+            mockData.getCountRespondent;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getCountRespondentOpenQuestion: builder.query<
+      ResponseCountRespondent,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getCountRespondentOpenQuestion'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseCountRespondent) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseCountRespondent =
+            mockData.getCountRespondent;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1000);
+          });
+        } else {
+          return response;
+        }
+      }
+    }),
+    getCountRespondentCommentProblem: builder.query<
+      ResponseCountRespondent,
+      { filters: FilterParams[] }
+    >({
+      query: ({ filters }) => ({
+        url: postUrl('&action=getCountRespondentCommentProblemAllList'),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filters
+        })
+      }),
+      transformResponse: (response: ResponseCountRespondent) => {
+        if (import.meta.env.DEV) {
+          const mockDataResponse: ResponseCountRespondent =
+            mockData.getCountRespondent;
+          return new Promise((resolve) => {
+            return setTimeout(() => resolve(mockDataResponse), 1000);
+          });
+        } else {
+          return response;
+        }
+      }
     })
   })
 });
@@ -516,5 +612,13 @@ export const {
   useLazyGetOpenQuestionsQuery,
   useLazyGetAllQuestionsCommentsQuery,
   useLazyGetIssuesQuery,
-  useLazyGetAllIssuesCommentsQuery
+  useLazyGetAllIssuesCommentsQuery,
+  useLazyGetCountRespondentEngegamentQuery,
+  useGetCountRespondentEngegamentQuery,
+  useLazyGetCountRespondentCompasQuery,
+  useGetCountRespondentCompasQuery,
+  useLazyGetCountRespondentOpenQuestionQuery,
+  useGetCountRespondentOpenQuestionQuery,
+  useLazyGetCountRespondentCommentProblemQuery,
+  useGetCountRespondentCommentProblemQuery
 } = API;

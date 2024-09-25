@@ -2,7 +2,10 @@
 import { FilterIssues } from '../../../../../Filters';
 import Content from './Content';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
-import { useLazyGetIssuesQuery } from 'store/apiSlice';
+import {
+  useLazyGetIssuesQuery,
+  useLazyGetCountRespondentCommentProblemQuery
+} from 'store/apiSlice';
 import { clearSelectedFilters } from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
 
@@ -25,6 +28,8 @@ const Issues = ({ isLoading }: Props) => {
       isError
     }
   ] = useLazyGetIssuesQuery();
+  const [getCountRespondent, { data: dataCountRespondent }] =
+    useLazyGetCountRespondentCommentProblemQuery();
 
   useEffect(() => {
     updateIssues({ filters: [] });
@@ -35,6 +40,7 @@ const Issues = ({ isLoading }: Props) => {
     updateIssues({
       filters: dataFilters
     });
+    getCountRespondent({ filters: dataFilters });
   };
 
   const handleReset = () => {
@@ -53,6 +59,7 @@ const Issues = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
+        countRespondent={dataCountRespondent?.data}
       />
       <Content
         data={data?.data}

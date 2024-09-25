@@ -136,3 +136,7 @@ export interface Issue {
 export interface ResponseIssues extends Error {
   data: Issue[];
 }
+
+export interface ResponseCountRespondent extends Error {
+  data: number;
+}

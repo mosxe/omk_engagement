@@ -29,7 +29,6 @@ const EngagementResults = ({ data, isLoading, isError, view }: Props) => {
         </div>
       </div>
       <div className={styles['engagement-results__wrapper']}>
-        <h3>Результаты за 3 последних года</h3>
         {isShowCheckbox && (
           <div>
             <Checkbox

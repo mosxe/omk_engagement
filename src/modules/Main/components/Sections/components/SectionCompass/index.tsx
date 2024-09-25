@@ -7,7 +7,8 @@ import {
   useLazyGetResearchIssuesQuery,
   useLazyGetResearchZonesQuery,
   useLazyGetResearchIssuesCompareQuery,
-  useLazyGetResearchZonesCompareQuery
+  useLazyGetResearchZonesCompareQuery,
+  useLazyGetCountRespondentCompasQuery
 } from 'store/apiSlice';
 import {
   clearSelectedFilters,
@@ -64,6 +65,8 @@ const SectionCompass = ({ isLoading }: Props) => {
       isFetching: isFetchingZonesCompare
     }
   ] = useLazyGetResearchZonesCompareQuery();
+  const [getCountRespondent, { data: dataCountRespondent }] =
+    useLazyGetCountRespondentCompasQuery();
 
   useEffect(() => {
     const dataFilters = transformDataFilters(selectedFilters);
@@ -109,6 +112,8 @@ const SectionCompass = ({ isLoading }: Props) => {
     getResearchZones({
       filters: dataFilters
     });
+
+    getCountRespondent({ filters: dataFilters });
 
     if (dataIssuesCompareFilters) {
       const dataIssuesTransformFilters = transformDataFilters(
@@ -189,6 +194,7 @@ const SectionCompass = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
+        countRespondent={dataCountRespondent?.data}
       />
       <Results
         dataIssues={dataResearchIssues?.data}

@@ -8,7 +8,8 @@ import { FilterProps } from '../index';
 import { toast } from 'react-toastify';
 import {
   useGetAllFiltersCompassDataQuery,
-  useLazyGetOrgTreeQuery
+  useLazyGetOrgTreeQuery,
+  useGetCountRespondentCompasQuery
 } from 'store/apiSlice';
 import { initialFiltersCompass } from 'store/constants';
 import { getFilterOptions, getValueSelect } from 'helpers';
@@ -23,8 +24,9 @@ import styles from '../styles.module.scss';
 const FilterCompass = ({
   onApply,
   onReset,
-  isLoading,
-  isDisabled
+  // isLoading,
+  isDisabled,
+  countRespondent
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -38,6 +40,9 @@ const FilterCompass = ({
   const { data = initialFiltersCompass, isLoading: isLoadingFilters } =
     useGetAllFiltersCompassDataQuery({ filters: [] });
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
+  const { data: dataCountRespondent } = useGetCountRespondentCompasQuery({
+    filters: []
+  });
 
   useEffect(() => {
     const labels = document.querySelectorAll(
@@ -110,7 +115,12 @@ const FilterCompass = ({
     }
   };
 
-  const isLoadingFilter = isLoadingFilters || isLoading || isLoadingOrg;
+  const isLoadingFilter = isLoadingFilters || isLoadingOrg;
+
+  const countRespondentEngagement =
+    countRespondent !== undefined
+      ? countRespondent
+      : dataCountRespondent?.data ?? 0;
 
   return (
     <FilterContainer
@@ -120,6 +130,7 @@ const FilterCompass = ({
       isDisabled={isDisabled}
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
+      countRespondent={countRespondentEngagement}
     >
       <div className={styles.filters_group}>
         <Select

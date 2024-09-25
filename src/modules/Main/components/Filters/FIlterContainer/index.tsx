@@ -11,7 +11,9 @@ type Props = {
   children: React.ReactNode;
   data: Filters[];
   text: string;
+  countRespondent: number;
   isRow?: boolean;
+  isShowCountRespondent?: boolean;
 };
 
 const FilterContainer = ({
@@ -22,7 +24,9 @@ const FilterContainer = ({
   children,
   data,
   text,
-  isRow = false
+  countRespondent,
+  isRow = false,
+  isShowCountRespondent = true
 }: Props) => {
   const isDisabledClearBtn = !hasFilter(data);
 
@@ -34,7 +38,14 @@ const FilterContainer = ({
     <div className={styles.filters}>
       {isLoading && <LoaderContent position='absolute' />}
       <div className={styles.filters__wrapper}>
-        <div className={styles.filters__text}>{text}</div>
+        <div className={styles.filters__box}>
+          <span className={styles.filters__text}>{text}</span>
+          {isShowCountRespondent && (
+            <span className={styles.filters__text}>
+              Кол-во респондентов: {countRespondent}
+            </span>
+          )}
+        </div>
         <div className={styles.filters__container}>
           <div className={styles.filters__row}>{children}</div>
           <div className={classNameBtns}>

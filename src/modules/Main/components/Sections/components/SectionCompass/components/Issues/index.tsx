@@ -80,6 +80,8 @@ const CompassIssues = ({
               data={selectedFiltersCompare}
               text='Воспользуйтесь фильтром, чтобы сравнить результаты'
               isRow={true}
+              countRespondent={0}
+              isShowCountRespondent={false}
             >
               <div className={styles['compass-issues__subs']}>
                 <Select
