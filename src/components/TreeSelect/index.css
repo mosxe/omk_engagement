@@ -109,8 +109,18 @@
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
-  padding-right: 30px;
+  padding-right: 35px;
 }
+
+.rc-tree-select-selection-overflow {
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .rc-tree-select-multiple
   .rc-tree-select-selector
   .rc-tree-select-selection-overflow-item {
@@ -154,10 +164,19 @@
 .rc-tree-select-allow-clear.rc-tree-select-multiple .rc-tree-select-selector {
   padding-right: 20px;
 }
+
 .rc-tree-select-allow-clear .rc-tree-select-clear {
   position: absolute;
-  right: 20px;
-  top: 0;
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  padding-bottom: 2px;
+}
+
+.rc-tree-select-clear-icon {
+  font-size: 18px;
+  color: var(--page-color-dark-gray);
 }
 
 .rc-tree-select-show-arrow .rc-tree-select-arrow {
@@ -197,6 +216,7 @@
 }
 .rc-tree-select-dropdown {
   padding-left: 0.5rem !important;
+  padding-bottom: 10px;
   border-radius: 10px !important;
   box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.3) !important;
   position: absolute;

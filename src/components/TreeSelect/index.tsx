@@ -120,7 +120,7 @@ class RCTreeSelect extends React.Component<NoticeProps> {
         dropdownClassName='tree-select-dropdown'
         className='tree-select-container'
         showSearch={false}
-        allowClear={false}
+        allowClear={true}
         notFoundContent='Данные отсутствуют'
         dropdownStyle={{
           maxHeight: 600,
