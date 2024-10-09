@@ -16,15 +16,19 @@ const Select = (props: SelectProps): JSX.Element => {
     value,
     isDisabled = false,
     defaultValue = [],
-    innerRef = undefined
+    innerRef = undefined,
+    isMulti = true
   } = props;
 
   const OptionSelect = (props: OptionProps<Option>) => {
-    return (
-      <components.Option {...props}>
-        <Checkbox label={props.label} checked={props.isSelected} />
-      </components.Option>
-    );
+    if (isMulti) {
+      return (
+        <components.Option {...props}>
+          <Checkbox label={props.label} checked={props.isSelected} />
+        </components.Option>
+      );
+    }
+    return <components.Option {...props}></components.Option>;
   };
 
   const MultiValueLabel = (props: any) => {
@@ -55,7 +59,7 @@ const Select = (props: SelectProps): JSX.Element => {
       options={options}
       ref={innerRef}
       name={id}
-      isMulti={true}
+      isMulti={isMulti}
       menuPlacement='auto'
       isClearable={false}
       isSearchable={false}

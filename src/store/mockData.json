@@ -562,6 +562,7 @@
         "parent_object_code": "",
         "children": [],
         "is_selected": false,
+        "disabled": true,
         "isLeaf": false
       },
       {
@@ -571,6 +572,7 @@
         "parent_object_code": "",
         "children": [],
         "is_selected": false,
+        "disabled": false,
         "isLeaf": true
       },
       {
@@ -580,6 +582,7 @@
         "parent_object_code": "",
         "children": [],
         "is_selected": false,
+        "disabled": false,
         "isLeaf": true
       },
       {
@@ -589,6 +592,7 @@
         "parent_object_code": "",
         "children": [],
         "is_selected": false,
+        "disabled": false,
         "isLeaf": true
       },
       {
@@ -598,6 +602,7 @@
         "parent_object_code": "",
         "children": [],
         "is_selected": false,
+        "disabled": false,
         "isLeaf": true
       },
       {
@@ -607,6 +612,7 @@
         "parent_object_code": "",
         "children": [],
         "is_selected": false,
+        "disabled": false,
         "isLeaf": true
       },
       {
@@ -616,6 +622,7 @@
         "parent_object_code": "",
         "children": [],
         "is_selected": false,
+        "disabled": false,
         "isLeaf": true
       }
     ]
@@ -628,6 +635,7 @@
         "title": "Поздразеделние 5",
         "parent_object_code": "4",
         "is_selected": false,
+        "disabled": false,
         "children": [],
         "isLeaf": false
       },
@@ -637,6 +645,7 @@
         "title": "Поздразеделние 6",
         "parent_object_code": "4",
         "is_selected": false,
+        "disabled": false,
         "children": [],
         "isLeaf": true
       }
@@ -650,6 +659,7 @@
         "title": "Поздразеделние 10 Поздразеделние 10 Поздразеделние 10  Поздразеделние 10",
         "parent_object_code": "5",
         "is_selected": false,
+        "disabled": false,
         "children": [],
         "isLeaf": true
       }

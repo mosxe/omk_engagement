@@ -124,13 +124,14 @@ class RCTreeSelect extends React.Component<NoticeProps> {
         notFoundContent='Данные отсутствуют'
         dropdownStyle={{
           maxHeight: 600,
-          width: 700,
+          width: 800,
           overflow: 'auto',
           zIndex: 1500
         }}
         {...iconProps}
         removeIcon={() => removeIcon}
         suffixIcon={<SwitcherIcon />}
+        listHeight={600}
       />
     );
   }

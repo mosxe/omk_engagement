@@ -143,6 +143,7 @@ const FilterIssues = ({
           onChange={(e) => onChange(e, 'group')}
           placeholder='Группа'
           width={180}
+          isMulti={false}
         />
       </div>
       <TreeSelect

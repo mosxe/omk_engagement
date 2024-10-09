@@ -141,6 +141,7 @@ const FilterCompass = ({
           value={getValueSelect(selectedFilters, 'group')}
           onChange={(e) => onChange(e, 'group')}
           placeholder='Группа'
+          isMulti={false}
         />
       </div>
       <TreeSelect

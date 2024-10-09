@@ -733,7 +733,14 @@
 
 .rc-tree-select-tree
   .rc-tree-select-tree-treenode
-  span.rc-tree-select-tree-checkbox:hover::after {
+  span.rc-tree-select-tree-checkbox.rc-tree-select-tree-checkbox-disabled {
+  cursor: default !important;
+}
+
+.rc-tree-select-tree
+  .rc-tree-select-tree-treenode
+  span.rc-tree-select-tree-checkbox:not(.rc-tree-select-tree-checkbox-disabled)
+  :hover::after {
   content: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='%2300324b' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.99993 7.80007L1.19993 5.00006L0.266602 5.9334L3.99993 9.66673L11.9999 1.66673L11.0666 0.733398L3.99993 7.80007Z' fill='%2300324b'%3E%3C/path%3E%3C/svg%3E");
   position: absolute;
   top: 50%;
@@ -779,6 +786,15 @@
   text-align: center;
   color: hsl(0, 0%, 60%);
   padding: 12px 12px;
+}
+
+.rc-tree-select-tree-treenode-disabled
+  .rc-tree-select-tree-node-content-wrapper {
+  cursor: default !important;
+}
+
+.rc-tree-select-tree-treenode-disabled .rc-tree-select-tree-title {
+  color: rgba(208, 212, 217, 1);
 }
 
 @keyframes rotation {

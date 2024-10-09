@@ -74,11 +74,25 @@ const FilterEngagement = ({
   }, [selectedFilters]);
 
   const onChange = (options: OptionChange, filterName: FilterName) => {
-    const filterValues = {
-      name: filterName,
-      value: options as Filter[]
-    };
-    dispatch(updateSelectedFilters({ tab: 'engagement', data: filterValues }));
+    if (filterName === 'group') {
+      const tempValue = [] as any[];
+      tempValue.push(options);
+      const filterValues = {
+        name: filterName,
+        value: tempValue as Filter[]
+      };
+      dispatch(
+        updateSelectedFilters({ tab: 'engagement', data: filterValues })
+      );
+    } else {
+      const filterValues = {
+        name: filterName,
+        value: options as Filter[]
+      };
+      dispatch(
+        updateSelectedFilters({ tab: 'engagement', data: filterValues })
+      );
+    }
   };
 
   const onChangeTreeSelect = (values: string[]) => {
@@ -140,6 +154,7 @@ const FilterEngagement = ({
           onChange={(e) => onChange(e, 'group')}
           placeholder='Группа'
           isDisabled={isLoadingFilter}
+          isMulti={false}
         />
       </div>
       <TreeSelect

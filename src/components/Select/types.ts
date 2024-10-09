@@ -36,6 +36,7 @@ export type SelectProps = {
   innerRef?: any;
   isTextCenter?: boolean;
   width?: number;
+  isMulti?: boolean;
 };
 
 export type optionsMessageProps = {
