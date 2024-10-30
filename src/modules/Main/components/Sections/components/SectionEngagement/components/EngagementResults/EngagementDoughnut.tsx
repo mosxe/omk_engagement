@@ -53,7 +53,7 @@ const EngagementDoughnut = ({ data, isLoading, isError, isChecked }: Props) => {
   }
 
   if (!data.length || isError) {
-    return <NoData />;
+    return <NoData text='Данные отсутствуют' />;
   }
 
   const filteredData = data.filter((card) => !card.is_be);

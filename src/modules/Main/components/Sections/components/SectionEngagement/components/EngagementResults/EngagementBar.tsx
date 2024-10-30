@@ -41,7 +41,7 @@ const EngagementBar = ({ data, isLoading, isError, isChecked }: Props) => {
   }
 
   if (!data.length || isError) {
-    return <NoData />;
+    return <NoData text='Данные отсутствуют' />;
   }
 
   const tempTransformDataBar = transformDataBar(data);

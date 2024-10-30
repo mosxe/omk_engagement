@@ -155,7 +155,7 @@ const SectionEngagement = ({ isLoading }: Props) => {
           countRespondent={countRespondent}
         />
         <div className={styles.section__content}>
-          <NoData text='Количество респондентов недостаточно для построения данных' />
+          <NoData isRespondents />
         </div>
       </>
     );

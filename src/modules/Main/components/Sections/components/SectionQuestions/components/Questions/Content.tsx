@@ -33,7 +33,7 @@ const Content = ({ data, isLoading, isError }: Props) => {
   if (!data.length || isError) {
     return (
       <section className={`${styles.questions} ${styles.questions_empty}`}>
-        <NoData />
+        <NoData text='Данные отсутствуют' />
       </section>
     );
   }

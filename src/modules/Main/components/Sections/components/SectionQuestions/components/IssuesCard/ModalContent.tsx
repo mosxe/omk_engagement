@@ -38,7 +38,7 @@ const ModalContent = ({ data, isLoading, isError, onClose }: Props) => {
           </div>
         </Modal.Header>
         <Modal.Body>
-          <NoData />
+          <NoData text='Данные отсутствуют' />
         </Modal.Body>
       </>
     );

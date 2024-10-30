@@ -26,7 +26,7 @@ const Content = ({ data, isLoading, isError }: Props) => {
   if (!data.length || isError) {
     return (
       <div className={styles['engagement-category__row']}>
-        <NoData />
+        <NoData text='Данные отсутствуют' />
       </div>
     );
   }

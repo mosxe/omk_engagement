@@ -1,4 +1,23 @@
 ﻿.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   font-size: 20px;
-  text-align: center;
+
+  &_center {
+    align-items: center;
+  }
+
+  & a {
+    color: var(--page-color-ligth-blue);
+    transition: color 0.3s;
+
+    &:hover {
+      color: rgba(228, 25, 16, 1);
+    }
+
+    &:active {
+      color: var(--page-color-link);
+    }
+  }
 }
