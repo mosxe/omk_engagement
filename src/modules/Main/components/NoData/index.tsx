@@ -1,7 +1,11 @@
 ﻿import styles from './styles.module.scss';
 
-const NoData = () => {
-  return <div className={styles['no-data']}>Данные отсутствуют</div>;
+type Props = {
+  text?: string;
+};
+
+const NoData = ({ text = 'Данные отсутствуют' }: Props) => {
+  return <div className={styles['no-data']}>{text}</div>;
 };
 
 export default NoData;

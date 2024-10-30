@@ -1,6 +1,7 @@
 ﻿import { useEffect } from 'react';
 import { FilterQuestions } from '../../../../../Filters';
 import Content from './Content';
+import NoData from '../../../../../NoData';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import {
   useLazyGetOpenQuestionsQuery,
@@ -11,6 +12,7 @@ import {
   updateCountRespondents
 } from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
+import styles from '../../../../styles.module.scss';
 
 type Props = {
   isLoading: boolean;
@@ -20,6 +22,9 @@ const Questions = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.questions
+  );
+  const respondentsState = useAppSelector(
+    (state) => state.filters.respondents.questions
   );
 
   const [
@@ -31,29 +36,49 @@ const Questions = ({ isLoading }: Props) => {
       isError
     }
   ] = useLazyGetOpenQuestionsQuery();
-  const [getCountRespondent, { data: dataCountRespondent }] =
-    useLazyGetCountRespondentOpenQuestionQuery();
+  const [
+    getCountRespondent,
+    { data: dataCountRespondent, isFetching: isFetchingCountRespondent }
+  ] = useLazyGetCountRespondentOpenQuestionQuery();
+
+  const countRespondent =
+    respondentsState !== undefined
+      ? respondentsState
+      : dataCountRespondent?.data ?? 0;
 
   useEffect(() => {
+    getCountRespondent({ filters: [] });
     updateOpenQuestions({ filters: [] });
   }, []);
 
   useEffect(() => {
-    if (dataCountRespondent?.data !== undefined)
+    if (dataCountRespondent?.data !== undefined) {
       dispatch(
         updateCountRespondents({
           tab: 'questions',
           data: dataCountRespondent.data
         })
       );
+    }
   }, [dataCountRespondent]);
 
-  const handleApply = () => {
-    const dataFilters = transformDataFilters(selectedFilters);
-    updateOpenQuestions({
+  const handleApply = async () => {
+    const dataFilters = transformDataFilters(
+      selectedFilters,
+      undefined,
+      'problems'
+    );
+    const payloadRespondens = await getCountRespondent({
       filters: dataFilters
     });
-    getCountRespondent({ filters: dataFilters });
+    if (
+      payloadRespondens.data !== undefined &&
+      (payloadRespondens.data.data >= 10 || payloadRespondens.data.isShowAll)
+    ) {
+      updateOpenQuestions({
+        filters: dataFilters
+      });
+    }
   };
 
   const handleReset = () => {
@@ -61,10 +86,34 @@ const Questions = ({ isLoading }: Props) => {
   };
 
   const isLoadingBtnApply =
-    isLoadingUpdateQuestions || isFetchingUpdate || isLoading;
+    isLoadingUpdateQuestions ||
+    isFetchingUpdate ||
+    isLoading ||
+    isFetchingCountRespondent;
 
   const isDisabledBtnApply = !hasFilter(selectedFilters);
   const isErrorQuestions = isError;
+
+  if (
+    respondentsState !== undefined &&
+    countRespondent < 10 &&
+    !dataCountRespondent?.isShowAll
+  ) {
+    return (
+      <>
+        <FilterQuestions
+          onApply={handleApply}
+          onReset={handleReset}
+          isLoading={isLoadingBtnApply}
+          isDisabled={isDisabledBtnApply}
+          countRespondent={countRespondent}
+        />
+        <div className={styles.section__content}>
+          <NoData text='Количество респондентов недостаточно для построения данных' />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -73,6 +122,7 @@ const Questions = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
+        countRespondent={countRespondent}
       />
       <Content
         data={data?.data}

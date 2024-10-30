@@ -31,9 +31,13 @@ const getValueSelect = (data: Filters[], filterName: FilterName) => {
 
 const transformDataFilters = (
   dataFilters: Filters[],
-  currentFilter?: Filters
+  currentFilter?: Filters,
+  missingFilterName?: string
 ) => {
-  const transformData = dataFilters.map((filter) => {
+  const tempDataFilters = missingFilterName
+    ? dataFilters.filter((filter) => filter.name !== missingFilterName)
+    : dataFilters;
+  const transformData = tempDataFilters.map((filter) => {
     const data = {
       name: filter.name,
       value: [] as string[] | number[]

@@ -20,7 +20,11 @@ const QuestionCard = ({ id, name }: Question) => {
   const handleModal = (value: boolean) => {
     setIsShowModal(value);
     if (value && data === undefined) {
-      const dataFilters = transformDataFilters(selectedFilters);
+      const dataFilters = transformDataFilters(
+        selectedFilters,
+        undefined,
+        'problems'
+      );
       setIsShowModal(true);
       getAllQuestionsComments({ filters: dataFilters, id: id })
         .then((payload) => {

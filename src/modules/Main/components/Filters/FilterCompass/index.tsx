@@ -8,8 +8,7 @@ import { FilterProps } from '../index';
 import { toast } from 'react-toastify';
 import {
   useGetAllFiltersCompassDataQuery,
-  useLazyGetOrgTreeQuery,
-  useGetCountRespondentCompasQuery
+  useLazyGetOrgTreeQuery
 } from 'store/apiSlice';
 import { initialFiltersCompass } from 'store/constants';
 import { getFilterOptions, getValueSelect } from 'helpers';
@@ -24,8 +23,9 @@ import styles from '../styles.module.scss';
 const FilterCompass = ({
   onApply,
   onReset,
-  // isLoading,
-  isDisabled
+  isLoading,
+  isDisabled,
+  countRespondent
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -35,16 +35,9 @@ const FilterCompass = ({
   const selectedSubs = useAppSelector(
     (state) => state.filters.selectedSubs.compass
   );
-  const respondentsState = useAppSelector(
-    (state) => state.filters.respondents.compass
-  );
-
   const { data = initialFiltersCompass, isLoading: isLoadingFilters } =
     useGetAllFiltersCompassDataQuery({ filters: [] });
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
-  const { data: dataCountRespondent } = useGetCountRespondentCompasQuery({
-    filters: []
-  });
 
   useEffect(() => {
     const labels = document.querySelectorAll(
@@ -74,11 +67,21 @@ const FilterCompass = ({
   }, [selectedFilters]);
 
   const onChange = async (options: OptionChange, filterName: FilterName) => {
-    const filterValues = {
-      name: filterName,
-      value: options as Filter[]
-    };
-    dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
+    if (filterName === 'group') {
+      const tempValue = [] as any[];
+      tempValue.push(options);
+      const filterValues = {
+        name: filterName,
+        value: tempValue as Filter[]
+      };
+      dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
+    } else {
+      const filterValues = {
+        name: filterName,
+        value: options as Filter[]
+      };
+      dispatch(updateSelectedFilters({ tab: 'compass', data: filterValues }));
+    }
   };
 
   const onChangeTreeSelect = (values: string[]) => {
@@ -117,12 +120,7 @@ const FilterCompass = ({
     }
   };
 
-  const isLoadingFilter = isLoadingFilters || isLoadingOrg;
-
-  const countRespondentEngagement =
-    respondentsState !== undefined
-      ? respondentsState
-      : dataCountRespondent?.data ?? 0;
+  const isLoadingFilter = isLoadingFilters || isLoadingOrg || isLoading;
 
   return (
     <FilterContainer
@@ -132,7 +130,7 @@ const FilterCompass = ({
       isDisabled={isDisabled}
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
-      countRespondent={countRespondentEngagement}
+      countRespondent={countRespondent}
     >
       <div className={styles.filters_group}>
         <Select

@@ -11,7 +11,7 @@ import styles from './styles.module.scss';
 const IssuesCard = ({ id, name }: Question) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.issues
+    (state) => state.filters.selectedFilters.questions
   );
   const [getAllIssuesComments, { data, isLoading, isError }] =
     useLazyGetAllIssuesCommentsQuery();
@@ -19,7 +19,11 @@ const IssuesCard = ({ id, name }: Question) => {
   const handleModal = (value: boolean) => {
     setIsShowModal(value);
     if (value && data === undefined) {
-      const dataFilters = transformDataFilters(selectedFilters);
+      const dataFilters = transformDataFilters(
+        selectedFilters,
+        undefined,
+        'open_question'
+      );
       setIsShowModal(true);
       getAllIssuesComments({ filters: dataFilters, id })
         .then((payload) => {

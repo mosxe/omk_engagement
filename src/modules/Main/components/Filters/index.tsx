@@ -9,6 +9,7 @@ export type FilterProps = {
   isLoading: boolean;
   isDisabled: boolean;
   isShowCountRespondent?: boolean;
+  countRespondent: number;
 };
 
 export { FilterEngagement, FilterCompass, FilterQuestions, FilterIssues };

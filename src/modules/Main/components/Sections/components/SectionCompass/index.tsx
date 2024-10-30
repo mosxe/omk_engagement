@@ -2,6 +2,7 @@
 import { toast } from 'react-toastify';
 import { FilterCompass } from '../../../Filters';
 import Results from './components/Results';
+import NoData from '../../../NoData';
 import { useAppSelector, useAppDispatch } from 'store/hooks';
 import {
   useLazyGetResearchIssuesQuery,
@@ -17,6 +18,7 @@ import {
 } from 'store/filterSlice';
 import { initialResearchIssues, initialResearchZones } from 'store/constants';
 import { transformDataFilters, hasFilter } from 'helpers';
+import styles from '../../styles.module.scss';
 
 type Props = {
   isLoading: boolean;
@@ -32,6 +34,9 @@ const SectionCompass = ({ isLoading }: Props) => {
   );
   const selectedFiltersZonesCompare = useAppSelector(
     (state) => state.filters.researchZones
+  );
+  const respondentsState = useAppSelector(
+    (state) => state.filters.respondents.compass
   );
   const [
     getResearchIssues,
@@ -66,14 +71,21 @@ const SectionCompass = ({ isLoading }: Props) => {
       isFetching: isFetchingZonesCompare
     }
   ] = useLazyGetResearchZonesCompareQuery();
-  const [getCountRespondent, { data: dataCountRespondent }] =
-    useLazyGetCountRespondentCompasQuery();
+  const [
+    getCountRespondent,
+    { data: dataCountRespondent, isFetching: isFetchingCountRespondent }
+  ] = useLazyGetCountRespondentCompasQuery();
+
+  const countRespondent =
+    respondentsState !== undefined
+      ? respondentsState
+      : dataCountRespondent?.data ?? 0;
 
   useEffect(() => {
     const dataFilters = transformDataFilters(selectedFilters);
     const dataIssuesCompareFilters = hasFilter(selectedFiltersIssuesCompare);
     const dataZonesCompareFilters = hasFilter(selectedFiltersZonesCompare);
-
+    getCountRespondent({ filters: [] });
     getResearchIssues({
       filters: dataFilters
     });
@@ -103,47 +115,57 @@ const SectionCompass = ({ isLoading }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (dataCountRespondent?.data !== undefined)
+    if (dataCountRespondent?.data !== undefined) {
       dispatch(
         updateCountRespondents({
           tab: 'compass',
           data: dataCountRespondent.data
         })
       );
+    }
   }, [dataCountRespondent]);
 
-  const handleApply = () => {
+  const handleApply = async () => {
     const dataFilters = transformDataFilters(selectedFilters);
     const dataIssuesCompareFilters = hasFilter(selectedFiltersIssuesCompare);
     const dataZonesCompareFilters = hasFilter(selectedFiltersZonesCompare);
 
-    getResearchIssues({
-      filters: dataFilters
-    });
-    getResearchZones({
+    const payloadRespondens = await getCountRespondent({
       filters: dataFilters
     });
 
-    getCountRespondent({ filters: dataFilters });
-
-    if (dataIssuesCompareFilters) {
-      const dataIssuesTransformFilters = transformDataFilters(
-        selectedFiltersIssuesCompare
-      );
-      getResearchIssuesCompare({
-        filters: dataFilters,
-        filtersCompare: dataIssuesTransformFilters
+    if (
+      payloadRespondens.data !== undefined &&
+      (payloadRespondens.data.data >= 10 || payloadRespondens.data.isShowAll)
+    ) {
+      getResearchIssues({
+        filters: dataFilters
       });
-    }
-
-    if (dataZonesCompareFilters) {
-      const dataZonesTransformFilters = transformDataFilters(
-        selectedFiltersZonesCompare
-      );
-      getResearchZonesCompare({
-        filters: dataFilters,
-        filtersCompare: dataZonesTransformFilters
+      getResearchZones({
+        filters: dataFilters
       });
+
+      getCountRespondent({ filters: dataFilters });
+
+      if (dataIssuesCompareFilters) {
+        const dataIssuesTransformFilters = transformDataFilters(
+          selectedFiltersIssuesCompare
+        );
+        getResearchIssuesCompare({
+          filters: dataFilters,
+          filtersCompare: dataIssuesTransformFilters
+        });
+      }
+
+      if (dataZonesCompareFilters) {
+        const dataZonesTransformFilters = transformDataFilters(
+          selectedFiltersZonesCompare
+        );
+        getResearchZonesCompare({
+          filters: dataFilters,
+          filtersCompare: dataZonesTransformFilters
+        });
+      }
     }
   };
 
@@ -195,8 +217,33 @@ const SectionCompass = ({ isLoading }: Props) => {
     }
   };
 
-  const isLoadingBtnApply = isFetchingIssues || isFetchingZones || isLoading;
+  const isLoadingBtnApply =
+    isFetchingIssues ||
+    isFetchingZones ||
+    isLoading ||
+    isFetchingCountRespondent;
   const isDisabledBtnApply = !hasFilter(selectedFilters);
+
+  if (
+    respondentsState !== undefined &&
+    countRespondent < 10 &&
+    !dataCountRespondent?.isShowAll
+  ) {
+    return (
+      <>
+        <FilterCompass
+          onApply={handleApply}
+          onReset={handleReset}
+          isLoading={isLoadingBtnApply}
+          isDisabled={isDisabledBtnApply}
+          countRespondent={countRespondent}
+        />
+        <div className={styles.section__content}>
+          <NoData text='Количество респондентов недостаточно для построения данных' />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -205,6 +252,7 @@ const SectionCompass = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
+        countRespondent={countRespondent}
       />
       <Results
         dataIssues={dataResearchIssues?.data}

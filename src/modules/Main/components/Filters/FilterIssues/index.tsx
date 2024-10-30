@@ -8,8 +8,7 @@ import { FilterProps } from '../index';
 import { toast } from 'react-toastify';
 import {
   useGetAllFiltersQuestionsDataQuery,
-  useLazyGetOrgTreeQuery,
-  useGetCountRespondentCommentProblemQuery
+  useLazyGetOrgTreeQuery
 } from 'store/apiSlice';
 import { initialFiltersQuestions } from 'store/constants';
 import { getFilterOptions, getValueSelect } from 'helpers';
@@ -24,28 +23,21 @@ import styles from '../styles.module.scss';
 const FilterIssues = ({
   onApply,
   onReset,
-  // isLoading,
-  isDisabled
+  isLoading,
+  isDisabled,
+  countRespondent
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.issues
+    (state) => state.filters.selectedFilters.questions
   );
-  const subsState = useAppSelector((state) => state.filters.subs.issues);
+  const subsState = useAppSelector((state) => state.filters.subs.questions);
   const selectedSubs = useAppSelector(
-    (state) => state.filters.selectedSubs.issues
+    (state) => state.filters.selectedSubs.questions
   );
-  const respondentsState = useAppSelector(
-    (state) => state.filters.respondents.issues
-  );
-
   const { data = initialFiltersQuestions, isLoading: isLoadingFilters } =
     useGetAllFiltersQuestionsDataQuery({ filters: [] });
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
-  const { data: dataCountRespondent } =
-    useGetCountRespondentCommentProblemQuery({
-      filters: []
-    });
 
   useEffect(() => {
     const labels = document.querySelectorAll(
@@ -70,16 +62,26 @@ const FilterIssues = ({
   useEffect(() => {
     const values = getValueSelect(selectedFilters, 'subs');
     if (!values.length && selectedSubs.length) {
-      dispatch(updateSelectedSubs({ tab: 'issues', data: [] }));
+      dispatch(updateSelectedSubs({ tab: 'questions', data: [] }));
     }
   }, [selectedFilters]);
 
   const onChange = async (options: OptionChange, filterName: FilterName) => {
-    const filterValues = {
-      name: filterName,
-      value: options as Filter[]
-    };
-    dispatch(updateSelectedFilters({ tab: 'issues', data: filterValues }));
+    if (filterName === 'group') {
+      const tempValue = [] as any[];
+      tempValue.push(options);
+      const filterValues = {
+        name: filterName,
+        value: tempValue as Filter[]
+      };
+      dispatch(updateSelectedFilters({ tab: 'questions', data: filterValues }));
+    } else {
+      const filterValues = {
+        name: filterName,
+        value: options as Filter[]
+      };
+      dispatch(updateSelectedFilters({ tab: 'questions', data: filterValues }));
+    }
   };
 
   const onChangeTreeSelect = (values: string[]) => {
@@ -93,8 +95,8 @@ const FilterIssues = ({
       name: 'subs' as const,
       value: tempValues as Filter[]
     };
-    dispatch(updateSelectedSubs({ tab: 'issues', data: values }));
-    dispatch(updateSelectedFilters({ tab: 'issues', data: filterValues }));
+    dispatch(updateSelectedSubs({ tab: 'questions', data: values }));
+    dispatch(updateSelectedFilters({ tab: 'questions', data: filterValues }));
   };
 
   const loadData = async (treeNode: Node) => {
@@ -110,7 +112,7 @@ const FilterIssues = ({
           }
           return tempNode;
         });
-        dispatch(updateSubs({ tab: 'issues', data: tempTreeData }));
+        dispatch(updateSubs({ tab: 'questions', data: tempTreeData }));
       }
     } catch (e) {
       toast('Произошла ошибка');
@@ -118,12 +120,7 @@ const FilterIssues = ({
     }
   };
 
-  const isLoadingFilter = isLoadingFilters || isLoadingOrg;
-
-  const countRespondentEngagement =
-    respondentsState !== undefined
-      ? respondentsState
-      : dataCountRespondent?.data ?? 0;
+  const isLoadingFilter = isLoadingFilters || isLoadingOrg || isLoading;
 
   return (
     <FilterContainer
@@ -133,7 +130,7 @@ const FilterIssues = ({
       isDisabled={isDisabled}
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
-      countRespondent={countRespondentEngagement}
+      countRespondent={countRespondent}
     >
       <div className={styles.filters_group}>
         <Select

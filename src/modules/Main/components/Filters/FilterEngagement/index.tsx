@@ -10,8 +10,7 @@ import { getFilterOptions, getValueSelect, loopTree } from 'helpers';
 import { initialFiltersEngagement } from 'store/constants';
 import {
   useLazyGetOrgTreeQuery,
-  useGetAllFiltersEngagementDataQuery,
-  useGetCountRespondentEngegamentQuery
+  useGetAllFiltersEngagementDataQuery
 } from 'store/apiSlice';
 import {
   updateSelectedFilters,
@@ -24,8 +23,9 @@ import styles from '../styles.module.scss';
 const FilterEngagement = ({
   onApply,
   onReset,
-  // isLoading,
-  isDisabled
+  isLoading,
+  isDisabled,
+  countRespondent
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
@@ -35,16 +35,9 @@ const FilterEngagement = ({
   const selectedSubs = useAppSelector(
     (state) => state.filters.selectedSubs.engagement
   );
-  const respondentsState = useAppSelector(
-    (state) => state.filters.respondents.engagement
-  );
-
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
   const { data = initialFiltersEngagement, isLoading: isLoadingFilters } =
     useGetAllFiltersEngagementDataQuery({ filters: [] });
-  const { data: dataCountRespondent } = useGetCountRespondentEngegamentQuery({
-    filters: []
-  });
 
   useEffect(() => {
     const labels = document.querySelectorAll(
@@ -129,12 +122,7 @@ const FilterEngagement = ({
     }
   };
 
-  const isLoadingFilter = isLoadingFilters || isLoadingOrg;
-
-  const countRespondentEngagement =
-    respondentsState !== undefined
-      ? respondentsState
-      : dataCountRespondent?.data ?? 0;
+  const isLoadingFilter = isLoadingFilters || isLoadingOrg || isLoading;
 
   return (
     <FilterContainer
@@ -144,7 +132,7 @@ const FilterEngagement = ({
       isDisabled={isDisabled}
       data={selectedFilters}
       text='Воспользуйтесь фильтром, чтобы посмотреть подборку материалов'
-      countRespondent={countRespondentEngagement}
+      countRespondent={countRespondent}
     >
       <div className={styles.filters_group}>
         <Select

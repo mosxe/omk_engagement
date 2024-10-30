@@ -140,4 +140,5 @@ export interface ResponseIssues extends Error {
 
 export interface ResponseCountRespondent extends Error {
   data: number;
+  isShowAll: boolean;
 }

@@ -6,7 +6,6 @@ export interface IFiltersState {
     engagement: Filters[];
     compass: Filters[];
     questions: Filters[];
-    issues: Filters[];
   };
   subs: {
     engagement: OrgTree[];
@@ -117,32 +116,6 @@ const initialState: IFiltersState = {
       {
         name: 'open_question',
         value: []
-      }
-    ],
-    issues: [
-      {
-        name: 'group',
-        value: []
-      },
-      {
-        name: 'subs',
-        value: []
-      },
-      {
-        name: 'city',
-        value: []
-      },
-      {
-        name: 'category',
-        value: []
-      },
-      {
-        name: 'sex',
-        value: []
-      },
-      {
-        name: 'experience',
-        value: []
       },
       {
         name: 'problems',
@@ -203,7 +176,9 @@ const filtersSlice = createSlice({
       state,
       action: PayloadAction<{ tab: Tab; data: Filters }>
     ) => {
-      const tabData = state.selectedFilters[action.payload.tab];
+      const currentTab =
+        action.payload.tab === 'issues' ? 'questions' : action.payload.tab;
+      const tabData = state.selectedFilters[currentTab];
       const filter = tabData.find(
         (item) => item.name === action.payload.data.name
       );
@@ -212,7 +187,9 @@ const filtersSlice = createSlice({
       }
     },
     clearSelectedFilters: (state, action: PayloadAction<{ tab: Tab }>) => {
-      state.selectedFilters[action.payload.tab].forEach(
+      const currentTab =
+        action.payload.tab === 'issues' ? 'questions' : action.payload.tab;
+      state.selectedFilters[currentTab].forEach(
         (filter) => (filter.value = [])
       );
     },
@@ -269,14 +246,10 @@ const filtersSlice = createSlice({
       const filterQuestions = state.selectedFilters.questions.find(
         (item) => item.name === 'subs'
       ) as Filters;
-      const filterIssues = state.selectedFilters.issues.find(
-        (item) => item.name === 'subs'
-      ) as Filters;
 
       filterEngagement.value = action.payload.value;
       filterCompass.value = action.payload.value;
       filterQuestions.value = action.payload.value;
-      filterIssues.value = action.payload.value;
     },
     updateSelectedSubs: (
       state,

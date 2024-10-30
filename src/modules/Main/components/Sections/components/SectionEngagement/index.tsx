@@ -5,6 +5,7 @@ import EngagementCategory from './components/EngagementCategory';
 import Issues from './components/Issues';
 import Zones from './components/Zones';
 import Comments from './components/Comments';
+import NoData from '../../../NoData';
 import {
   useLazyGetSpeedDataQuery,
   useLazyGetCategoryDataQuery,
@@ -18,6 +19,7 @@ import {
   updateCountRespondents
 } from 'store/filterSlice';
 import { transformDataFilters, hasFilter } from 'helpers';
+import styles from '../../styles.module.scss';
 
 type Props = {
   isLoading: boolean;
@@ -57,16 +59,27 @@ const SectionEngagement = ({ isLoading }: Props) => {
       isError: isErrorComments
     }
   ] = useLazyGetCommentsQuery();
-  const [getCountRespondent, { data: dataCountRespondent }] =
-    useLazyGetCountRespondentEngegamentQuery();
+  const [
+    getCountRespondent,
+    { data: dataCountRespondent, isFetching: isFetchingCountRespondent }
+  ] = useLazyGetCountRespondentEngegamentQuery();
 
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
     (state) => state.filters.selectedFilters.engagement
   );
+  const respondentsState = useAppSelector(
+    (state) => state.filters.respondents.engagement
+  );
   const [viewChart, setViewChart] = useState<'doughnut' | 'bar'>('doughnut');
 
+  const countRespondent =
+    respondentsState !== undefined
+      ? respondentsState
+      : dataCountRespondent?.data ?? 0;
+
   useEffect(() => {
+    getCountRespondent({ filters: [] });
     updateSpeedChart({
       filters: []
     });
@@ -76,33 +89,41 @@ const SectionEngagement = ({ isLoading }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (dataCountRespondent?.data !== undefined)
+    if (dataCountRespondent?.data !== undefined) {
       dispatch(
         updateCountRespondents({
           tab: 'engagement',
           data: dataCountRespondent.data
         })
       );
+    }
   }, [dataCountRespondent]);
 
-  const handleApply = () => {
+  const handleApply = async () => {
     const dataFilters = transformDataFilters(selectedFilters);
     const filterSubs = selectedFilters.find((filter) => filter.name === 'subs');
     const viewChart =
       filterSubs !== undefined && filterSubs.value.length > 1
         ? 'bar'
         : 'doughnut';
-    setViewChart(viewChart);
+    const payloadRespondens = await getCountRespondent({
+      filters: dataFilters
+    });
 
-    updateSpeedChart({
-      filters: dataFilters
-    });
-    updateCategoryChart({
-      filters: dataFilters
-    });
-    updateKeyResults({ filters: dataFilters });
-    getComments({ filters: dataFilters });
-    getCountRespondent({ filters: dataFilters });
+    if (
+      payloadRespondens.data !== undefined &&
+      (payloadRespondens.data.data >= 10 || payloadRespondens.data.isShowAll)
+    ) {
+      setViewChart(viewChart);
+      updateSpeedChart({
+        filters: dataFilters
+      });
+      updateCategoryChart({
+        filters: dataFilters
+      });
+      updateKeyResults({ filters: dataFilters });
+      getComments({ filters: dataFilters });
+    }
   };
 
   const handleReset = () => {
@@ -114,9 +135,31 @@ const SectionEngagement = ({ isLoading }: Props) => {
     isFetchingCategoryChart ||
     isFetchingKeyResults ||
     isFetchingComments ||
-    isLoading;
+    isLoading ||
+    isFetchingCountRespondent;
 
   const isDisabledBtnApply = !hasFilter(selectedFilters);
+
+  if (
+    respondentsState !== undefined &&
+    countRespondent < 10 &&
+    !dataCountRespondent?.isShowAll
+  ) {
+    return (
+      <>
+        <FilterEngagement
+          onApply={handleApply}
+          onReset={handleReset}
+          isLoading={isLoadingBtnApply}
+          isDisabled={isDisabledBtnApply}
+          countRespondent={countRespondent}
+        />
+        <div className={styles.section__content}>
+          <NoData text='Количество респондентов недостаточно для построения данных' />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -125,6 +168,7 @@ const SectionEngagement = ({ isLoading }: Props) => {
         onReset={handleReset}
         isLoading={isLoadingBtnApply}
         isDisabled={isDisabledBtnApply}
+        countRespondent={countRespondent}
       />
       <EngagementResults
         data={dataSpeedChart?.data}
