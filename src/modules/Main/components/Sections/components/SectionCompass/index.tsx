@@ -27,7 +27,7 @@ type Props = {
 const SectionCompass = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.compass
+    (state) => state.filters.selectedFilters
   );
   const selectedFiltersIssuesCompare = useAppSelector(
     (state) => state.filters.researchIssues
@@ -82,10 +82,20 @@ const SectionCompass = ({ isLoading }: Props) => {
       : dataCountRespondent?.data ?? 0;
 
   useEffect(() => {
-    const dataFilters = transformDataFilters(selectedFilters);
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city',
+      'category',
+      'experience',
+      'sex',
+      'age',
+      'problems',
+      'strong_point'
+    ]);
     const dataIssuesCompareFilters = hasFilter(selectedFiltersIssuesCompare);
     const dataZonesCompareFilters = hasFilter(selectedFiltersZonesCompare);
-    getCountRespondent({ filters: [] });
+    getCountRespondent({ filters: dataFilters });
     getResearchIssues({
       filters: dataFilters
     });
@@ -95,7 +105,8 @@ const SectionCompass = ({ isLoading }: Props) => {
 
     if (dataIssuesCompareFilters) {
       const dataIssuesTransformFilters = transformDataFilters(
-        selectedFiltersIssuesCompare
+        selectedFiltersIssuesCompare,
+        ['subs', 'year']
       );
       getResearchIssuesCompare({
         filters: dataFilters,
@@ -105,7 +116,8 @@ const SectionCompass = ({ isLoading }: Props) => {
 
     if (dataZonesCompareFilters) {
       const dataZonesTransformFilters = transformDataFilters(
-        selectedFiltersZonesCompare
+        selectedFiltersZonesCompare,
+        ['subs', 'year']
       );
       getResearchZonesCompare({
         filters: dataFilters,
@@ -126,7 +138,17 @@ const SectionCompass = ({ isLoading }: Props) => {
   }, [dataCountRespondent]);
 
   const handleApply = async () => {
-    const dataFilters = transformDataFilters(selectedFilters);
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city',
+      'category',
+      'experience',
+      'sex',
+      'age',
+      'problems',
+      'strong_point'
+    ]);
     const dataIssuesCompareFilters = hasFilter(selectedFiltersIssuesCompare);
     const dataZonesCompareFilters = hasFilter(selectedFiltersZonesCompare);
 
@@ -149,7 +171,8 @@ const SectionCompass = ({ isLoading }: Props) => {
 
       if (dataIssuesCompareFilters) {
         const dataIssuesTransformFilters = transformDataFilters(
-          selectedFiltersIssuesCompare
+          selectedFiltersIssuesCompare,
+          ['subs', 'year']
         );
         getResearchIssuesCompare({
           filters: dataFilters,
@@ -159,7 +182,8 @@ const SectionCompass = ({ isLoading }: Props) => {
 
       if (dataZonesCompareFilters) {
         const dataZonesTransformFilters = transformDataFilters(
-          selectedFiltersZonesCompare
+          selectedFiltersZonesCompare,
+          ['subs', 'year']
         );
         getResearchZonesCompare({
           filters: dataFilters,
@@ -170,13 +194,24 @@ const SectionCompass = ({ isLoading }: Props) => {
   };
 
   const handleReset = () => {
-    dispatch(clearSelectedFilters({ tab: 'compass' }));
+    dispatch(clearSelectedFilters());
   };
 
   const onApplyIssuesCompare = async () => {
-    const dataFilters = transformDataFilters(selectedFilters);
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city',
+      'category',
+      'experience',
+      'sex',
+      'age',
+      'problems',
+      'strong_point'
+    ]);
     const dataFiltersCompare = transformDataFilters(
-      selectedFiltersIssuesCompare
+      selectedFiltersIssuesCompare,
+      ['subs', 'year']
     );
     dispatch(changeShowResearchTable({ tab: 'issues', isShow: true }));
 
@@ -196,9 +231,20 @@ const SectionCompass = ({ isLoading }: Props) => {
   };
 
   const onApplyZonesCompare = async () => {
-    const dataFilters = transformDataFilters(selectedFilters);
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city',
+      'category',
+      'experience',
+      'sex',
+      'age',
+      'problems',
+      'strong_point'
+    ]);
     const dataFiltersCompare = transformDataFilters(
-      selectedFiltersZonesCompare
+      selectedFiltersZonesCompare,
+      ['subs', 'year']
     );
     dispatch(changeShowResearchTable({ tab: 'questions', isShow: true }));
 

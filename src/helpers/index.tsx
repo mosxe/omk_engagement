@@ -31,12 +31,15 @@ const getValueSelect = (data: Filters[], filterName: FilterName) => {
 
 const transformDataFilters = (
   dataFilters: Filters[],
-  currentFilter?: Filters,
-  missingFilterName?: string
+  selectedFilters: string[],
+  currentFilter?: Filters
 ) => {
-  const tempDataFilters = missingFilterName
-    ? dataFilters.filter((filter) => filter.name !== missingFilterName)
-    : dataFilters;
+  const tempDataFilters = dataFilters.filter((filter) => {
+    const findFilter = selectedFilters.find(
+      (seletectedFilter) => seletectedFilter === filter.name
+    );
+    return findFilter !== undefined;
+  });
   const transformData = tempDataFilters.map((filter) => {
     const data = {
       name: filter.name,

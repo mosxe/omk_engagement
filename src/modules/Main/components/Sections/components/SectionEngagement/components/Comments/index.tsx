@@ -23,7 +23,7 @@ const Comments = ({ data, isLoading, isError }: Props) => {
     { isFetching: isFetchingAllComments, isError: isErrorAllComments }
   ] = useLazyGetAllCommentsQuery();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.engagement
+    (state) => state.filters.selectedFilters
   );
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [commentId, setCommentId] = useState<string>('');
@@ -37,7 +37,11 @@ const Comments = ({ data, isLoading, isError }: Props) => {
     } else {
       const findComments = commentsData.find((comment) => comment.id === id);
       if (findComments == undefined) {
-        const dataFilters = transformDataFilters(selectedFilters);
+        const dataFilters = transformDataFilters(selectedFilters, [
+          'group',
+          'subs',
+          'city'
+        ]);
         setIsShowModal(true);
         setCommentId(id);
         getAllComments({ filters: dataFilters, id })

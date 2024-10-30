@@ -21,7 +21,7 @@ type Props = {
 const Questions = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.questions
+    (state) => state.filters.selectedFilters
   );
   const respondentsState = useAppSelector(
     (state) => state.filters.respondents.questions
@@ -47,8 +47,17 @@ const Questions = ({ isLoading }: Props) => {
       : dataCountRespondent?.data ?? 0;
 
   useEffect(() => {
-    getCountRespondent({ filters: [] });
-    updateOpenQuestions({ filters: [] });
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city',
+      'category',
+      'experience',
+      'sex',
+      'open_question'
+    ]);
+    getCountRespondent({ filters: dataFilters });
+    updateOpenQuestions({ filters: dataFilters });
   }, []);
 
   useEffect(() => {
@@ -63,11 +72,15 @@ const Questions = ({ isLoading }: Props) => {
   }, [dataCountRespondent]);
 
   const handleApply = async () => {
-    const dataFilters = transformDataFilters(
-      selectedFilters,
-      undefined,
-      'problems'
-    );
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city',
+      'category',
+      'experience',
+      'sex',
+      'open_question'
+    ]);
     const payloadRespondens = await getCountRespondent({
       filters: dataFilters
     });
@@ -82,7 +95,7 @@ const Questions = ({ isLoading }: Props) => {
   };
 
   const handleReset = () => {
-    dispatch(clearSelectedFilters({ tab: 'questions' }));
+    dispatch(clearSelectedFilters());
   };
 
   const isLoadingBtnApply =

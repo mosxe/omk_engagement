@@ -2,23 +2,9 @@
 import { Tab, Filters, QuestionsTab, OrgTree } from 'types';
 
 export interface IFiltersState {
-  selectedFilters: {
-    engagement: Filters[];
-    compass: Filters[];
-    questions: Filters[];
-  };
-  subs: {
-    engagement: OrgTree[];
-    compass: OrgTree[];
-    questions: OrgTree[];
-    issues: OrgTree[];
-  };
-  selectedSubs: {
-    engagement: string[];
-    compass: string[];
-    questions: string[];
-    issues: string[];
-  };
+  selectedFilters: Filters[];
+  subs: OrgTree[];
+  selectedSubs: string[];
   researchIssues: Filters[];
   researchZones: Filters[];
   researchTable: {
@@ -35,94 +21,48 @@ export interface IFiltersState {
 }
 
 const initialState: IFiltersState = {
-  selectedFilters: {
-    engagement: [
-      {
-        name: 'group',
-        value: []
-      },
-      {
-        name: 'subs',
-        value: []
-      },
-      {
-        name: 'city',
-        value: []
-      }
-    ],
-    compass: [
-      {
-        name: 'group',
-        value: []
-      },
-      {
-        name: 'subs',
-        value: []
-      },
-      {
-        name: 'city',
-        value: []
-      },
-      {
-        name: 'category',
-        value: []
-      },
-      {
-        name: 'sex',
-        value: []
-      },
-      {
-        name: 'experience',
-        value: []
-      },
-      {
-        name: 'problems',
-        value: []
-      },
-      {
-        name: 'strong_point',
-        value: []
-      },
-      {
-        name: 'age',
-        value: []
-      }
-    ],
-    questions: [
-      {
-        name: 'group',
-        value: []
-      },
-      {
-        name: 'subs',
-        value: []
-      },
-      {
-        name: 'city',
-        value: []
-      },
-      {
-        name: 'category',
-        value: []
-      },
-      {
-        name: 'sex',
-        value: []
-      },
-      {
-        name: 'experience',
-        value: []
-      },
-      {
-        name: 'open_question',
-        value: []
-      },
-      {
-        name: 'problems',
-        value: []
-      }
-    ]
-  },
+  selectedFilters: [
+    {
+      name: 'group',
+      value: []
+    },
+    {
+      name: 'subs',
+      value: []
+    },
+    {
+      name: 'city',
+      value: []
+    },
+    {
+      name: 'category',
+      value: []
+    },
+    {
+      name: 'sex',
+      value: []
+    },
+    {
+      name: 'experience',
+      value: []
+    },
+    {
+      name: 'strong_point',
+      value: []
+    },
+    {
+      name: 'age',
+      value: []
+    },
+    {
+      name: 'open_question',
+      value: []
+    },
+    {
+      name: 'problems',
+      value: []
+    }
+  ],
   researchIssues: [
     {
       name: 'subs',
@@ -143,18 +83,8 @@ const initialState: IFiltersState = {
       value: []
     }
   ],
-  subs: {
-    engagement: [],
-    compass: [],
-    questions: [],
-    issues: []
-  },
-  selectedSubs: {
-    engagement: [],
-    compass: [],
-    questions: [],
-    issues: []
-  },
+  subs: [],
+  selectedSubs: [],
   researchTable: {
     questions: false,
     issues: false
@@ -176,22 +106,15 @@ const filtersSlice = createSlice({
       state,
       action: PayloadAction<{ tab: Tab; data: Filters }>
     ) => {
-      const currentTab =
-        action.payload.tab === 'issues' ? 'questions' : action.payload.tab;
-      const tabData = state.selectedFilters[currentTab];
-      const filter = tabData.find(
+      const filter = state.selectedFilters.find(
         (item) => item.name === action.payload.data.name
       );
       if (filter !== undefined) {
         filter.value = action.payload.data.value;
       }
     },
-    clearSelectedFilters: (state, action: PayloadAction<{ tab: Tab }>) => {
-      const currentTab =
-        action.payload.tab === 'issues' ? 'questions' : action.payload.tab;
-      state.selectedFilters[currentTab].forEach(
-        (filter) => (filter.value = [])
-      );
+    clearSelectedFilters: (state) => {
+      state.selectedFilters.forEach((filter) => (filter.value = []));
     },
     updateResearchIssuesFilters: (state, action: PayloadAction<Filters>) => {
       const filter = state.researchIssues.find(
@@ -219,43 +142,28 @@ const filtersSlice = createSlice({
       state.questionsTab = action.payload;
     },
     setSubs: (state, action: PayloadAction<OrgTree[]>) => {
-      state.subs.engagement = action.payload;
-      state.subs.compass = action.payload;
-      state.subs.questions = action.payload;
-      state.subs.issues = action.payload;
+      state.subs = action.payload;
     },
     updateSubs: (
       state,
       action: PayloadAction<{ tab: Tab; data: OrgTree[] }>
     ) => {
-      state.subs[action.payload.tab] = action.payload.data;
+      state.subs = action.payload.data;
     },
     setDefaultSelectedSubs: (state, action: PayloadAction<string[]>) => {
-      state.selectedSubs.engagement = action.payload;
-      state.selectedSubs.compass = action.payload;
-      state.selectedSubs.questions = action.payload;
-      state.selectedSubs.issues = action.payload;
+      state.selectedSubs = action.payload;
     },
     setDefaultFilterSubs: (state, action: PayloadAction<Filters>) => {
-      const filterEngagement = state.selectedFilters.engagement.find(
+      const filterSubs = state.selectedFilters.find(
         (item) => item.name === 'subs'
       ) as Filters;
-      const filterCompass = state.selectedFilters.compass.find(
-        (item) => item.name === 'subs'
-      ) as Filters;
-      const filterQuestions = state.selectedFilters.questions.find(
-        (item) => item.name === 'subs'
-      ) as Filters;
-
-      filterEngagement.value = action.payload.value;
-      filterCompass.value = action.payload.value;
-      filterQuestions.value = action.payload.value;
+      filterSubs.value = action.payload.value;
     },
     updateSelectedSubs: (
       state,
       action: PayloadAction<{ tab: Tab; data: string[] }>
     ) => {
-      state.selectedSubs[action.payload.tab] = action.payload.data;
+      state.selectedSubs = action.payload.data;
     },
     changeShowResearchTable: (
       state,

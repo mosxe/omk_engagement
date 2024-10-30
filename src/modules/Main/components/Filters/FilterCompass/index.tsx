@@ -29,12 +29,10 @@ const FilterCompass = ({
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.compass
+    (state) => state.filters.selectedFilters
   );
-  const subsState = useAppSelector((state) => state.filters.subs.compass);
-  const selectedSubs = useAppSelector(
-    (state) => state.filters.selectedSubs.compass
-  );
+  const subsState = useAppSelector((state) => state.filters.subs);
+  const selectedSubs = useAppSelector((state) => state.filters.selectedSubs);
   const { data = initialFiltersCompass, isLoading: isLoadingFilters } =
     useGetAllFiltersCompassDataQuery({ filters: [] });
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();

@@ -29,12 +29,10 @@ const FilterEngagement = ({
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.engagement
+    (state) => state.filters.selectedFilters
   );
-  const subsState = useAppSelector((state) => state.filters.subs.engagement);
-  const selectedSubs = useAppSelector(
-    (state) => state.filters.selectedSubs.engagement
-  );
+  const subsState = useAppSelector((state) => state.filters.subs);
+  const selectedSubs = useAppSelector((state) => state.filters.selectedSubs);
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();
   const { data = initialFiltersEngagement, isLoading: isLoadingFilters } =
     useGetAllFiltersEngagementDataQuery({ filters: [] });

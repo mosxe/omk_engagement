@@ -29,12 +29,10 @@ const FilterQuestions = ({
 }: FilterProps) => {
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.questions
+    (state) => state.filters.selectedFilters
   );
-  const subsState = useAppSelector((state) => state.filters.subs.questions);
-  const selectedSubs = useAppSelector(
-    (state) => state.filters.selectedSubs.questions
-  );
+  const subsState = useAppSelector((state) => state.filters.subs);
+  const selectedSubs = useAppSelector((state) => state.filters.selectedSubs);
   const { data = initialFiltersQuestions, isLoading: isLoadingFilters } =
     useGetAllFiltersQuestionsDataQuery({ filters: [] });
   const [updateOrg, { isLoading: isLoadingOrg }] = useLazyGetOrgTreeQuery();

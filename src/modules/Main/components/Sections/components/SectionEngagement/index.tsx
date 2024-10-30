@@ -66,7 +66,7 @@ const SectionEngagement = ({ isLoading }: Props) => {
 
   const dispatch = useAppDispatch();
   const selectedFilters = useAppSelector(
-    (state) => state.filters.selectedFilters.engagement
+    (state) => state.filters.selectedFilters
   );
   const respondentsState = useAppSelector(
     (state) => state.filters.respondents.engagement
@@ -100,7 +100,11 @@ const SectionEngagement = ({ isLoading }: Props) => {
   }, [dataCountRespondent]);
 
   const handleApply = async () => {
-    const dataFilters = transformDataFilters(selectedFilters);
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city'
+    ]);
     const filterSubs = selectedFilters.find((filter) => filter.name === 'subs');
     const viewChart =
       filterSubs !== undefined && filterSubs.value.length > 1
@@ -127,7 +131,7 @@ const SectionEngagement = ({ isLoading }: Props) => {
   };
 
   const handleReset = () => {
-    dispatch(clearSelectedFilters({ tab: 'engagement' }));
+    dispatch(clearSelectedFilters());
   };
 
   const isLoadingBtnApply =
