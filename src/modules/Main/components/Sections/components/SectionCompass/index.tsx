@@ -194,7 +194,33 @@ const SectionCompass = ({ isLoading }: Props) => {
   };
 
   const handleReset = () => {
+    const dataIssuesTransformFilters = transformDataFilters(
+      selectedFiltersIssuesCompare,
+      ['subs', 'year']
+    );
+    const dataZonesTransformFilters = transformDataFilters(
+      selectedFiltersZonesCompare,
+      ['subs', 'year']
+    );
+
     dispatch(clearSelectedFilters());
+    getCountRespondent({ filters: [] });
+    getResearchIssues({
+      filters: []
+    });
+    getResearchZones({
+      filters: []
+    });
+
+    getResearchIssuesCompare({
+      filters: [],
+      filtersCompare: dataIssuesTransformFilters
+    });
+
+    getResearchZonesCompare({
+      filters: [],
+      filtersCompare: dataZonesTransformFilters
+    });
   };
 
   const onApplyIssuesCompare = async () => {

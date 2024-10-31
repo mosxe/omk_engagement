@@ -132,6 +132,13 @@ const SectionEngagement = ({ isLoading }: Props) => {
 
   const handleReset = () => {
     dispatch(clearSelectedFilters());
+    getCountRespondent({ filters: [] });
+    updateSpeedChart({
+      filters: []
+    });
+    updateCategoryChart({ filters: [] });
+    updateKeyResults({ filters: [] });
+    getComments({ filters: [] });
   };
 
   const isLoadingBtnApply =

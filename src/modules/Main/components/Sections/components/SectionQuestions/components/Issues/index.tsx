@@ -96,6 +96,8 @@ const Issues = ({ isLoading }: Props) => {
 
   const handleReset = () => {
     dispatch(clearSelectedFilters());
+    getCountRespondent({ filters: [] });
+    updateIssues({ filters: [] });
   };
 
   const isLoadingBtnApply =
