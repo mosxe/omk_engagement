@@ -79,13 +79,18 @@ const SectionEngagement = ({ isLoading }: Props) => {
       : dataCountRespondent?.data ?? 0;
 
   useEffect(() => {
-    getCountRespondent({ filters: [] });
+    const dataFilters = transformDataFilters(selectedFilters, [
+      'group',
+      'subs',
+      'city'
+    ]);
+    getCountRespondent({ filters: dataFilters });
     updateSpeedChart({
-      filters: []
+      filters: dataFilters
     });
-    updateCategoryChart({ filters: [] });
-    updateKeyResults({ filters: [] });
-    getComments({ filters: [] });
+    updateCategoryChart({ filters: dataFilters });
+    updateKeyResults({ filters: dataFilters });
+    getComments({ filters: dataFilters });
   }, []);
 
   useEffect(() => {
