@@ -63,15 +63,10 @@ const CompassZones = ({
   return (
     <section className={styles['compass-zones']}>
       <div className={styles['compass-zones__header']}>
-        <h2>
-          Сильные стороны, выявленные в результате исследования вовлеченности
-        </h2>
+        <h2>Факторы положительно влияющие на вовлеченность</h2>
       </div>
       <div className={styles['compass-zones__wrapper']}>
         <div className={styles['compass-zones__container']}>
-          <div className={styles['compass-zones__title']}>
-            Зоны развития в подразделениях
-          </div>
           <div className={styles['compass-zones__filters']}>
             <FIlterContainer
               onApply={onApplyCompare}
@@ -108,7 +103,16 @@ const CompassZones = ({
           </div>
           <div className={styles['compass-zones__row']}>
             <div>
-              <Table data={dataTable} isLoading={isLoading} isSorting={true} />
+              <Table
+                data={dataTable}
+                isLoading={isLoading}
+                isSorting={true}
+                columns={[
+                  'Проблематика',
+                  '% влияния на вовлеченность',
+                  'Частота выбора'
+                ]}
+              />
             </div>
             {isShowTable && (
               <div>
@@ -116,6 +120,11 @@ const CompassZones = ({
                   data={dataTableCompare}
                   isLoading={isLoading || isFetchingCompare}
                   isSorting={true}
+                  columns={[
+                    'Проблематика',
+                    '% влияния на вовлеченность',
+                    'Частота выбора'
+                  ]}
                 />
               </div>
             )}

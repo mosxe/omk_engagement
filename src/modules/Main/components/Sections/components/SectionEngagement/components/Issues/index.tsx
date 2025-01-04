@@ -15,8 +15,8 @@ const EngagementIssues = ({ data, year, isLoading, isError }: Props) => {
   const dataTableLocal = isError || data === undefined ? [] : data.local;
 
   const title = year
-    ? `Ключевая проблематика, выявленная в результате исследования ${year} года`
-    : 'Ключевая проблематика, выявленная в результате исследования';
+    ? `Факторы отрицательного влияния на вовлеченность ${year} года`
+    : 'Факторы отрицательного влияния на вовлеченность';
 
   return (
     <section className={styles['engagement-issues']}>
@@ -26,18 +26,26 @@ const EngagementIssues = ({ data, year, isLoading, isError }: Props) => {
       <div className={styles['engagement-issues__wrapper']}>
         <div className={styles['engagement-issues__container']}>
           <div className={styles['engagement-issues__title']}>
-            Общие зоны развития
+            Влияние наличия проблемных зон
           </div>
           <div>
-            <Table data={dataTableGeneral} isLoading={isLoadingTable} />
+            <Table
+              data={dataTableGeneral}
+              isLoading={isLoadingTable}
+              columns={['Проблематика', '% влияния', 'Частота выбора']}
+            />
           </div>
         </div>
         <div className={styles['engagement-issues__container']}>
           <div className={styles['engagement-issues__title']}>
-            Зоны развития в подразделениях
+            Влияние отсутствия сильных сторон
           </div>
           <div>
-            <Table data={dataTableLocal} isLoading={isLoadingTable} />
+            <Table
+              data={dataTableLocal}
+              isLoading={isLoadingTable}
+              columns={['Сильная сторона', '% влияния', 'Частота не выбора']}
+            />
           </div>
         </div>
       </div>

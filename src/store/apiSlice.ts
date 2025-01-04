@@ -129,9 +129,31 @@ export const API = createApi({
           const mockDataResponse: ResponseSpeedChart =
             mockData.dataSpeedChart as ResponseSpeedChart;
           return new Promise((resolve) => {
+            const mockDataSorted = mockDataResponse.data.sort(
+              (curValue, prevValue) => {
+                if (curValue.year > prevValue.year) {
+                  return -1;
+                }
+                if (curValue.year < prevValue.year) {
+                  return 1;
+                }
+                return 0;
+              }
+            );
+            mockDataResponse.data = mockDataSorted;
             return setTimeout(() => resolve(mockDataResponse), 1500);
           });
         } else {
+          const dataSorted = response.data.sort((curValue, prevValue) => {
+            if (curValue.year > prevValue.year) {
+              return -1;
+            }
+            if (curValue.year < prevValue.year) {
+              return 1;
+            }
+            return 0;
+          });
+          response.data = dataSorted;
           return response;
         }
       }

@@ -16,26 +16,31 @@ const EngagementZones = ({ data, isLoading, isError }: Props) => {
   return (
     <section className={styles['engagement-zones']}>
       <div className={styles['engagement-zones__header']}>
-        <h2>
-          Ключевые сильные стороны, выявленные в результате исследования
-          вовлеченности
-        </h2>
+        <h2>Факторы положительного влияния на вовлеченность</h2>
       </div>
       <div className={styles['engagement-zones__wrapper']}>
         <div className={styles['engagement-zones__container']}>
           <div className={styles['engagement-zones__title']}>
-            Общие сильные стороны
+            Влияние наличия сильных сторон
           </div>
           <div>
-            <Table data={dataTableGeneral} isLoading={isLoadingTable} />
+            <Table
+              data={dataTableGeneral}
+              isLoading={isLoadingTable}
+              columns={['Сильная сторона', '% влияния', 'Частота выбора']}
+            />
           </div>
         </div>
         <div className={styles['engagement-zones__container']}>
           <div className={styles['engagement-zones__title']}>
-            Сильные зоны в подразделениях
+            Влияние отсутствия проблемных зон
           </div>
           <div>
-            <Table data={dataTableLocal} isLoading={isLoadingTable} />
+            <Table
+              data={dataTableLocal}
+              isLoading={isLoadingTable}
+              columns={['Проблематика', '% влияния', 'Частота не выбора']}
+            />
           </div>
         </div>
       </div>

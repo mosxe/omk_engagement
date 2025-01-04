@@ -64,13 +64,10 @@ const CompassIssues = ({
   return (
     <section className={styles['compass-issues']}>
       <div className={styles['compass-issues__header']}>
-        <h2>Проблематика, выявленная в результате исследования</h2>
+        <h2>Факторы отрицательно влияющие на вовлеченность</h2>
       </div>
       <div className={styles['compass-issues__wrapper']}>
         <div className={styles['compass-issues__container']}>
-          <div className={styles['compass-issues__title']}>
-            Зоны развития в подразделениях
-          </div>
           <div className={styles['compass-issues__filters']}>
             <FIlterContainer
               onApply={onApplyCompare}
@@ -107,7 +104,16 @@ const CompassIssues = ({
           </div>
           <div className={styles['compass-issues__row']}>
             <div>
-              <Table data={dataTable} isLoading={isLoading} isSorting={true} />
+              <Table
+                data={dataTable}
+                isLoading={isLoading}
+                isSorting={true}
+                columns={[
+                  'Проблематика',
+                  '% влияния на вовлеченность',
+                  'Частота выбора'
+                ]}
+              />
             </div>
             {isShowTable && (
               <div>
@@ -115,6 +121,11 @@ const CompassIssues = ({
                   data={dataTableCompare}
                   isLoading={isLoading || isFetchingCompare}
                   isSorting={true}
+                  columns={[
+                    'Проблематика',
+                    '% влияния на вовлеченность',
+                    'Частота выбора'
+                  ]}
                 />
               </div>
             )}

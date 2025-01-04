@@ -9,11 +9,12 @@ type Props = {
   data: KeyResult[] | undefined;
   isLoading: boolean;
   isSorting?: boolean;
+  columns: string[];
 };
 
 export type Sort = 'asc' | 'desc';
 
-const Table = ({ data, isLoading, isSorting = false }: Props) => {
+const Table = ({ data, isLoading, isSorting = false, columns }: Props) => {
   const [tableData, setTableData] = useState<KeyResult[]>([]);
   const [sortField, setSortField] = useState<string>('');
   const [order, setOrder] = useState<Sort>('asc');
@@ -60,16 +61,16 @@ const Table = ({ data, isLoading, isSorting = false }: Props) => {
     <table className={styles.table}>
       <thead>
         <tr>
-          <TH title='Проблематика' />
+          <TH title={columns[0]} />
           <TH
-            title='% влияния на вовлеченность'
+            title={columns[1]}
             isSorting={isSorting}
             onSorting={handleSortingChange}
             field='persent'
             className={getClassName('procent')}
           />
           <TH
-            title='Частота выбора'
+            title={columns[2]}
             isSorting={isSorting}
             onSorting={handleSortingChange}
             field='periodicity'

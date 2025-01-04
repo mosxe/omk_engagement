@@ -25,7 +25,7 @@ const Navs = ({ tab, onClick }: Props) => {
         type='button'
         onClick={() => onClick('compass')}
       >
-        Компас изменений РСС/рабочие
+        Факторы влияния на вовлеченность
       </button>
       <button
         className={`${styles.navs__btn} ${
